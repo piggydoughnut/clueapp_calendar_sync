@@ -14,13 +14,14 @@ const CalendarDay = ({ renderDay }: MonthlyDayProps) => {
   console.log("day in month", getDaysInMonth(day));
 
   const isPeriod = events.length > 0 && events.find((e) => e.type === "period");
+  const isChill = events.length > 0 && events.find((e) => e.type === "chill");
   console.log(events);
 
   return (
     <div
       aria-label={`Events for day ${dayNumber}`}
-      className={`border border-b-2 border-r-2 h-24 p-2 ${
-        isPeriod ? "bg-red-300" : ""
+      className={`border border-b-2 border-r-2 h-16 p-2 ${
+        isPeriod ? "bg-red-200" : isChill ? "bg-red-100" : ""
       }`}
     >
       <div className="flex justify-between">

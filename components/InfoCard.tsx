@@ -3,7 +3,7 @@ import {
   MonthlyCalendar,
   MonthlyNav,
 } from "@zach.codes/react-calendar";
-import { addDays, format, startOfMonth } from "date-fns";
+import { addDays, format, startOfMonth, subDays } from "date-fns";
 
 import CalendarDay from "./CalendarDay";
 import { CalendarEvent } from "./CalendarEvent";
@@ -17,9 +17,18 @@ const InfoCard = ({ data }: { data: any }) => {
   );
   const periodLength = data.phases[0].length;
   const periodEnd = addDays(new Date(data.start), periodLength);
+  const [selectedOption, setSelectedOption] = useState("threedays");
   const events = [];
+  const chillTimeLength = selectedOption === "threedays" ? 4 : 6;
+  for (let i = 1; i < chillTimeLength; i++) {
+    events.push({
+      title: "Chill",
+      date: subDays(new Date(data.start), i),
+      type: "chill",
+    });
+  }
   events.push({
-    title: "Period Starts",
+    title: "Start",
     date: new Date(data.start),
     type: "period",
   });
@@ -31,28 +40,37 @@ const InfoCard = ({ data }: { data: any }) => {
     });
   }
   events.push({
-    title: "Period End",
+    title: "End",
     date: periodEnd,
     type: "period",
   });
   return (
     <div className="flex flex-col">
       <h2 className="text-md">Next predicted cycle</h2>
-      <div>
-        <p>Starts {getDateFormat(data.start)}</p>
-        <p>Ends {getDateFormat(data.end)}</p>
+      <div className="grid grid-rows-3 grid-cols-2 gap-2 w-64 mt-4">
+        <p>Starts</p> <div> {getDateFormat(data.start)}</div>
+        <p>Ends </p>
+        <div>{getDateFormat(addDays(new Date(data.start), periodLength))}</div>
+        <p>Length</p>
+        <div> {periodLength} days</div>
       </div>
       <p className="mt-4">Remind me to take it easy: </p>
-      <div className="flex flex-row align-middle">
+      <div className="flex flex-col">
         <Radio
-          id="reminder1"
-          label="3 days before period + 3 days into period"
+          id="threedays"
+          value="threedays"
+          label="3 days before period"
+          color="pink"
+          checked={selectedOption === "threedays"}
+          onChange={() => setSelectedOption("threedays")}
         />
-      </div>
-      <div className="flex flex-row">
         <Radio
-          id="reminder2"
-          label="5 days before period + 4 days into period"
+          id="fivedays"
+          value="fivedays"
+          label="5 days before period"
+          color="pink"
+          checked={selectedOption === "fivedays"}
+          onChange={() => setSelectedOption("fivedays")}
         />
       </div>
       <MonthlyCalendar
