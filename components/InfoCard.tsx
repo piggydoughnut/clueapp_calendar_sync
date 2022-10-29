@@ -1,8 +1,6 @@
 import {
-  DefaultMonthlyEventItem,
   MonthlyBody,
   MonthlyCalendar,
-  MonthlyDay,
   MonthlyNav,
 } from "@zach.codes/react-calendar";
 import { addDays, format, startOfMonth } from "date-fns";
@@ -19,6 +17,24 @@ const InfoCard = ({ data }: { data: any }) => {
   );
   const periodLength = data.phases[0].length;
   const periodEnd = addDays(new Date(data.start), periodLength);
+  const events = [];
+  events.push({
+    title: "Period Starts",
+    date: new Date(data.start),
+    type: "period",
+  });
+  for (let i = 1; i < periodLength; i++) {
+    events.push({
+      title: "Period",
+      date: addDays(new Date(data.start), i),
+      type: "period",
+    });
+  }
+  events.push({
+    title: "Period End",
+    date: periodEnd,
+    type: "period",
+  });
   return (
     <div className="flex flex-col">
       <h2 className="text-md">Next predicted cycle</h2>
@@ -26,21 +42,25 @@ const InfoCard = ({ data }: { data: any }) => {
         <p>Starts {getDateFormat(data.start)}</p>
         <p>Ends {getDateFormat(data.end)}</p>
       </div>
+      <p className="mt-4">Remind me to take it easy: </p>
+      <div className="flex flex-row align-middle">
+        <Radio
+          id="reminder1"
+          label="3 days before period + 3 days into period"
+        />
+      </div>
+      <div className="flex flex-row">
+        <Radio
+          id="reminder2"
+          label="5 days before period + 4 days into period"
+        />
+      </div>
       <MonthlyCalendar
         currentMonth={currentMonth}
         onCurrentMonthChange={(date) => setCurrentMonth(date)}
       >
         <MonthlyNav />
-        <MonthlyBody
-          events={[
-            {
-              title: "Period Starts",
-              date: new Date(data.start),
-              type: "period",
-            },
-            { title: "Period End", date: periodEnd, type: "period" },
-          ]}
-        >
+        <MonthlyBody events={events}>
           <CalendarDay
             renderDay={(data) =>
               data.map((item, index) => (
@@ -54,19 +74,6 @@ const InfoCard = ({ data }: { data: any }) => {
           />
         </MonthlyBody>
       </MonthlyCalendar>
-      <p>Remind me to take it easy: </p>
-      <div className="flex flex-row align-middle">
-        <Radio
-          id="reminder1"
-          label="3 days before period + 3 days into period"
-        />
-      </div>
-      <div className="flex flex-row">
-        <Radio
-          id="reminder2"
-          label="5 days before period + 4 days into period"
-        />
-      </div>
     </div>
   );
 };
