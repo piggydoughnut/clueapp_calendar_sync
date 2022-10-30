@@ -3,20 +3,15 @@ import { Button, Input } from "@material-tailwind/react";
 import InfoCard from "../components/InfoCard";
 import Loading from "../components/Loading";
 import axios from "axios";
-import cc from "../data/cycles.json";
+import { getGoogleAuthURL } from "../auth/google-auth";
 import { useState } from "react";
 
-export default function Home() {
+export default function Home({ googleAuthUrl }: { googleAuthUrl: string }) {
   const [loading, setLoading] = useState(false);
-  const [cycles, setCycles] = useState(
-    cc.cycles.slice(cc.cycles.length - 3, cc.cycles.length - 2)
-  );
-  const [token, setToken] = useState(
-    // ""
-    "801f427a-938a-4c55-8805-0bfcc4243967|XpLZEp2zaWBNGBCU5DMhBKWu3QkgKaj1W6Syfuqy28iiUFh8"
-  );
-  const [email, setEmail] = useState("drmikhailova@gmail.com");
-  const [password, setPassword] = useState("hicseB-mehta7-buhwuf");
+  const [cycles, setCycles] = useState([]);
+  const [token, setToken] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const loginToClue = async (email, password) => {
     try {
@@ -25,18 +20,16 @@ export default function Home() {
         email,
         password,
       });
-      console.log(response.data.token.access_token);
       if (response.data.token.access_token) {
         setLoading(false);
-        setToken(response.data.access_token);
+        setToken(response.data.token.access_token);
         const total = response.data.cycles.length;
-        setCycles(response.data.cycles.slice(total - 3, total));
+        setCycles(response.data.cycles.slice(total - 3, total - 2));
       }
     } catch (e) {
       console.log(e);
     }
   };
-
   return (
     <div className="mt-10 mx-24">
       {token ? (
@@ -44,7 +37,7 @@ export default function Home() {
           We, as women need to take care of ourselves and listen to our bodies.
           {cycles.map((c) => (
             <div key={c.start} className="flex gap-4">
-              <InfoCard data={c}></InfoCard>
+              <InfoCard data={c} googleAuthUrl={googleAuthUrl}></InfoCard>
             </div>
           ))}
         </div>
@@ -84,4 +77,10 @@ export default function Home() {
       )}
     </div>
   );
+}
+
+// This gets called on every request
+export function getStaticProps() {
+  const googleAuthUrl = getGoogleAuthURL();
+  return { props: { googleAuthUrl } };
 }

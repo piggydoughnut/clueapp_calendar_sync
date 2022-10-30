@@ -1,6 +1,8 @@
 import { format, getDaysInMonth } from "date-fns";
 import { useMonthlyBody, useMonthlyCalendar } from "@zach.codes/react-calendar";
 
+import { ReactNode } from "react";
+
 type MonthlyDayProps = {
   renderDay: (events: any[]) => ReactNode;
 };
@@ -9,13 +11,10 @@ const CalendarDay = ({ renderDay }: MonthlyDayProps) => {
   let { locale } = useMonthlyCalendar();
   let { day, events } = useMonthlyBody();
   let dayNumber = format(day, "d", { locale });
-  console.log("day ", day);
-  console.log("dayNumber ", dayNumber);
-  console.log("day in month", getDaysInMonth(day));
-
-  const isPeriod = events.length > 0 && events.find((e) => e.type === "period");
-  const isChill = events.length > 0 && events.find((e) => e.type === "chill");
-  console.log(events);
+  const isPeriod =
+    events.length > 0 && events.find((e: any) => e.type === "period");
+  const isChill =
+    events.length > 0 && events.find((e: any) => e.type === "chill");
 
   return (
     <div

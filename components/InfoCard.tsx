@@ -11,7 +11,13 @@ import { Radio } from "@material-tailwind/react";
 import { getDateFormat } from "../helpers";
 import { useState } from "react";
 
-const InfoCard = ({ data }: { data: any }) => {
+const InfoCard = ({
+  data,
+  googleAuthUrl,
+}: {
+  data: any;
+  googleAuthUrl: string;
+}) => {
   let [currentMonth, setCurrentMonth] = useState<Date>(
     startOfMonth(new Date())
   );
@@ -50,7 +56,11 @@ const InfoCard = ({ data }: { data: any }) => {
       <div className="grid grid-rows-3 grid-cols-2 gap-2 w-64 mt-4">
         <p>Starts</p> <div> {getDateFormat(data.start)}</div>
         <p>Ends </p>
-        <div>{getDateFormat(addDays(new Date(data.start), periodLength))}</div>
+        <div>
+          {getDateFormat(
+            addDays(new Date(data.start), periodLength).toString()
+          )}
+        </div>
         <p>Length</p>
         <div> {periodLength} days</div>
       </div>
@@ -92,8 +102,17 @@ const InfoCard = ({ data }: { data: any }) => {
           />
         </MonthlyBody>
       </MonthlyCalendar>
+      <a href={googleAuthUrl}>Auth with Google</a>
     </div>
   );
 };
+
+// This gets called on every request
+export function getStaticProps() {
+  console.log("jajaj");
+  const googleAuthUrl = getGoogleAuthURL();
+  console.log("made it ", googleAuthUrl);
+  return { props: { googleAuthUrl } };
+}
 
 export default InfoCard;
