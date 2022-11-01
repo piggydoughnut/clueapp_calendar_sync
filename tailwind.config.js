@@ -4,7 +4,6 @@ module.exports = withMT({
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@zach.codes/react-calendar/dist/**/*.js",
   ],
   theme: {
     fontSize: {
@@ -13,9 +12,14 @@ module.exports = withMT({
       sm: "18px",
       md: "24px",
       lg: "36px",
-      xl: "60px",
+      xl: "42px",
+      "2xl": "60px",
     },
-    extend: {},
+    extend: {
+      topBg: {
+        topBg: "url('/top-bg.svg')",
+      },
+    },
   },
   plugins: [],
 });

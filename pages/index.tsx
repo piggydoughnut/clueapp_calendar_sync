@@ -3,6 +3,7 @@ import { Button, Input } from "@material-tailwind/react";
 import InfoCard from "../components/InfoCard";
 import Loading from "../components/Loading";
 import axios from "axios";
+import cc from "../data/cycles.json";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useState } from "react";
 

@@ -51,38 +51,6 @@ const InfoCard = ({
   });
   return (
     <div className="flex flex-col">
-      <h2 className="text-md">Next predicted cycle</h2>
-      <div className="grid grid-rows-3 grid-cols-2 gap-2 w-64 mt-4">
-        <p>Starts</p> <div> {getDateFormat(data.start)}</div>
-        <p>Ends </p>
-        <div>
-          {getDateFormat(
-            addDays(new Date(data.start), periodLength).toString()
-          )}
-        </div>
-        <p>Length</p>
-        <div> {periodLength} days</div>
-      </div>
-      <p className="mt-4">Remind me to take it easy: </p>
-      <div className="flex flex-col">
-        <Radio
-          id="threedays"
-          value="threedays"
-          label="3 days before period"
-          color="pink"
-          checked={selectedOption === "threedays"}
-          onChange={() => setSelectedOption("threedays")}
-        />
-        <Radio
-          id="fivedays"
-          value="fivedays"
-          label="5 days before period"
-          color="pink"
-          checked={selectedOption === "fivedays"}
-          onChange={() => setSelectedOption("fivedays")}
-        />
-      </div>
-      {console.log(events)}
       <MonthlyCalendar
         currentMonth={currentMonth}
         onCurrentMonthChange={(date) => setCurrentMonth(date)}

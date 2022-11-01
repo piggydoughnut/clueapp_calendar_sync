@@ -11,6 +11,7 @@ export default async function handler(req, res) {
       Authorization: "Token ".concat(tokenDetails.data.access_token),
     },
   });
+  console.log({ token: tokenDetails.data, cycles: cycles.data.cycles });
   res
     .status(200)
     .json({ token: tokenDetails.data, cycles: cycles.data.cycles });
