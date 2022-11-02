@@ -2,10 +2,22 @@ import { Button, Input } from "@material-tailwind/react";
 
 import Calendar from "../components/Calendar";
 import Image from "next/image";
+import { getCalendarData } from "../helpers/calendar";
 import { useState } from "react";
 
 export default function Sync() {
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [showCalendar, setShowCalendar] = useState<boolean>(false);
+  const [periodLength, setPeriodLength] = useState<number | null>(0);
+  const [cycleLength, setCycleLength] = useState<number | null>(0);
+  const [periodStartDate, setPeriodStartDate] = useState<string | null>(null);
+  const [calEvents, setCalEvents] = useState([]);
+
+  const prepareCalendar = () => {
+    const events = getCalendarData(periodStartDate, periodLength);
+    console.log(events);
+    setCalEvents(events);
+    setShowCalendar(true);
+  };
 
   return (
     <div className="bg-[url('/heart.svg')] bg-no-repeat bg-center h-screen flex flex-col items-center bg-lightPink">
@@ -25,6 +37,8 @@ export default function Sync() {
                   label="Next period start date"
                   color="purple"
                   type="date"
+                  value={periodStartDate}
+                  onChange={(e) => setPeriodStartDate(e.target.value)}
                 ></Input>
               </div>
 
@@ -33,16 +47,20 @@ export default function Sync() {
                 label="Approximate period length"
                 color="purple"
                 type="number"
+                value={periodLength}
+                onChange={(e) => setPeriodLength(Number(e.target.value))}
               ></Input>
               <Input
                 title="Approximate cycle length"
                 label="Approximate cycle length"
                 color="purple"
                 type="number"
+                value={cycleLength}
+                onChange={(e) => setCycleLength(Number(e.target.value))}
               ></Input>
               <Button
                 className="bg-indigo-400 w-full h-11 capitalize"
-                onClick={() => setShowCalendar(true)}
+                onClick={() => prepareCalendar()}
               >
                 Show my calendar
               </Button>
@@ -70,7 +88,7 @@ export default function Sync() {
             <h2 className="uppercase text-sm font-bold text-center mb-8">
               Your personal calendar
             </h2>
-            <Calendar />
+            <Calendar events={calEvents} />
             <div className="flex flex-col gap-4">
               <Button
                 className="bg-indigo-400 w-full h-11 capitalize"

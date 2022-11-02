@@ -38,8 +38,6 @@ export const handleOmittedDays = ({
   locale,
 }: OmittedDaysProps) => {
   let headings = daysInWeek({ locale });
-  console.log(enUS.localize.day(0, {}));
-  console.log("hh ", headings);
   let daysToRender = days;
 
   //omit the headings and days of the week that were passed in
@@ -59,8 +57,6 @@ export const handleOmittedDays = ({
     firstDayOfMonth = firstDayOfMonth - subtractOmittedDays;
   }
   let padding = new Array(firstDayOfMonth).fill(0);
-  console.log("padding ", padding);
-  console.log("daysToRender ", daysToRender);
 
   return { headings, daysToRender, padding };
 };

@@ -14,8 +14,10 @@ const LegendItem = ({ title, color }: { title: string; color: string }) => (
 
 export default function Calendar({
   showLegend = true,
+  events,
 }: {
-  showLegend: boolean;
+  showLegend?: boolean;
+  events: any;
 }) {
   const [currentMonth, setCurrentMonth] = useState<Date>(
     startOfMonth(new Date())
@@ -27,7 +29,7 @@ export default function Calendar({
         onCurrentMonthChange={(date) => setCurrentMonth(date)}
       >
         <MonthlyNav />
-        <MonthlyBody events={[]}>
+        <MonthlyBody events={events}>
           <CalendarDay />
         </MonthlyBody>
       </MonthlyCalendar>
