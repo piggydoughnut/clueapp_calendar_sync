@@ -11,11 +11,16 @@ export const isDo = (events) => isType(events, Phases.DO);
 export const isType = (events: Array<any>, typeName: string) =>
   events.length > 0 ? events[0].type === typeName : false;
 
+export type EventType = {
+  date: string;
+  type: string;
+};
+
 export const getCalendarData = (
   start: string,
   length: number,
   cycleLength: number
-) => {
+): Array<EventType> => {
   const events = [];
   const cycleLengths = getLengthsByCycle(length, cycleLength);
   for (let i = 1; i < cycleLengths[Phases.TAKE]; i++) {
