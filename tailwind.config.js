@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require("@material-tailwind/react/utils/withMT");
+const colors = require("tailwindcss/colors");
+
 module.exports = withMT({
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,6 +13,8 @@ module.exports = withMT({
     },
     colors: {
       lightPink: "#FEF6F9",
+      primaryButton: colors.red["200"],
+      secondaryButton: colors.indigo["400"],
     },
     fontSize: {
       tiny: "12px",

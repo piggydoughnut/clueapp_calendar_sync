@@ -90,7 +90,7 @@ export default function Sync() {
                 onChange={(e) => setCycleLength(Number(e.target.value))}
               ></Input>
               <Button
-                className="bg-indigo-400 w-full h-11 capitalize"
+                className="bg-secondaryButton w-full h-11 capitalize"
                 onClick={() => prepareCalendar()}
               >
                 Show my calendar
@@ -122,15 +122,12 @@ export default function Sync() {
             <Calendar events={calEvents} />
             <div className="flex flex-col gap-4">
               <Button
-                className="bg-indigo-400 w-full h-11 capitalize"
+                className="bg-secondaryButton w-full h-11 capitalize"
                 color={"indigo"}
               >
                 Email this great info to me
               </Button>
-              <Button
-                color={"gray"}
-                className="bg-transparent text-black border w-full h-11 capitalize"
-              >
+              <Button className="bg-transparent text-black border w-full h-11 capitalize">
                 Sync with my Google Calendar
               </Button>
             </div>

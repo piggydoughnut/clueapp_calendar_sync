@@ -44,7 +44,10 @@ export default function ClueLogin({ setCycleData }: { setCycleData: any }) {
           {loading ? (
             <Loading />
           ) : (
-            <Button color="purple" onClick={() => loginToClue(email, password)}>
+            <Button
+              className="bg-secondaryButton"
+              onClick={() => loginToClue(email, password)}
+            >
               Login to Clue
             </Button>
           )}

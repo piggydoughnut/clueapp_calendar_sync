@@ -13,11 +13,11 @@ export default function Welcome() {
             Sync your life with your cycle to be more attuned with your body.
           </h1>
           <div className="flex flex-row gap-8 mt-8">
-            <Button className="bg-indigo-400 w-36 h-11 capitalize font-plusJakarta">
+            <Button className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta">
               Why?{" "}
             </Button>
             <Button
-              className="bg-red-200 w-36 h-11 capitalize font-plusJakarta"
+              className="bg-primaryButton w-36 h-11 capitalize font-plusJakarta"
               onClick={() => router.push("sync")}
             >
               Show me{" "}
