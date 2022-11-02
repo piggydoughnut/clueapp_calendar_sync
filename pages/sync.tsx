@@ -1,10 +1,14 @@
 import { Button, Input } from "@material-tailwind/react";
 
-import Calendar from "../components/Calendar";
+import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
 import Image from "next/image";
 import { getCalendarData } from "../helpers/calendar";
 import { useState } from "react";
+
+const Title = ({ title }: { title: string }) => (
+  <h2 className="uppercase text-sm font-bold text-center mt-8">{title}</h2>
+);
 
 export default function Sync() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
@@ -12,7 +16,7 @@ export default function Sync() {
   const [cycleLength, setCycleLength] = useState<number>(0);
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showClueLogin, setshowClueLogin] = useState(false);
 
   const prepareCalendar = () => {
     const events = getCalendarData(periodStartDate, periodLength, cycleLength);
@@ -24,9 +28,10 @@ export default function Sync() {
     const periodLength = data.phases[0].length;
     const cycleLength = data.phases[0].expectedLength;
     const events = getCalendarData(data.start, periodLength, cycleLength);
+    console.log(events);
     setCalEvents(events);
     setShowCalendar(true);
-    setShowModal(false);
+    setshowClueLogin(false);
   };
 
   return (
@@ -35,23 +40,20 @@ export default function Sync() {
         Sync with your cycle.
       </h1>
       <div className="drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white">
-        {(showCalendar || showModal) && (
+        {(showCalendar || showClueLogin) && (
           <a
             onClick={() => {
               setShowCalendar(false);
-              setShowModal(false);
+              setshowClueLogin(false);
             }}
             className="text-tiny opacity-50 font-bold absolute left-8 hover:cursor-pointer transition-all hover:opacity-40"
           >
             BACK
           </a>
         )}
-        {showModal ? (
+        {showClueLogin ? (
           <div>
-            <h2 className="uppercase text-sm font-bold text-center mb-8">
-              Login to Clue
-            </h2>
-
+            <Title title="Login to Clue" />
             <ClueLogin setCycleData={(a) => processClueData(a)} />
             <div className="mb-8 text-tiny opacity-60 mt-1">
               <p>DISCLAIMER</p>
@@ -60,9 +62,7 @@ export default function Sync() {
           </div>
         ) : !showCalendar ? (
           <div>
-            <h2 className="uppercase text-sm font-bold">
-              set yourself up for a balanced month
-            </h2>
+            <Title title="set yourself up for a balanced month" />
             <div className="flex flex-col gap-4 pt-8">
               <Input
                 title="Next period start date"
@@ -102,7 +102,7 @@ export default function Sync() {
               </div>
               <div className="text-sm flex flex-col justify-center items-center gap-2">
                 <button
-                  onClick={() => setShowModal(true)}
+                  onClick={() => setshowClueLogin(true)}
                   className="transition-all hover:opacity-80"
                 >
                   <p>GET MY DATA FROM</p>
@@ -118,10 +118,7 @@ export default function Sync() {
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {" "}
-            <h2 className="uppercase text-sm font-bold text-center mb-8">
-              Your personal calendar
-            </h2>
+            <Title title="Your personal calendar" />
             <Calendar events={calEvents} />
             <div className="flex flex-col gap-4">
               <Button

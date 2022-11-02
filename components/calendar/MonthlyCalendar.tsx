@@ -9,6 +9,10 @@ import {
   subMonths,
 } from "date-fns";
 
+import Image from "next/image";
+import left from "../../public/menu-left.svg";
+import right from "../../public/menu-right.svg";
+
 type CalendarState = {
   days: Date[];
   currentMonth: Date;
@@ -59,14 +63,17 @@ export const MonthlyNav = () => {
   let { locale, currentMonth, onCurrentMonthChange } = useMonthlyCalendar();
 
   return (
-    <div className="flex justify-between mb-4 w-72 pl-2 pr-6">
+    <div className="flex justify-between mb-1 pr-2">
       <button
         onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
-        className="cursor-pointer hover:opacity-60"
+        className="cursor-pointer opacity-50"
       >
-        Prev
+        <Image src={left} alt="left" width={32} height={32} />
       </button>
-      <div className="ml-4 mr-4 w-32 text-center" aria-label="Current Month">
+      <div
+        className="ml-4 mr-4 text-center text-sm uppercase opacity-50 mt-1"
+        aria-label="Current Month"
+      >
         {format(
           currentMonth,
           getYear(currentMonth) === getYear(new Date()) ? "LLLL" : "LLLL yyyy",
@@ -75,9 +82,9 @@ export const MonthlyNav = () => {
       </div>
       <button
         onClick={() => onCurrentMonthChange(addMonths(currentMonth, 1))}
-        className="cursor-pointer hover:opacity-60"
+        className="cursor-pointer opacity-50"
       >
-        Next
+        <Image src={right} alt="left" width={32} height={32} />
       </button>
     </div>
   );

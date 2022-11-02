@@ -1,5 +1,5 @@
 import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
-import { Phases, cyclePhaseColors } from "../helpers/defines";
+import { Phases, cyclePhaseColors } from "../../helpers/defines";
 
 import CalendarDay from "./CalendarDay";
 import { MonthlyBody } from "./MonthlyBody";

@@ -1,4 +1,4 @@
-import { cyclePhaseColors } from "../helpers/defines";
+import { cyclePhaseColors } from "../../helpers/defines";
 import { format } from "date-fns";
 import { useMonthlyBody } from "./MonthlyBody";
 import { useMonthlyCalendar } from "./MonthlyCalendar";

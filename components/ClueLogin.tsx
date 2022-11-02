@@ -1,14 +1,11 @@
 import { Button, Input } from "@material-tailwind/react";
 
-import InfoCard from "../components/InfoCard";
 import Loading from "../components/Loading";
 import axios from "axios";
 import { useState } from "react";
 
 export default function ClueLogin({ setCycleData }: { setCycleData: any }) {
   const [loading, setLoading] = useState(false);
-  const [cycles, setCycles] = useState([]);
-  const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,9 +18,7 @@ export default function ClueLogin({ setCycleData }: { setCycleData: any }) {
       });
       if (response.data.token.access_token) {
         setLoading(false);
-        setToken(response.data.token.access_token);
         const total = response.data.cycles.length;
-        setCycles(response.data.cycles.slice(total - 3, total - 2));
         setCycleData(response.data.cycles.slice(total - 3, total - 2)[0]);
       }
     } catch (e) {

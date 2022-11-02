@@ -5,7 +5,7 @@ const Loading = () => (
     height="50"
     width="50"
     radius={1}
-    color="#995290"
+    color="#ec5fda"
     ariaLabel="puff-loading"
     wrapperStyle={{}}
     wrapperClass=""
