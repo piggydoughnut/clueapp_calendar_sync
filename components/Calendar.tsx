@@ -8,8 +8,8 @@ import { useState } from "react";
 
 const LegendItem = ({ title, color }: { title: string; color: string }) => (
   <div className="flex gap-2">
-    <div className={`${color} h-6 w-6 rounded-3xl`}></div>{" "}
-    <p className="text-sm uppercase">{title}</p>
+    <div className={`${color} h-4 w-4 rounded-3xl`}></div>{" "}
+    <p className="text-tiny uppercase">{title}</p>
   </div>
 );
 
@@ -35,7 +35,7 @@ export default function Calendar({
         </MonthlyBody>
       </MonthlyCalendar>
       {showLegend && (
-        <div className="flex flex-col gap-2 mt-10 mb-6">
+        <div className="flex flex-col gap-2 mt-4 mb-6">
           <LegendItem
             title={Phases.DREAM}
             color={cyclePhaseColors[Phases.DREAM]}

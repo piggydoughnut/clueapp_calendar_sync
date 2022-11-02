@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 export default function Welcome() {
   const router = useRouter();
   return (
-    <div className="bg-[url('/top-bg.svg')] mt-0 h-screen bg-no-repeat bg-contain pt-[10rem]">
+    <div className="bg-[url('/top-bg.svg')] bg-lightPink mt-0 h-screen bg-no-repeat bg-contain pt-[10rem]">
       <div className="flex space-between gap-[10rem] justify-center">
         <div className="flex flex-col">
           <h1 className="md:text-md lg:text-xl font-bold max-w-xl">

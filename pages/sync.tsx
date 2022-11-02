@@ -21,10 +21,18 @@ export default function Sync() {
 
   return (
     <div className="bg-[url('/heart.svg')] bg-no-repeat bg-center h-screen flex flex-col items-center bg-lightPink">
-      <h1 className="md:text-md lg:text-xl font-bold text-center pt-[10rem] pb-[2rem]">
+      <h1 className="md:text-md lg:text-xl font-bold text-center pt-[5rem] pb-[2rem]">
         Sync with your cycle.
       </h1>
       <div className="drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white">
+        {showCalendar && (
+          <a
+            onClick={() => setShowCalendar(false)}
+            className="text-tiny opacity-50 font-bold absolute left-8 hover:cursor-pointer transition-all hover:opacity-40"
+          >
+            BACK
+          </a>
+        )}
         {!showCalendar ? (
           <div>
             <h2 className="uppercase text-sm font-bold">
