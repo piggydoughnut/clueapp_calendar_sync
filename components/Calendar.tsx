@@ -1,4 +1,5 @@
 import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
+import { Phases, cyclePhaseColors } from "../helpers/defines";
 
 import CalendarDay from "./CalendarDay";
 import { MonthlyBody } from "./MonthlyBody";
@@ -35,9 +36,19 @@ export default function Calendar({
       </MonthlyCalendar>
       {showLegend && (
         <div className="flex flex-col gap-2 mt-10 mb-6">
-          <LegendItem title="Time to slow down" color="bg-indigo-100" />
-          <LegendItem title="Period" color="bg-red-100" />
-          <LegendItem title="Productive" color="bg-yellow-200" />
+          <LegendItem
+            title={Phases.DREAM}
+            color={cyclePhaseColors[Phases.DREAM]}
+          />
+          <LegendItem title={Phases.DO} color={cyclePhaseColors[Phases.DO]} />
+          <LegendItem
+            title={Phases.GIVE}
+            color={cyclePhaseColors[Phases.GIVE]}
+          />
+          <LegendItem
+            title={Phases.TAKE}
+            color={cyclePhaseColors[Phases.TAKE]}
+          />
         </div>
       )}
     </div>

@@ -13,7 +13,7 @@ export default function Sync() {
   const [calEvents, setCalEvents] = useState([]);
 
   const prepareCalendar = () => {
-    const events = getCalendarData(periodStartDate, periodLength);
+    const events = getCalendarData(periodStartDate, periodLength, cycleLength);
     console.log(events);
     setCalEvents(events);
     setShowCalendar(true);
@@ -31,18 +31,16 @@ export default function Sync() {
               set yourself up for a balanced month
             </h2>
             <div className="flex flex-col gap-4 pt-8">
-              <div>
-                <Input
-                  title="Next period start date"
-                  label="Next period start date"
-                  color="purple"
-                  type="date"
-                  value={periodStartDate}
-                  onChange={(e) => setPeriodStartDate(e.target.value)}
-                ></Input>
-              </div>
-
               <Input
+                title="Next period start date"
+                label="Next period start date"
+                color="purple"
+                type="date"
+                value={periodStartDate}
+                onChange={(e) => setPeriodStartDate(e.target.value)}
+              ></Input>
+              <Input
+                width={20}
                 title="Approximate period length"
                 label="Approximate period length"
                 color="purple"
