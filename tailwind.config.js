@@ -6,14 +6,21 @@ module.exports = withMT({
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      plusJakarta: ["Plus Jakarta Sans", "sans-serif"],
+    },
+    colors: {
+      lightPink: "#FEF6F9",
+    },
     fontSize: {
       tiny: "12px",
       base: "16px",
-      sm: "18px",
-      md: "24px",
-      lg: "36px",
-      xl: "42px",
-      "2xl": "60px",
+      sm: "14px",
+      md: "16px",
+      lg: "18px",
+      xl: "34px",
+      "2xl": "36px",
+      "3xl": "42px",
     },
     extend: {
       topBg: {

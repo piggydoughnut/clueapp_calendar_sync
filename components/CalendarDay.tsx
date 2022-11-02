@@ -20,7 +20,7 @@ const CalendarDay = ({ renderDay }: MonthlyDayProps) => {
   return (
     <div
       aria-label={`Events for day ${dayNumber}`}
-      className={`w-8 p-1  rounded-3xl ${
+      className={`p-1  rounded-3xl ${
         isPeriod ? "bg-red-200 " : isChill ? "bg-red-100 " : ""
       }`}
     >
