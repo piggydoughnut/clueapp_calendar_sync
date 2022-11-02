@@ -1,87 +1,39 @@
-import { Button, Input } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import Image from "next/image";
+import calendar from "../public/calendar.svg";
+import { useRouter } from "next/router";
 
-import InfoCard from "../components/InfoCard";
-import Loading from "../components/Loading";
-import axios from "axios";
-import cc from "../data/cycles.json";
-import { getGoogleAuthURL } from "../auth/google-auth";
-import { useState } from "react";
-
-export default function Home({ googleAuthUrl }: { googleAuthUrl: string }) {
-  const [loading, setLoading] = useState(false);
-  const [cycles, setCycles] = useState([]);
-  const [token, setToken] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const loginToClue = async (email, password) => {
-    try {
-      setLoading(true);
-      const response = await axios.post("/api/tokens", {
-        email,
-        password,
-      });
-      if (response.data.token.access_token) {
-        setLoading(false);
-        setToken(response.data.token.access_token);
-        const total = response.data.cycles.length;
-        setCycles(response.data.cycles.slice(total - 3, total - 2));
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+export default function Welcome() {
+  const router = useRouter();
   return (
-    <div className="mt-10 mx-24">
-      {token ? (
-        <div>
-          We, as women need to take care of ourselves and listen to our bodies.
-          {cycles.map((c) => (
-            <div key={c.start} className="flex gap-4">
-              <InfoCard data={c} googleAuthUrl={googleAuthUrl}></InfoCard>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center h-screen">
-          <h1 className="text-3xl font-bold mb-16">
-            Sync your Clue app data to Google calendar
+    <div className="bg-[url('/top-bg.svg')] bg-lightPink mt-0 h-screen bg-no-repeat bg-contain pt-[10rem]">
+      <div className="flex space-between gap-[10rem] justify-center">
+        <div className="flex flex-col">
+          <h1 className="md:text-md lg:text-xl font-bold max-w-xl">
+            Sync your life with your cycle to be more attuned with your body.
           </h1>
-
-          <div className="flex gap-2 flex-col">
-            <Input
-              label="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Input>
-            <Input
-              label="password"
-              value={password}
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            ></Input>
-            <div className="h-24 flex items-center justify-center">
-              {" "}
-              {loading ? (
-                <Loading />
-              ) : (
-                <Button
-                  color="purple"
-                  onClick={() => loginToClue(email, password)}
-                >
-                  Login to Clue
-                </Button>
-              )}
-            </div>
+          <div className="flex flex-row gap-8 mt-8">
+            <Button className="bg-indigo-400 w-36 h-11 capitalize font-plusJakarta">
+              Why?{" "}
+            </Button>
+            <Button
+              className="bg-red-200 w-36 h-11 capitalize font-plusJakarta"
+              onClick={() => router.push("sync")}
+            >
+              Show me{" "}
+            </Button>
           </div>
         </div>
-      )}
+        <div className="flex pt-4">
+          <Image
+            src={calendar}
+            alt="calendar"
+            width={325}
+            height={348}
+            className="w-[325px]"
+          />
+        </div>
+      </div>
     </div>
   );
-}
-
-// This gets called on every request
-export function getStaticProps() {
-  const googleAuthUrl = getGoogleAuthURL();
-  return { props: { googleAuthUrl } };
 }
