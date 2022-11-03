@@ -1,3 +1,4 @@
+import { Form, Formik } from "formik";
 import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
 import { Phases, cyclePhaseColors } from "../../helpers/defines";
 
@@ -14,14 +15,16 @@ const LegendItem = ({ title, color }: { title: string; color: string }) => (
 );
 
 export default function Calendar({
+  startDate,
   showLegend = true,
   events,
 }: {
+  startDate?: string;
   showLegend?: boolean;
   events: any;
 }) {
   const [currentMonth, setCurrentMonth] = useState<Date>(
-    startOfMonth(new Date())
+    startOfMonth(new Date(startDate ?? ""))
   );
   return (
     <div>

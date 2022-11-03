@@ -10,7 +10,7 @@ const CalendarDay = () => {
   let circleColor = events.length > 0 ? cyclePhaseColors[events[0].type] : "";
   return (
     <div className="pt-1 pb-1">
-      <div className={`p-1 w-8 flex justify-center rounded-3xl ${circleColor}`}>
+      <div className={`${circleColor} p-1 w-8 flex justify-center rounded-3xl`}>
         {dayNumber}
       </div>
     </div>

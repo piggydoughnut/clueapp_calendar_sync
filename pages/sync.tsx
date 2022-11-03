@@ -1,7 +1,9 @@
 import { Button, Input } from "@material-tailwind/react";
+import { Form, Formik } from "formik";
 
 import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
+import FormSchema from "../helpers/FormSchema";
 import Image from "next/image";
 import { getCalendarData } from "../helpers/calendar";
 import { useState } from "react";
@@ -10,16 +12,22 @@ const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center mt-8">{title}</h2>
 );
 
+const initialValues = {
+  periodLength: 0,
+  cycleLength: 0,
+  start: "",
+};
+
 export default function Sync() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
-  const [periodLength, setPeriodLength] = useState<number>(0);
-  const [cycleLength, setCycleLength] = useState<number>(0);
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
+  const [params, setParams] = useState(initialValues);
 
-  const prepareCalendar = () => {
-    const events = getCalendarData(periodStartDate, periodLength, cycleLength);
+  const prepareCalendar = (start, length, lengthCycle) => {
+    setPeriodStartDate(start);
+    const events = getCalendarData(start, length, lengthCycle);
     setCalEvents(events);
     setShowCalendar(true);
   };
@@ -27,10 +35,7 @@ export default function Sync() {
   const processClueData = (data) => {
     const periodLength = data.phases[0].length;
     const cycleLength = data.phases[0].expectedLength;
-    const events = getCalendarData(data.start, periodLength, cycleLength);
-    console.log(events);
-    setCalEvents(events);
-    setShowCalendar(true);
+    prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
   };
 
@@ -64,37 +69,62 @@ export default function Sync() {
           <div>
             <Title title="set yourself up for a balanced month" />
             <div className="flex flex-col gap-4 pt-8">
-              <Input
-                title="Next period start date"
-                label="Next period start date"
-                color="purple"
-                type="date"
-                value={periodStartDate}
-                onChange={(e) => setPeriodStartDate(e.target.value)}
-              ></Input>
-              <Input
-                width={20}
-                title="Approximate period length"
-                label="Approximate period length"
-                color="purple"
-                type="number"
-                value={periodLength}
-                onChange={(e) => setPeriodLength(Number(e.target.value))}
-              ></Input>
-              <Input
-                title="Approximate cycle length"
-                label="Approximate cycle length"
-                color="purple"
-                type="number"
-                value={cycleLength}
-                onChange={(e) => setCycleLength(Number(e.target.value))}
-              ></Input>
-              <Button
-                className="bg-secondaryButton w-full h-11 capitalize"
-                onClick={() => prepareCalendar()}
+              <Formik
+                initialValues={params}
+                enableReinitialize
+                validationSchema={FormSchema}
+                onSubmit={async (vs) => {
+                  setParams(vs);
+                  prepareCalendar(vs.start, vs.periodLength, vs.cycleLength);
+                }}
               >
-                Show my calendar
-              </Button>
+                {({ values, errors, handleChange, touched }) => (
+                  <Form className="flex flex-col gap-4">
+                    <Input
+                      id="start"
+                      name="start"
+                      title="Next period start date"
+                      label="Next period start date"
+                      type="date"
+                      value={values.start}
+                      onChange={handleChange}
+                      error={touched.start && Boolean(errors.start)}
+                    ></Input>
+                    <Input
+                      id="periodLength"
+                      name="periodLength"
+                      width={20}
+                      title="Approximate period length"
+                      label="Approximate period length"
+                      type="number"
+                      value={values.periodLength}
+                      onChange={handleChange}
+                      error={
+                        touched.periodLength && Boolean(errors.periodLength)
+                      }
+                    ></Input>
+                    <Input
+                      id="cycleLength"
+                      name="cycleLength"
+                      title="Approximate cycle length"
+                      label="Approximate cycle length"
+                      type="number"
+                      value={values.cycleLength}
+                      onChange={handleChange}
+                      error={touched.cycleLength && Boolean(errors.cycleLength)}
+                    ></Input>
+                    <div className="h-4 text-tiny text-red-300 text-center">
+                      {Object.values(errors)[0]}
+                    </div>
+                    <Button
+                      type="submit"
+                      className="bg-secondaryButton w-full h-11 capitalize"
+                    >
+                      Show my calendar
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
               <div className="flex flex-row justify-center items-center gap-4">
                 <hr className="w-32"></hr>
                 <p className="opacity-40">OR</p>
@@ -119,7 +149,7 @@ export default function Sync() {
         ) : (
           <div className="flex flex-col gap-2">
             <Title title="Your personal calendar" />
-            <Calendar events={calEvents} />
+            <Calendar startDate={periodStartDate} events={calEvents} />
             <div className="flex flex-col gap-4">
               <Button
                 className="bg-secondaryButton w-full h-11 capitalize"
