@@ -5,15 +5,13 @@ const AVG_PERIOD_MSG = "Average period length is 1-9 days.";
 
 const FormSchema = Yup.object().shape({
   periodLength: Yup.number()
-    .required("A number between 1 and 9 is required")
+    .required(AVG_PERIOD_MSG)
     .max(9, AVG_PERIOD_MSG)
-    .min(1, AVG_PERIOD_MSG)
-    .typeError("A number between 1 and 9 is required"),
+    .min(1, AVG_PERIOD_MSG),
   cycleLength: Yup.number()
-    .required("Required")
+    .required(AVG_CYCLE_MSG)
     .max(45, AVG_CYCLE_MSG)
-    .min(21, AVG_CYCLE_MSG)
-    .typeError("A number between 21 and 45 is required"),
+    .min(21, AVG_CYCLE_MSG),
   start: Yup.date().required("Please enter period start date."),
 });
 
