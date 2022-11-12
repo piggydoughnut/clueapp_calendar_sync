@@ -37,7 +37,7 @@ export default function Sync() {
 
   const processClueData = (data) => {
     const periodLength = data.phases[0].length;
-    const cycleLength = data.phases[0].expectedLength;
+    const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
   };

@@ -29,6 +29,29 @@ export const getCalendarData = (
       type: Phases.TAKE,
     });
   }
+
+  const previousGivePhaseEnd = subDays(
+    new Date(start),
+    cycleLengths[Phases.TAKE]
+  );
+  for (let i = 0; i < cycleLengths[Phases.GIVE]; i++) {
+    events.push({
+      date: subDays(previousGivePhaseEnd, i),
+      type: Phases.GIVE,
+    });
+  }
+
+  const previousDoPhase = subDays(
+    previousGivePhaseEnd,
+    cycleLengths[Phases.GIVE]
+  );
+  for (let i = 0; i < cycleLengths[Phases.DO]; i++) {
+    events.push({
+      date: subDays(previousDoPhase, i),
+      type: Phases.DO,
+    });
+  }
+
   for (let i = 0; i < length; i++) {
     events.push({
       date: addDays(new Date(start), i),
@@ -42,6 +65,7 @@ export const getCalendarData = (
       type: Phases.DO,
     });
   }
+
   const giveStart = addDays(doStart, cycleLengths[Phases.DO]);
   for (let i = 0; i < cycleLengths[Phases.GIVE]; i++) {
     events.push({
