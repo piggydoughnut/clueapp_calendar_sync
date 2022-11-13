@@ -1,5 +1,6 @@
 import { Button, Input, Tooltip } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
 
 import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
@@ -10,7 +11,6 @@ import Layout from "../components/Layout";
 import Note from "../components/Note";
 import { getCalendarData } from "../helpers/calendar";
 import { useScreenshot } from "use-react-screenshot";
-import { useState } from "react";
 
 const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center mt-8 mb-4">{title}</h2>
@@ -29,6 +29,7 @@ export default function Sync() {
   const [showClueLogin, setshowClueLogin] = useState(false);
   const [params, setParams] = useState(initialValues);
   const [image, takeScreenshot] = useScreenshot();
+  const [emailVersion, setEmailVersion] = useState(false);
 
   const prepareCalendar = (start, length, lengthCycle) => {
     setPeriodStartDate(start);
@@ -37,15 +38,18 @@ export default function Sync() {
     setShowCalendar(true);
   };
 
+  useEffect(() => {
+    if (emailVersion) {
+      takeScreenshot(document?.getElementById("mycustomcalendar"));
+    }
+    setEmailVersion(false);
+  }, [emailVersion]);
+
   const processClueData = (data) => {
     const periodLength = data.phases[0].length;
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
-  };
-
-  const emailTheView = () => {
-    takeScreenshot(document?.getElementById("mycustomcalendar"));
   };
 
   return (
@@ -172,12 +176,13 @@ export default function Sync() {
                 id="mycustomcalendar"
                 startDate={periodStartDate}
                 events={calEvents}
+                emailVersion={emailVersion}
               />
               <div className="flex flex-col gap-4">
                 <Button
                   className="bg-secondaryButton w-full h-11 capitalize"
                   color={"indigo"}
-                  onClick={() => emailTheView()}
+                  onClick={() => setEmailVersion(true)}
                 >
                   Email this great info to me
                 </Button>
