@@ -9,10 +9,11 @@ import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
 import { getCalendarData } from "../helpers/calendar";
+import { useScreenshot } from "use-react-screenshot";
 import { useState } from "react";
 
 const Title = ({ title }: { title: string }) => (
-  <h2 className="uppercase text-sm font-bold text-center mt-8">{title}</h2>
+  <h2 className="uppercase text-sm font-bold text-center mt-8 mb-4">{title}</h2>
 );
 
 const initialValues = {
@@ -27,6 +28,7 @@ export default function Sync() {
   const [calEvents, setCalEvents] = useState([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
   const [params, setParams] = useState(initialValues);
+  const [image, takeScreenshot] = useScreenshot();
 
   const prepareCalendar = (start, length, lengthCycle) => {
     setPeriodStartDate(start);
@@ -40,6 +42,10 @@ export default function Sync() {
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
+  };
+
+  const emailTheView = () => {
+    takeScreenshot(document?.getElementById("mycustomcalendar"));
   };
 
   return (
@@ -162,11 +168,16 @@ export default function Sync() {
           ) : (
             <div className="flex flex-col gap-2">
               <Title title="Your personal calendar" />
-              <Calendar startDate={periodStartDate} events={calEvents} />
+              <Calendar
+                id="mycustomcalendar"
+                startDate={periodStartDate}
+                events={calEvents}
+              />
               <div className="flex flex-col gap-4">
                 <Button
                   className="bg-secondaryButton w-full h-11 capitalize"
                   color={"indigo"}
+                  onClick={() => emailTheView()}
                 >
                   Email this great info to me
                 </Button>
@@ -177,6 +188,7 @@ export default function Sync() {
             </div>
           )}
         </div>
+        <img width={400} src={image} alt={"Screenshot"} />
       </div>
     </Layout>
   );

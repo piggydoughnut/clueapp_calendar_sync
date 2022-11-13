@@ -27,6 +27,7 @@ export const getCalendarData = (
     events.push({
       date: subDays(new Date(start), i),
       type: Phases.TAKE,
+      on: true,
     });
   }
 
@@ -38,6 +39,7 @@ export const getCalendarData = (
     events.push({
       date: subDays(previousGivePhaseEnd, i),
       type: Phases.GIVE,
+      on: true,
     });
   }
 
@@ -49,6 +51,7 @@ export const getCalendarData = (
     events.push({
       date: subDays(previousDoPhase, i),
       type: Phases.DO,
+      on: true,
     });
   }
 
@@ -56,6 +59,7 @@ export const getCalendarData = (
     events.push({
       date: addDays(new Date(start), i),
       type: Phases.DREAM,
+      on: true,
     });
   }
   const doStart = addDays(new Date(start), length);
@@ -63,6 +67,7 @@ export const getCalendarData = (
     events.push({
       date: addDays(doStart, i),
       type: Phases.DO,
+      on: true,
     });
   }
 
@@ -71,6 +76,7 @@ export const getCalendarData = (
     events.push({
       date: addDays(giveStart, i),
       type: Phases.GIVE,
+      on: true,
     });
   }
   return events;

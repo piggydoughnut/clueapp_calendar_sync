@@ -3,55 +3,67 @@ import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
 import { Phases, cyclePhaseColors } from "../../helpers/defines";
 
 import CalendarDay from "./CalendarDay";
+import LegendItem from "./LegendItem";
 import { MonthlyBody } from "./MonthlyBody";
 import { startOfMonth } from "date-fns";
 import { useState } from "react";
-
-const LegendItem = ({ title, color }: { title: string; color: string }) => (
-  <div className="flex gap-2">
-    <div className={`${color} h-4 w-4 rounded-3xl`}></div>{" "}
-    <p className="text-tiny uppercase">{title}</p>
-  </div>
-);
 
 export default function Calendar({
   startDate,
   showLegend = true,
   events,
+  id,
 }: {
   startDate?: string;
   showLegend?: boolean;
   events: any;
+  id: string;
 }) {
   const [currentMonth, setCurrentMonth] = useState<Date>(
     startOfMonth(new Date(startDate ?? ""))
   );
+
+  const [monthEvents, setMonthEvents] = useState(events);
+  const [switches, setSwitches] = useState({
+    [Phases.DREAM]: true,
+    [Phases.DO]: true,
+    [Phases.GIVE]: true,
+    [Phases.TAKE]: true,
+  });
+
+  const filterEvents = (type) => {
+    const filtered = monthEvents.map((event) => {
+      if (event.type === type) {
+        event.on = !event.on;
+      }
+      return event;
+    });
+    setSwitches({ ...switches, [type]: !switches[type] });
+    setMonthEvents(filtered);
+  };
   return (
-    <div>
+    <div id={id}>
       <MonthlyCalendar
         currentMonth={currentMonth}
         onCurrentMonthChange={(date) => setCurrentMonth(date)}
       >
         <MonthlyNav />
-        <MonthlyBody events={events}>
+        <MonthlyBody events={monthEvents.filter((e) => e.on)}>
           <CalendarDay />
         </MonthlyBody>
       </MonthlyCalendar>
       {showLegend && (
-        <div className="flex flex-col gap-2 mt-4 mb-6">
-          <LegendItem
-            title={Phases.DREAM}
-            color={cyclePhaseColors[Phases.DREAM]}
-          />
-          <LegendItem title={Phases.DO} color={cyclePhaseColors[Phases.DO]} />
-          <LegendItem
-            title={Phases.GIVE}
-            color={cyclePhaseColors[Phases.GIVE]}
-          />
-          <LegendItem
-            title={Phases.TAKE}
-            color={cyclePhaseColors[Phases.TAKE]}
-          />
+        <div className="flex flex-col gap-2 mt-8 mb-8">
+          {/* <p>Feel free to uncheck the values that are not of interest</p> */}
+          {Object.values(Phases).map((item) => (
+            <LegendItem
+              key={item}
+              title={item}
+              color={cyclePhaseColors[item]}
+              on={switches[item]}
+              onChecked={() => filterEvents(item)}
+            />
+          ))}
         </div>
       )}
     </div>

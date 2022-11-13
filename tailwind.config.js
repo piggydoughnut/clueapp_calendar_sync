@@ -7,7 +7,9 @@ module.exports = withMT({
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
     "./helpers/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
+  plugins: [require("tw-elements/dist/plugin")],
   theme: {
     fontFamily: {
       plusJakarta: ["Plus Jakarta Sans", "sans-serif"],
