@@ -31,6 +31,9 @@ module.exports = withMT({
       topBg: {
         topBg: "url('/top-bg.svg')",
       },
+      transitionProperty: {
+        width: "width",
+      },
     },
   },
   plugins: [],

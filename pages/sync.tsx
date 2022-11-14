@@ -1,4 +1,4 @@
-import { Button, Input, Tooltip } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,7 @@ import { getCalendarData } from "../helpers/calendar";
 import { useScreenshot } from "use-react-screenshot";
 
 const Title = ({ title }: { title: string }) => (
-  <h2 className="uppercase text-sm font-bold text-center mt-8 mb-4">{title}</h2>
+  <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
 );
 
 const initialValues = {
@@ -27,6 +27,7 @@ export default function Sync() {
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
+  const [loggedInWithClue, setLoggedInWithClue] = useState(false);
   const [params, setParams] = useState(initialValues);
   const [image, takeScreenshot] = useScreenshot();
   const [emailVersion, setEmailVersion] = useState(false);
@@ -50,6 +51,7 @@ export default function Sync() {
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
+    setLoggedInWithClue(true);
   };
 
   return (
@@ -58,7 +60,11 @@ export default function Sync() {
         <h1 className="md:text-md lg:text-xl font-bold text-center pt-[5rem] pb-[2rem]">
           Sync with your cycle.
         </h1>
-        <div className="drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white  w-[480px] h-[660px]">
+        <div
+          className={`drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white  w-[480px] ${
+            showCalendar ? "w-auto" : ""
+          } transition-width duration-1000 ease`}
+        >
           {(showCalendar || showClueLogin) && (
             <a
               onClick={() => {
@@ -170,24 +176,61 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-2">
-              <Title title="Your personal calendar" />
-              <Calendar
-                id="mycustomcalendar"
-                startDate={periodStartDate}
-                events={calEvents}
-                emailVersion={emailVersion}
-              />
-              <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8 justify-center items-center">
+              <div className="flex flex-col gap-2">
+                <Title title="Your personal calendar" />
+                <div className="mt-12" />
+                <Calendar
+                  id="mycustomcalendar"
+                  startDate={periodStartDate}
+                  events={calEvents}
+                  emailVersion={emailVersion}
+                />
+              </div>
+              <div className="flex flex-col gap-4 mt-12 ">
+                <h1 className="text-xl">How do I get productive now?</h1>
+                <p>
+                  You can{" "}
+                  <a
+                    href="#emailme"
+                    className="font-bold text-md underline underline-offset-4 decoration-2 cursor-pointer"
+                  >
+                    email yourself this personalized calendar
+                  </a>{" "}
+                  so you can refer to it at your convenience.
+                </p>
+                <p> or if you want to get extra productive 🤓</p>
+                <p>👉🏼 Sync this calendar with your Google Calendar.</p>
+              </div>
+              <div id="emailme" className="flex flex-col gap-4 mt-20 w-[350px]">
+                <Title title={"Personalized Cycle Guide"} />
+                <p className="text-sm">
+                  The calendar above is your personal cycle map. Use it to your
+                  full advantage. Now you know which days are good for important
+                  meetings and which should be reserved for dialing it back and
+                  relaxing.
+                </p>
+                <Input label="your email"></Input>
                 <Button
                   className="bg-secondaryButton w-full h-11 capitalize"
                   color={"indigo"}
                   onClick={() => setEmailVersion(true)}
                 >
-                  Email this great info to me
+                  Send me my cycle Guide
                 </Button>
+              </div>
+              <div className="flex flex-col gap-4 mt-20 w-[650px]">
+                <h1 className="text-2xl">
+                  {"🥳 Own your cycle and your calendar🥳"}
+                </h1>
+                <p className="text-md">
+                  The calendar above is your personal cycle map. Use it to your
+                  full advantage. Now you know which days are good for important
+                  meetings and which should be reserved for dialing it back and
+                  relaxing.
+                </p>
                 <Button className="bg-transparent text-black border w-full h-11 capitalize">
-                  Sync with my Google Calendar
+                  Sync with Google Calendar
                 </Button>
               </div>
             </div>
