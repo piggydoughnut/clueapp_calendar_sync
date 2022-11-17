@@ -65,13 +65,6 @@ export default function FAQ() {
           answer={el.answer}
         />
       ))}
-      <FAQElement
-        openMe={open === 1}
-        handleOpen={() => handleOpen(1)}
-        question="How does billing work?"
-        answer="It is a monthly subscription. By paying the subscription you receive a
-      service and we get to keep running our service and improving it."
-      />
     </div>
   );
 }

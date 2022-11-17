@@ -1,6 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Layout from "../components/Layout";
+import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import QA from "../components/QA";
 import calendar from "../public/calendar.svg";
 import { useRouter } from "next/router";
@@ -25,7 +26,10 @@ export default function Welcome() {
               easy monotonus tasks.
             </h2>
             <div className="flex flex-row gap-8 mt-4">
-              <Button className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta">
+              <Button
+                className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
+                onClick={() => router.push("#whydoit")}
+              >
                 Why?{" "}
               </Button>
               <Button
@@ -47,7 +51,10 @@ export default function Welcome() {
               />
               <p className="max-w-[400px] text-sm opacity-70">
                 If you are not using Clue,{" "}
-                <a className="underline hover:opacity-70" href="">
+                <a
+                  className="underline hover:opacity-70"
+                  href="#periodtrackerform"
+                >
                   please let us know which period tracker you use
                 </a>
                 . We are working on integrating more period trackers.
@@ -65,13 +72,13 @@ export default function Welcome() {
           </div>
         </div>
       </div>
-      <div className="mt-40 scroll-smooth">
+      <div className="mt-40 scroll-smooth scroll-m-10" id="whydoit">
         {[
           {
             title: "Why would I want to sync with my cycle?",
             key: "benefits",
             content: (
-              <p id="whydoit" className="scroll scroll-mt-36">
+              <p className="scroll scroll-mt-36">
                 There are many benefits to living in sync with one's cycle. If
                 you learn how your cycle works aka how you work, you can
                 understand which days suit better for which tasks. You can use
@@ -202,22 +209,8 @@ export default function Welcome() {
             </QA>
           </div>
         ))}
-        <div className="mx-20 opacity-50">
-          <p className="font-bold uppercase">DISCLAIMER</p>
-          <p>
-            The content presented on this website is meant for inspiration and
-            informational purposes only. The user of this website understands
-            that the creator is not a medical professional, and the information
-            contained within this website is not intended to replace medical
-            advice or to be relied upon to treat, cure or prevent any disease,
-            illness or medical condition. It is understood that you will seek
-            full medical clearance by a licensed physician before making any
-            changes mentioned on this website. The author claims no
-            responsibility to any person or entity for any liability, loss or
-            damage caused or alleged to be caused directly or indirectly as a
-            result of the use, application or interpretation of the material on
-            this website
-          </p>
+        <div id="periodtrackerform">
+          <PeriodTrackerSupportForm />
         </div>
       </div>
     </Layout>
