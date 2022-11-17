@@ -1,5 +1,7 @@
+import FAQ from "../components/FAQ";
 import Layout from "../components/Layout";
 import PricingOptions from "../components/PricingOptions";
+import { useState } from "react";
 
 export default function Pricing() {
   return (
@@ -27,6 +29,9 @@ export default function Pricing() {
           if you have any questions.
         </p>
         <PricingOptions />
+        <div className="max-w-[600px]">
+          <FAQ />
+        </div>
       </div>
     </Layout>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 const menu = [
   {
     name: "The science",
-    url: "#whydoit",
+    url: "/#whydoit",
   },
   {
     name: "About",
@@ -16,7 +16,7 @@ const menu = [
   },
   {
     name: "FAQ",
-    url: "",
+    url: "/pricing#faq",
   },
 ];
 

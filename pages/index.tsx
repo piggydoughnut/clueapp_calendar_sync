@@ -48,7 +48,7 @@ export default function Welcome() {
               <p className="max-w-[400px] text-sm opacity-70">
                 If you are not using Clue,{" "}
                 <a className="underline hover:opacity-70" href="">
-                  please let us know which one you use
+                  please let us know which period tracker you use
                 </a>
                 . We are working on integrating more period trackers.
               </p>
