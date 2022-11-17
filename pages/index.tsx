@@ -13,8 +13,11 @@ export default function Welcome() {
         <div className="flex space-between gap-[10rem] justify-center">
           <div className="flex flex-col">
             <h1 className="md:text-md lg:text-xl font-bold max-w-xl leading-10">
-              Sync your life with your cycle for higher productivity and
-              balance.
+              Sync your{" "}
+              <span className="text-pu text-secondaryButton">
+                Google Calendar
+              </span>{" "}
+              with your cycle for higher productivity and balance.
             </h1>
             <h2 className="text-sm max-w-md opacity-70 mt-2">
               Increase your productivity by hacking your cycle. Schedule
@@ -29,11 +32,11 @@ export default function Welcome() {
                 className="bg-primaryButton w-36 h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
-                Show me
+                How?
               </Button>
             </div>
             <div className="mt-6">
-              <h2 className="uppercase font-sm font-bold mt-2 mb-2">
+              <h2 className="uppercase text-tiny mt-2 mb-2 opacity-60">
                 Supported period trackers
               </h2>
               <Image
@@ -62,13 +65,13 @@ export default function Welcome() {
           </div>
         </div>
       </div>
-      <div className="mt-40">
+      <div className="mt-40 scroll-smooth">
         {[
           {
             title: "Why would I want to sync with my cycle?",
             key: "benefits",
             content: (
-              <p>
+              <p id="whydoit" className="scroll scroll-mt-36">
                 There are many benefits to living in sync with one's cycle. If
                 you learn how your cycle works aka how you work, you can
                 understand which days suit better for which tasks. You can use

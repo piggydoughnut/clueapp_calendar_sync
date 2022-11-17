@@ -1,4 +1,10 @@
-import { Button, Input } from "@material-tailwind/react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Radio,
+  Textarea,
+} from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 import { beginnerReasons, proReasons } from "../data/pricing";
 import { useEffect, useState } from "react";
@@ -11,8 +17,11 @@ import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
 import Pricing from "../components/PricingBeginner";
-import PricingBeginner from "../components/PricingBeginner";
+import cal from "../public/calendar-icon.svg";
+import eq from "../public/eq.svg";
 import { getCalendarData } from "../helpers/calendar";
+import heart from "../public/heart-pulse.svg";
+import plus from "../public/plus.svg";
 import { useScreenshot } from "use-react-screenshot";
 
 const Title = ({ title }: { title: string }) => (
@@ -60,7 +69,7 @@ export default function Sync() {
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <h1 className="md:text-md lg:text-xl font-bold text-center pt-[5rem] pb-[2rem]">
+        <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[5rem] pb-[2rem]">
           Sync with your cycle.
         </h1>
         <div
@@ -190,53 +199,6 @@ export default function Sync() {
                   emailVersion={emailVersion}
                 />
               </div>
-              {/*               
-              <div className="flex flex-col gap-4 mt-12 ">
-                <h1 className="text-xl">How do I get productive now?</h1>
-                <p>
-                  You can{" "}
-                  <a
-                    href="#emailme"
-                    className="font-bold text-md underline underline-offset-4 decoration-2 cursor-pointer"
-                  >
-                    email yourself this personalized calendar
-                  </a>{" "}
-                  so you can refer to it at your convenience.
-                </p>
-                <p> or if you want to get extra productive 🤓</p>
-                <p>👉🏼 Sync this calendar with your Google Calendar.</p>
-              </div> */}
-              {/* <div id="emailme" className="flex flex-col gap-4 mt-20 w-[350px]">
-                <Title title={"Personalized Cycle Guide"} />
-                <p className="text-sm">
-                  The calendar above is your personal cycle map. Use it to your
-                  full advantage. Now you know which days are good for important
-                  meetings and which should be reserved for dialing it back and
-                  relaxing.
-                </p>
-                <Input label="your email"></Input>
-                <Button
-                  className="bg-secondaryButton w-full h-11 capitalize"
-                  color={"indigo"}
-                  onClick={() => setEmailVersion(true)}
-                >
-                  Send me my cycle Guide
-                </Button>
-              </div> */}
-              {/* <div className="flex flex-col gap-4 mt-20 w-[650px]">
-                <h1 className="text-2xl">
-                  {"🥳 Own your cycle and your calendar🥳"}
-                </h1>
-                <p className="text-md">
-                  The calendar above is your personal cycle map. Use it to your
-                  full advantage. Now you know which days are good for important
-                  meetings and which should be reserved for dialing it back and
-                  relaxing.
-                </p>
-                <Button className="bg-transparent text-black border w-full h-11 capitalize">
-                  Sync with Google Calendar
-                </Button>
-              </div> */}
             </div>
           )}
         </div>
@@ -247,14 +209,71 @@ export default function Sync() {
             <h2 className="text-lg font-bold text-center mt-24 mb-24">
               Use the newly found power to balance your life and hack your cycle
             </h2>
-            <div className="flex flex-row gap-12 mt-20">
+
+            <div className="flex flex-row gap-6">
+              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
+                <Image src={heart} width={32} height={32} alt="heart" />
+                <div>
+                  <p className="uppercase  font-bold">Your cycle data</p>
+                  <p className="text-sm">
+                    Data on which days you
+                    <ul className="list-disc list-inside">
+                      <li>need to take it slow</li>
+                      <li>can put some extra work in</li>
+                      <li>need to take extra care of yourself</li>
+                      <li>can be impatient</li>
+                      <li>not ready for social interaction</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+
+              <Image src={plus} width={32} height={32} alt="plus" />
+              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
+                <Image src={cal} width={32} height={32} alt="calendar" />
+                <div>
+                  <p className="uppercase font-bold">Your Google Calendar</p>
+                  <p className="text-sm">
+                    Space where you
+                    <ul className="list-disc list-inside">
+                      <li>plan your work mettings</li>
+                      <li>schedule dates</li>
+                      <li>add reminders for events to attend</li>
+                      <li>receive call invitations</li>
+                      <li>create travel plans</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+
+              <Image src={eq} width={32} height={32} alt="eq" />
+              <div className="flex flex-row justify-start items-start gap-2 border-secondaryButton border-2 rounded p-4 ">
+                <div>
+                  <p className="uppercase font-bold text-secondaryButton">
+                    Balance
+                  </p>
+                  <p className="text-sm">
+                    <ul className="list-disc list-inside">
+                      <li>You know when to schedule busy days.</li>
+                      <li>You know when to take it slow.</li>
+                      <li>You are in tune with yourself.</li>
+                      <li>You are less stressed.</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <h2 className="text-lg font-bold text-center mt-24 mb-12">
+              Sign up to have your google calendar synced with your cycle.
+            </h2>
+            <div className="flex flex-row">
               <Pricing
                 type="Beginner 🤓"
                 title="YOUR PERSONALIZED CYCLE CALENDAR"
                 price="free"
                 reasons={beginnerReasons}
               >
-                <div className="flex flex-col gap-2 mt-36 w-[300px]">
+                <div className="flex flex-col gap-2 mt-28 w-[300px]">
                   <Input label="your email"></Input>
                   <Button
                     className="bg-secondaryButton w-full h-11 capitalize"
@@ -268,15 +287,17 @@ export default function Sync() {
               <Pricing
                 type="Pro 😎"
                 title="always Know the best time to schedule!"
-                price="1st sync free + $2.71/mo after"
+                price="$1.77/mo"
                 reasons={proReasons}
+                highlight
               >
                 <div className="flex flex-col gap-2 mt-6 w-[300px]">
-                  <div className="flex flex-col justify-center mt-6 mx-auto">
+                  <div className="flex flex-col justify-center mx-auto">
                     <h2 className="uppercase text-tiny opacity-50 mt-2 mb-2 text-center">
                       Supported period trackers
                     </h2>
                     <Image
+                      className="mx-auto"
                       src="/clue.png"
                       width={120}
                       height={40}
@@ -285,7 +306,7 @@ export default function Sync() {
                     <p className="max-w-[400px] text-tiny opacity-70">
                       If you are not using Clue,{" "}
                       <a className="underline hover:opacity-70" href="">
-                        please let us know which one you use
+                        please let us know which period tracker you use
                       </a>
                       . We are working on integrating more period trackers.
                     </p>
@@ -295,6 +316,45 @@ export default function Sync() {
                   </Button>
                 </div>
               </Pricing>
+            </div>
+            <div className="mt-24 flex flex-col justify-center items-center font-bold">
+              <h2>Is your period tracker not supported?</h2>
+              <p>
+                Please let us know and we will notify you once we integrate it!
+                ❤️
+              </p>
+              <div className="flex flex-col gap-2 mt-4 w-[300px]">
+                <Input label="your email"></Input>
+                <Input label="your tracker name"></Input>
+                <div className="">
+                  <p className="font-normal text-sm pt-2">
+                    I could be interested in changing my current period tracker
+                    app.
+                  </p>
+                  <div className="flex gap-10 text-sm">
+                    <Radio
+                      id="yesTracker"
+                      name="type"
+                      label="Yes"
+                      defaultChecked
+                    />
+                    <Radio id="noTracker" name="type" label="No" />
+                  </div>
+                </div>
+                <div className="">
+                  <p className="font-normal text-sm mb-1">
+                    Please share any feedback that you have
+                  </p>
+                  <Textarea></Textarea>
+                </div>
+                <Button
+                  className="bg-secondaryButton w-full h-11 capitalize"
+                  color={"indigo"}
+                  // onClick={() => setEmailVersion(true)}
+                >
+                  Notify me please
+                </Button>
+              </div>
             </div>
           </div>
         )}

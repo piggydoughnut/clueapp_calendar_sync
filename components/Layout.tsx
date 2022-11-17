@@ -4,7 +4,7 @@ import Link from "next/link";
 const menu = [
   {
     name: "The science",
-    url: "#",
+    url: "#whydoit",
   },
   {
     name: "About",
@@ -79,7 +79,7 @@ export default function Layout({
   children,
 }) {
   return (
-    <div className={`bg-no-repeat ${bgImage}`}>
+    <div className={`bg-no-repeat ${bgImage} scroll-smooth`}>
       <Navbar />
       <main>{children}</main>
       <Footer />

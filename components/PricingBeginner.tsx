@@ -19,9 +19,20 @@ const ReasonRow = ({ sign, text }) => {
   );
 };
 
-export default function Pricing({ type, title, price, reasons, children }) {
+export default function Pricing({
+  type,
+  title,
+  price,
+  reasons,
+  children,
+  highlight = false,
+}) {
   return (
-    <div className="drop-shadow-md border pt-12 pb-8 pl-7 pr-7 mx-auto bg-white w-[370px]">
+    <div
+      className={`rounded-md drop-shadow-md border pt-12 pb-8 pl-7 pr-7 mx-auto bg-white w-[370px] ${
+        highlight ? "shadow-deep-orange-300 border-deep-orange-300" : ""
+      }`}
+    >
       <div className="flex flex-col justify-center items-center">
         <h3 className="text-md font-bold mb-4">{type}</h3>
         <PriceTag price={price} />

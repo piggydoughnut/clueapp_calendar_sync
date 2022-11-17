@@ -8,6 +8,11 @@
 html {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
 
 @layer base {
     input[type='number']::-webkit-outer-spin-button,
