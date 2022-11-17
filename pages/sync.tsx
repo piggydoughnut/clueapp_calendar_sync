@@ -1,5 +1,6 @@
 import { Button, Input } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
+import { beginnerReasons, proReasons } from "../data/pricing";
 import { useEffect, useState } from "react";
 
 import Calendar from "../components/calendar/Calendar";
@@ -9,6 +10,8 @@ import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
+import Pricing from "../components/PricingBeginner";
+import PricingBeginner from "../components/PricingBeginner";
 import { getCalendarData } from "../helpers/calendar";
 import { useScreenshot } from "use-react-screenshot";
 
@@ -176,7 +179,7 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-8 justify-center items-center">
+            <div className="flex flex-col gap-8 justify-start items-start h-[500px]">
               <div className="flex flex-col gap-2">
                 <Title title="Your personal calendar" />
                 <div className="mt-12" />
@@ -187,6 +190,7 @@ export default function Sync() {
                   emailVersion={emailVersion}
                 />
               </div>
+              {/*               
               <div className="flex flex-col gap-4 mt-12 ">
                 <h1 className="text-xl">How do I get productive now?</h1>
                 <p>
@@ -201,8 +205,8 @@ export default function Sync() {
                 </p>
                 <p> or if you want to get extra productive 🤓</p>
                 <p>👉🏼 Sync this calendar with your Google Calendar.</p>
-              </div>
-              <div id="emailme" className="flex flex-col gap-4 mt-20 w-[350px]">
+              </div> */}
+              {/* <div id="emailme" className="flex flex-col gap-4 mt-20 w-[350px]">
                 <Title title={"Personalized Cycle Guide"} />
                 <p className="text-sm">
                   The calendar above is your personal cycle map. Use it to your
@@ -218,8 +222,8 @@ export default function Sync() {
                 >
                   Send me my cycle Guide
                 </Button>
-              </div>
-              <div className="flex flex-col gap-4 mt-20 w-[650px]">
+              </div> */}
+              {/* <div className="flex flex-col gap-4 mt-20 w-[650px]">
                 <h1 className="text-2xl">
                   {"🥳 Own your cycle and your calendar🥳"}
                 </h1>
@@ -232,11 +236,68 @@ export default function Sync() {
                 <Button className="bg-transparent text-black border w-full h-11 capitalize">
                   Sync with Google Calendar
                 </Button>
-              </div>
+              </div> */}
             </div>
           )}
         </div>
-        <img width={400} src={image} alt={"Screenshot"} />
+
+        {/* <img width={400} src={image} alt={"Screenshot"} /> */}
+        {showCalendar && (
+          <div>
+            <h2 className="text-lg font-bold text-center mt-24 mb-24">
+              Use the newly found power to balance your life and hack your cycle
+            </h2>
+            <div className="flex flex-row gap-12 mt-20">
+              <Pricing
+                type="Beginner 🤓"
+                title="YOUR PERSONALIZED CYCLE CALENDAR"
+                price="free"
+                reasons={beginnerReasons}
+              >
+                <div className="flex flex-col gap-2 mt-36 w-[300px]">
+                  <Input label="your email"></Input>
+                  <Button
+                    className="bg-secondaryButton w-full h-11 capitalize"
+                    color={"indigo"}
+                    // onClick={() => setEmailVersion(true)}
+                  >
+                    Send me my Calendar
+                  </Button>
+                </div>
+              </Pricing>
+              <Pricing
+                type="Pro 😎"
+                title="always Know the best time to schedule!"
+                price="1st sync free + $2.71/mo after"
+                reasons={proReasons}
+              >
+                <div className="flex flex-col gap-2 mt-6 w-[300px]">
+                  <div className="flex flex-col justify-center mt-6 mx-auto">
+                    <h2 className="uppercase text-tiny opacity-50 mt-2 mb-2 text-center">
+                      Supported period trackers
+                    </h2>
+                    <Image
+                      src="/clue.png"
+                      width={120}
+                      height={40}
+                      alt="exteralSource"
+                    />
+                    <p className="max-w-[400px] text-tiny opacity-70">
+                      If you are not using Clue,{" "}
+                      <a className="underline hover:opacity-70" href="">
+                        please let us know which one you use
+                      </a>
+                      . We are working on integrating more period trackers.
+                    </p>
+                  </div>
+                  <Button className="bg-transparent text-black border w-full h-11 capitalize">
+                    Sync with Google Calendar
+                  </Button>
+                </div>
+              </Pricing>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
