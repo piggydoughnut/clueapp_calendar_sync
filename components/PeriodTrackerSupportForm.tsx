@@ -2,9 +2,13 @@ import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 
 export default function PeriodTrackerSupportForm() {
   return (
-    <div className="mt-24 flex flex-col justify-center items-center font-bold">
-      <h2>Is your period tracker not supported?</h2>
-      <p>Please let us know and we will notify you once we integrate it! ❤️</p>
+    <div className="mt-24 flex flex-col justify-center items-center">
+      <h2 className="uppercase text-lg mb-4 font-bold">
+        Is your period tracker not supported?
+      </h2>
+      <p className="font-normal">
+        Please let us know and we will notify you once we integrate it! ❤️
+      </p>
       <div className="flex flex-col gap-2 mt-4 w-[300px]">
         <Input label="your email"></Input>
         <Input label="your tracker name"></Input>

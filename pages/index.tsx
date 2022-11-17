@@ -209,7 +209,7 @@ export default function Welcome() {
             </QA>
           </div>
         ))}
-        <div id="periodtrackerform">
+        <div id="periodtrackerform" className="mt-42">
           <PeriodTrackerSupportForm />
         </div>
       </div>
