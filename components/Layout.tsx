@@ -7,24 +7,42 @@ const Navbar = () => (
       className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
       href="/"
     >
-      The Cycle
+      Cycle Nurture
     </Link>
     <div className="flex flex-row gap-12 items-center">
       <Link
-        className="hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+        className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+        href="/about"
+      >
+        The science
+      </Link>
+      <Link
+        className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
         href="/about"
       >
         About
       </Link>
-      <Link href="/signup">
-        <Button
-          variant="outlined"
-          className=" w-36 h-11 uppercase text-sm font-plusJakarta"
-        >
-          Sign Up
-        </Button>
+      <Link
+        className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+        href="/about"
+      >
+        Pricing
+      </Link>
+      <Link
+        className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+        href="/about"
+      >
+        FAQ
       </Link>
     </div>
+    <Link href="/signup">
+      <Button
+        variant="outlined"
+        className=" w-36 h-11 uppercase text-sm font-plusJakarta"
+      >
+        Sign Up
+      </Button>
+    </Link>
   </div>
 );
 const Footer = () => <div></div>;

@@ -16,12 +16,12 @@ export default function Welcome() {
               Sync your life with your cycle for higher productivity and
               balance.
             </h1>
-            <h2 className="text-sm max-w-md opacity-70 mt-6">
+            <h2 className="text-sm max-w-md opacity-70 mt-2">
               Increase your productivity by hacking your cycle. Schedule
               meetings on the days your are a rockstar and use the slow days for
               easy monotonus tasks.
             </h2>
-            <div className="flex flex-row gap-8 mt-8">
+            <div className="flex flex-row gap-8 mt-4">
               <Button className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta">
                 Why?{" "}
               </Button>
@@ -29,8 +29,26 @@ export default function Welcome() {
                 className="bg-primaryButton w-36 h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
-                Show me{" "}
+                Show me
               </Button>
+            </div>
+            <div className="mt-6">
+              <h2 className="uppercase font-sm font-bold mt-2 mb-2">
+                Supported period trackers
+              </h2>
+              <Image
+                src="/clue.png"
+                width={120}
+                height={40}
+                alt="exteralSource"
+              />
+              <p className="max-w-[400px] text-sm opacity-70">
+                If you are not using Clue,{" "}
+                <a className="underline hover:opacity-70" href="">
+                  please let us know which one you use
+                </a>
+                . We are working on integrating more period trackers.
+              </p>
             </div>
           </div>
           <div className="flex pt-4">
