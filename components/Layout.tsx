@@ -8,11 +8,11 @@ const menu = [
   },
   {
     name: "About",
-    url: "#",
+    url: "/about",
   },
   {
     name: "Pricing",
-    url: "#",
+    url: "/pricing",
   },
   {
     name: "FAQ",

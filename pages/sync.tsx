@@ -16,7 +16,9 @@ import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
-import Pricing from "../components/PricingBeginner";
+import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
+import Pricing from "../components/Pricing";
+import PricingOptions from "../components/PricingOptions";
 import cal from "../public/calendar-icon.svg";
 import eq from "../public/eq.svg";
 import { getCalendarData } from "../helpers/calendar";
@@ -266,96 +268,8 @@ export default function Sync() {
             <h2 className="text-lg font-bold text-center mt-24 mb-12">
               Sign up to have your google calendar synced with your cycle.
             </h2>
-            <div className="flex flex-row">
-              <Pricing
-                type="Beginner 🤓"
-                title="YOUR PERSONALIZED CYCLE CALENDAR"
-                price="free"
-                reasons={beginnerReasons}
-              >
-                <div className="flex flex-col gap-2 mt-28 w-[300px]">
-                  <Input label="your email"></Input>
-                  <Button
-                    className="bg-secondaryButton w-full h-11 capitalize"
-                    color={"indigo"}
-                    // onClick={() => setEmailVersion(true)}
-                  >
-                    Send me my Calendar
-                  </Button>
-                </div>
-              </Pricing>
-              <Pricing
-                type="Pro 😎"
-                title="always Know the best time to schedule!"
-                price="$1.77/mo"
-                reasons={proReasons}
-                highlight
-              >
-                <div className="flex flex-col gap-2 mt-6 w-[300px]">
-                  <div className="flex flex-col justify-center mx-auto">
-                    <h2 className="uppercase text-tiny opacity-50 mt-2 mb-2 text-center">
-                      Supported period trackers
-                    </h2>
-                    <Image
-                      className="mx-auto"
-                      src="/clue.png"
-                      width={120}
-                      height={40}
-                      alt="exteralSource"
-                    />
-                    <p className="max-w-[400px] text-tiny opacity-70">
-                      If you are not using Clue,{" "}
-                      <a className="underline hover:opacity-70" href="">
-                        please let us know which period tracker you use
-                      </a>
-                      . We are working on integrating more period trackers.
-                    </p>
-                  </div>
-                  <Button className="bg-transparent text-black border w-full h-11 capitalize">
-                    Sync with Google Calendar
-                  </Button>
-                </div>
-              </Pricing>
-            </div>
-            <div className="mt-24 flex flex-col justify-center items-center font-bold">
-              <h2>Is your period tracker not supported?</h2>
-              <p>
-                Please let us know and we will notify you once we integrate it!
-                ❤️
-              </p>
-              <div className="flex flex-col gap-2 mt-4 w-[300px]">
-                <Input label="your email"></Input>
-                <Input label="your tracker name"></Input>
-                <div className="">
-                  <p className="font-normal text-sm pt-2">
-                    I could be interested in changing my current period tracker
-                    app.
-                  </p>
-                  <div className="flex gap-10 text-sm">
-                    <Radio
-                      id="yesTracker"
-                      name="type"
-                      label="Yes"
-                      defaultChecked
-                    />
-                    <Radio id="noTracker" name="type" label="No" />
-                  </div>
-                </div>
-                <div className="">
-                  <p className="font-normal text-sm mb-1">
-                    Please share any feedback that you have
-                  </p>
-                  <Textarea></Textarea>
-                </div>
-                <Button
-                  className="bg-secondaryButton w-full h-11 capitalize"
-                  color={"indigo"}
-                  // onClick={() => setEmailVersion(true)}
-                >
-                  Notify me please
-                </Button>
-              </div>
-            </div>
+            <PricingOptions />
+            <PeriodTrackerSupportForm />
           </div>
         )}
       </div>

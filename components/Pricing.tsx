@@ -29,7 +29,7 @@ export default function Pricing({
 }) {
   return (
     <div
-      className={`rounded-md drop-shadow-md border pt-12 pb-8 pl-7 pr-7 mx-auto bg-white w-[370px] ${
+      className={`rounded-md drop-shadow-md border pt-12 pb-8 pl-7 pr-7 bg-white w-[370px] ${
         highlight ? "shadow-deep-orange-300 border-deep-orange-300" : ""
       }`}
     >
@@ -51,24 +51,3 @@ export default function Pricing({
     </div>
   );
 }
-
-// // export default function PricingBeginner() {
-//   return (
-//     <Pricing
-//       title="YOUR PERSONALIZED CYCLE CALENDAR"
-//       price="free"
-//       reasons={beginnerReasons}
-//     >
-//       <div className="flex flex-col gap-2 mt-6 w-[300px]">
-//         <Input label="your email"></Input>
-//         <Button
-//           className="bg-secondaryButton w-full h-11 capitalize"
-//           color={"indigo"}
-//           // onClick={() => setEmailVersion(true)}
-//         >
-//           Send me my Calendar
-//         </Button>
-//       </div>
-//     </Pricing>
-//   );
-// }
