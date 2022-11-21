@@ -39,15 +39,14 @@ const Navbar = () => (
         </Link>
       ))}
     </div>
-    <div className="w-[107px]"></div>
-    {/* <Link href="/signup">
+    <Link href="/signup">
       <Button
         variant="outlined"
         className=" w-36 h-11 uppercase text-sm font-plusJakarta"
       >
         Sign Up
       </Button>
-    </Link> */}
+    </Link>
   </div>
 );
 const Footer = () => (
