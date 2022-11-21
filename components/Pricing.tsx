@@ -34,10 +34,10 @@ export default function Pricing({
       }`}
     >
       <div className="flex flex-col justify-center items-center">
-        <h3 className="text-md font-bold mb-4">{type}</h3>
+        <h3 className="text-md font-bold mb-4 text-center h-12">{title}</h3>
         <PriceTag price={price} />
-        <p className="uppercase font-bold text-sm mt-6 mb-6">{title}</p>
-        <div className="flex flex-col gap-3">
+        {/* <p className="uppercase font-bold text-sm mt-6 mb-6">{title}</p> */}
+        <div className="flex flex-col gap-3 mt-6">
           {reasons.map((line) => (
             <ReasonRow
               key={line.text}

@@ -8,8 +8,8 @@ export default function PricingOptions() {
   return (
     <div className="flex flex-row gap-12 justify-center">
       <Pricing
-        type="Beginner 🤓"
-        title="YOUR PERSONALIZED CYCLE CALENDAR"
+        type=""
+        title="Email yourself your personalized calendar 🤓"
         price="free"
         reasons={beginnerReasons}
       >
@@ -25,8 +25,8 @@ export default function PricingOptions() {
         </div>
       </Pricing>
       <Pricing
-        type="Pro 😎"
-        title="always Know the best time to schedule!"
+        type=""
+        title="Monthly auto sync your cycle with your Google Calendar 😎"
         price="$1.77/mo"
         reasons={proReasons}
         highlight
