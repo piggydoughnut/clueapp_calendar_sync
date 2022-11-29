@@ -1,3 +1,4 @@
+import { EventType } from "../../helpers/calendar";
 import { cyclePhaseColors } from "../../helpers/defines";
 import { format } from "date-fns";
 import { useMonthlyBody } from "./MonthlyBody";
@@ -5,9 +6,10 @@ import { useMonthlyCalendar } from "./MonthlyCalendar";
 
 const CalendarDay = ({ emailVersion }: { emailVersion: boolean }) => {
   let { locale } = useMonthlyCalendar();
-  let { day, events } = useMonthlyBody();
+  let { day, events }: { day: Date; events: Array<EventType> } =
+    useMonthlyBody();
   let dayNumber = format(day, "d", { locale });
-  let circleColor = events.length > 0 ? cyclePhaseColors[events[0].type] : "";
+  let circleColor = events.length > 0 ? cyclePhaseColors[events[0]?.type] : "";
   return (
     <div className="pt-1 pb-1">
       <div

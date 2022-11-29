@@ -2,11 +2,11 @@ import { Form, Formik } from "formik";
 import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
 import { Phases, cyclePhaseColors } from "../../helpers/defines";
 import { format, getYear, startOfMonth } from "date-fns";
+import { useEffect, useState } from "react";
 
 import CalendarDay from "./CalendarDay";
 import LegendItem from "./LegendItem";
 import { MonthlyBody } from "./MonthlyBody";
-import { useState } from "react";
 
 const phasesInfo = {
   [Phases.DREAM]: "This is the time to take extra care of yourself",
@@ -40,6 +40,27 @@ export default function Calendar({
     [Phases.GIVE]: true,
     [Phases.TAKE]: true,
   });
+
+  useEffect(() => {
+    if (emailVersion) {
+      setExplanation(true);
+    }
+  }, [emailVersion]);
+
+  const showItem = (item) => (
+    <div key={item}>
+      <LegendItem
+        title={item}
+        color={cyclePhaseColors[item]}
+        on={switches[item]}
+        onChecked={() => filterEvents(item)}
+        emailVersion={emailVersion}
+      />
+      {explanation && (
+        <p className="text-sm ml-12 opacity-60">{phasesInfo[item]}</p>
+      )}
+    </div>
+  );
 
   const filterEvents = (type) => {
     const filtered = monthEvents.map((event) => {
@@ -84,27 +105,19 @@ export default function Calendar({
         {showLegend && (
           <div className="flex flex-col gap-6 mb-8 w-72">
             {!emailVersion && (
-              <div
-                className="underline mb-4 cursor-pointer"
-                onClick={() => setExplanation(!explanation)}
-              >
-                Explain the cycle phases to me
-              </div>
-            )}
-            {Object.values(Phases).map((item) => (
-              <div key={item}>
-                <LegendItem
-                  title={item}
-                  color={cyclePhaseColors[item]}
-                  on={switches[item]}
-                  onChecked={() => filterEvents(item)}
-                  emailVersion={emailVersion}
-                />
-                {explanation && (
-                  <p className="text-sm ml-12 opacity-60">{phasesInfo[item]}</p>
-                )}
-              </div>
-            ))}
+                <div
+                  className="underline mb-4 cursor-pointer"
+                  onClick={() => setExplanation(!explanation)}
+                >
+                  Explain the cycle phases to me
+                </div>
+              ) &&
+              Object.values(Phases).map((item) => showItem(item))}
+
+            {emailVersion &&
+              Object.values(Phases).map(
+                (item) => switches[item] && showItem(item)
+              )}
           </div>
         )}
       </div>

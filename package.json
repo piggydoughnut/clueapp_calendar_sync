@@ -16,6 +16,8 @@
     "formik": "^2.2.9",
     "googleapis": "^109.0.1",
     "html2canvas": "^1.4.1",
+    "mailgun-js": "^0.22.0",
+    "mjml": "^4.13.0",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
