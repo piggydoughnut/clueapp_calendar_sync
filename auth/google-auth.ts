@@ -42,6 +42,14 @@ export function getTokens({
     grant_type: "authorization_code",
   };
 
+  /**
+   *  access_token: '',
+      expires_in: 3599,
+      refresh_token: '',
+      scope: 'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile',
+      token_type: 'Bearer',
+      id_token:
+   */
   return axios
     .post(GoogleUrls.GET_TOKEN, querystring.stringify(values), {
       headers: {
@@ -50,6 +58,7 @@ export function getTokens({
     })
     .then((res) => res.data)
     .catch((error) => {
+      console.log(error);
       throw new Error(error.message);
     });
 }

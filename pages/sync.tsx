@@ -1,5 +1,13 @@
-import { Button, Input, Tooltip } from "@material-tailwind/react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Radio,
+  Textarea,
+} from "@material-tailwind/react";
 import { Form, Formik } from "formik";
+import { beginnerReasons, proReasons } from "../data/pricing";
+import { useEffect, useState } from "react";
 
 import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
@@ -8,12 +16,18 @@ import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
+import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
+import Pricing from "../components/Pricing";
+import PricingOptions from "../components/PricingOptions";
+import cal from "../public/calendar-icon.svg";
+import eq from "../public/eq.svg";
 import { getCalendarData } from "../helpers/calendar";
+import heart from "../public/heart-pulse.svg";
+import plus from "../public/plus.svg";
 import { useScreenshot } from "use-react-screenshot";
-import { useState } from "react";
 
 const Title = ({ title }: { title: string }) => (
-  <h2 className="uppercase text-sm font-bold text-center mt-8 mb-4">{title}</h2>
+  <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
 );
 
 const initialValues = {
@@ -27,8 +41,10 @@ export default function Sync() {
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
+  const [loggedInWithClue, setLoggedInWithClue] = useState(false);
   const [params, setParams] = useState(initialValues);
   const [image, takeScreenshot] = useScreenshot();
+  const [emailVersion, setEmailVersion] = useState(false);
 
   const prepareCalendar = (start, length, lengthCycle) => {
     setPeriodStartDate(start);
@@ -37,24 +53,32 @@ export default function Sync() {
     setShowCalendar(true);
   };
 
+  useEffect(() => {
+    if (emailVersion) {
+      takeScreenshot(document?.getElementById("mycustomcalendar"));
+    }
+    setEmailVersion(false);
+  }, [emailVersion]);
+
   const processClueData = (data) => {
     const periodLength = data.phases[0].length;
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
-  };
-
-  const emailTheView = () => {
-    takeScreenshot(document?.getElementById("mycustomcalendar"));
+    setLoggedInWithClue(true);
   };
 
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <h1 className="md:text-md lg:text-xl font-bold text-center pt-[5rem] pb-[2rem]">
+        <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[5rem] pb-[2rem]">
           Sync with your cycle.
         </h1>
-        <div className="drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white  w-[480px] h-[660px]">
+        <div
+          className={`drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white  w-[480px] ${
+            showCalendar ? "w-auto" : ""
+          } transition-width duration-1000 ease`}
+        >
           {(showCalendar || showClueLogin) && (
             <a
               onClick={() => {
@@ -166,29 +190,89 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-2">
-              <Title title="Your personal calendar" />
-              <Calendar
-                id="mycustomcalendar"
-                startDate={periodStartDate}
-                events={calEvents}
-              />
-              <div className="flex flex-col gap-4">
-                <Button
-                  className="bg-secondaryButton w-full h-11 capitalize"
-                  color={"indigo"}
-                  onClick={() => emailTheView()}
-                >
-                  Email this great info to me
-                </Button>
-                <Button className="bg-transparent text-black border w-full h-11 capitalize">
-                  Sync with my Google Calendar
-                </Button>
+            <div className="flex flex-col gap-8 justify-start items-start h-[500px]">
+              <div className="flex flex-col gap-2">
+                <Title title="Your personal calendar" />
+                <div className="mt-12" />
+                <Calendar
+                  id="mycustomcalendar"
+                  startDate={periodStartDate}
+                  events={calEvents}
+                  emailVersion={emailVersion}
+                />
               </div>
             </div>
           )}
         </div>
-        <img width={400} src={image} alt={"Screenshot"} />
+        {/* <Button onClick={() => setEmailVersion(true)} /> */}
+
+        {/* <img width={400} src={image} alt={"Screenshot"} /> */}
+        {showCalendar && (
+          <div>
+            <h2 className="text-lg font-bold text-center mt-24 mb-24">
+              Use the newly found power to balance your life and hack your cycle
+            </h2>
+
+            <div className="flex flex-row gap-6">
+              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
+                <Image src={heart} width={32} height={32} alt="heart" />
+                <div>
+                  <p className="uppercase  font-bold">Your cycle data</p>
+                  <p className="text-sm">
+                    Data on which days you
+                    <ul className="list-disc list-inside">
+                      <li>need to take it slow</li>
+                      <li>can put some extra work in</li>
+                      <li>need to take extra care of yourself</li>
+                      <li>can be impatient</li>
+                      <li>not ready for social interaction</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+
+              <Image src={plus} width={32} height={32} alt="plus" />
+              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
+                <Image src={cal} width={32} height={32} alt="calendar" />
+                <div>
+                  <p className="uppercase font-bold">Your Google Calendar</p>
+                  <p className="text-sm">
+                    Space where you
+                    <ul className="list-disc list-inside">
+                      <li>plan your work mettings</li>
+                      <li>schedule dates</li>
+                      <li>add reminders for events to attend</li>
+                      <li>receive call invitations</li>
+                      <li>create travel plans</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+
+              <Image src={eq} width={32} height={32} alt="eq" />
+              <div className="flex flex-row justify-start items-start gap-2 border-secondaryButton border-2 rounded p-4 ">
+                <div>
+                  <p className="uppercase font-bold text-secondaryButton">
+                    Balance
+                  </p>
+                  <p className="text-sm">
+                    <ul className="list-disc list-inside">
+                      <li>You know when to schedule busy days.</li>
+                      <li>You know when to take it slow.</li>
+                      <li>You are in tune with yourself.</li>
+                      <li>You are less stressed.</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <h2 className="text-lg font-bold text-center mt-24 mb-12">
+              Sign up to have your google calendar synced with your cycle.
+            </h2>
+            <PricingOptions />
+            <PeriodTrackerSupportForm />
+          </div>
+        )}
       </div>
     </Layout>
   );

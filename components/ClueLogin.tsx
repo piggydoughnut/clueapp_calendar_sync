@@ -42,12 +42,17 @@ export default function ClueLogin({ setCycleData }: { setCycleData: any }) {
         {loading ? (
           <Loading />
         ) : (
-          <Button
-            className="bg-secondaryButton"
-            onClick={() => loginToClue(email, password)}
-          >
-            Login to Clue
-          </Button>
+          <div className="flex flex-col">
+            <Button
+              className="bg-secondaryButton"
+              onClick={() => loginToClue(email, password)}
+            >
+              Login to Clue
+            </Button>
+            <a href="" className="hover:opacity-70 underline text-sm mt-2">
+              I dont know my access details for Clue
+            </a>
+          </div>
         )}
       </div>
     </div>
