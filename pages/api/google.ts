@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { GoogleConfig, GoogleUrls } from "../../../auth/config";
+import { GoogleConfig, GoogleUrls } from "../../auth/config";
 
 import axios from "axios";
-import { getTokens } from "../../../auth/google-auth";
+import { getTokens } from "../../auth/google-auth";
 
 export default async function handler(req, res) {
   const code = req.query.code as string;
