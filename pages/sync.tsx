@@ -201,6 +201,16 @@ export default function Sync() {
                   emailVersion={emailVersion}
                 />
               </div>
+              <div className="flex flex-col justify-center align-centre gap-2 w-[300px]">
+                <Input label="your email"></Input>
+                <Button
+                  className="bg-secondaryButton w-full h-11 capitalize"
+                  color={"indigo"}
+                  // onClick={() => setEmailVersion(true)}
+                >
+                  Send me my Calendar
+                </Button>
+              </div>
             </div>
           )}
         </div>
