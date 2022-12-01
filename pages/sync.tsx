@@ -214,6 +214,7 @@ export default function Sync() {
             </div>
           )}
         </div>
+        {/* <Button onClick={() => setEmailVersion(true)} /> */}
 
         {/* <img width={400} src={image} alt={"Screenshot"} /> */}
         {showCalendar && (

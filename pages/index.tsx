@@ -88,8 +88,8 @@ export default function Welcome({ url }) {
             key: "benefits",
             content: (
               <p className="scroll scroll-mt-36">
-                There are many benefits to living in sync with one's cycle. If
-                you learn how your cycle works aka how you work, you can
+                There are many benefits to living in sync with one&apos s cycle.
+                If you learn how your cycle works aka how you work, you can
                 understand which days suit better for which tasks. You can use
                 that knowledge to your advantage. You will know when to schedule
                 important calls or presentations and when it is better to stay
