@@ -66,7 +66,7 @@ export const MonthlyNav = () => {
     <div className="flex justify-between mb-1 pr-2">
       <button
         onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
-        className="cursor-pointer opacity-50"
+        className="cursor-pointer opacity-50 not-for-email"
       >
         <Image src={left} alt="left" width={32} height={32} />
       </button>
@@ -82,7 +82,7 @@ export const MonthlyNav = () => {
       </div>
       <button
         onClick={() => onCurrentMonthChange(addMonths(currentMonth, 1))}
-        className="cursor-pointer opacity-50"
+        className="cursor-pointer opacity-50 not-for-email"
       >
         <Image src={right} alt="left" width={32} height={32} />
       </button>

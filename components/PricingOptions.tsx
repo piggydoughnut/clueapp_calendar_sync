@@ -7,7 +7,7 @@ import Pricing from "./Pricing";
 export default function PricingOptions() {
   return (
     <div className="flex flex-row gap-12 justify-center">
-      <Pricing
+      {/* <Pricing
         type=""
         title="Email yourself your personalized calendar 🤓"
         price="free"
@@ -23,7 +23,7 @@ export default function PricingOptions() {
             Send me my Calendar
           </Button>
         </div>
-      </Pricing>
+      </Pricing> */}
       <Pricing
         type=""
         title="Monthly auto sync your cycle with your Google Calendar 😎"
