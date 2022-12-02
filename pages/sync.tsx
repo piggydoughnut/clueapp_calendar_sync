@@ -1,13 +1,6 @@
-import {
-  Button,
-  Checkbox,
-  Input,
-  Radio,
-  Textarea,
-} from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
-import { beginnerReasons, proReasons } from "../data/pricing";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
@@ -17,14 +10,14 @@ import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
 import Note from "../components/Note";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
-import Pricing from "../components/Pricing";
 import PricingOptions from "../components/PricingOptions";
+import axios from "axios";
 import cal from "../public/calendar-icon.svg";
 import eq from "../public/eq.svg";
 import { getCalendarData } from "../helpers/calendar";
 import heart from "../public/heart-pulse.svg";
 import plus from "../public/plus.svg";
-import { useScreenshot } from "use-react-screenshot";
+import { toPng } from "html-to-image";
 
 const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
@@ -43,8 +36,8 @@ export default function Sync() {
   const [showClueLogin, setshowClueLogin] = useState(false);
   const [loggedInWithClue, setLoggedInWithClue] = useState(false);
   const [params, setParams] = useState(initialValues);
-  const [image, takeScreenshot] = useScreenshot();
-  const [emailVersion, setEmailVersion] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [base64Image, setBase64Image] = useState("");
 
   const prepareCalendar = (start, length, lengthCycle) => {
     setPeriodStartDate(start);
@@ -53,19 +46,43 @@ export default function Sync() {
     setShowCalendar(true);
   };
 
-  useEffect(() => {
-    if (emailVersion) {
-      takeScreenshot(document?.getElementById("mycustomcalendar"));
-    }
-    setEmailVersion(false);
-  }, [emailVersion]);
-
   const processClueData = (data) => {
     const periodLength = data.phases[0].length;
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
     setshowClueLogin(false);
     setLoggedInWithClue(true);
+  };
+
+  const sendCalendar = async () => {
+    if (ref.current === null) {
+      return;
+    }
+    function filter(node) {
+      const exclusionClasses = ["not-for-email"];
+      return !exclusionClasses.some((classname) =>
+        node.className?.includes(classname)
+      );
+    }
+    toPng(ref.current, {
+      filter: filter,
+      cacheBust: true,
+      style: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        marginTop: "0px",
+        backgroundColor: "white",
+        justifyItems: "center",
+        alignItems: "center",
+        paddingTop: "4px",
+        paddingLeft: "12px",
+        width: "350px",
+      },
+    }).then((dataUrl) => {
+      // setBase64Image(dataUrl);
+      axios.post("/api/calendars", { screenshot: dataUrl });
+    });
   };
 
   return (
@@ -190,23 +207,27 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-8 justify-start items-start h-[500px]">
+            <div className="flex flex-col gap-8 justify-center items-center h-[500px]">
               <div className="flex flex-col gap-2">
                 <Title title="Your personal calendar" />
                 <div className="mt-12" />
                 <Calendar
+                  reff={ref}
                   id="mycustomcalendar"
                   startDate={periodStartDate}
                   events={calEvents}
-                  emailVersion={emailVersion}
                 />
               </div>
-              <div className="flex flex-col justify-center align-centre gap-2 w-[300px]">
+              <div className="flex flex-col justify-center align-centre gap-2 w-[360px]">
+                <h2 className="font-bold">
+                  Email yourself your personalized calendar 🤓
+                </h2>
                 <Input label="your email"></Input>
                 <Button
                   className="bg-secondaryButton w-full h-11 capitalize"
                   color={"indigo"}
-                  // onClick={() => setEmailVersion(true)}
+                  onClick={() => sendCalendar()}
+                  // onClick={onButtonClick}
                 >
                   Send me my Calendar
                 </Button>
@@ -214,9 +235,14 @@ export default function Sync() {
             </div>
           )}
         </div>
-        {/* <Button onClick={() => setEmailVersion(true)} /> */}
 
-        {/* <img width={400} src={image} alt={"Screenshot"} /> */}
+        <img
+          width={800}
+          height={600}
+          src={base64Image}
+          className="mt-10"
+          alt={"afasd"}
+        />
         {showCalendar && (
           <div>
             <h2 className="text-lg font-bold text-center mt-24 mb-24">
