@@ -10,7 +10,6 @@ const LegendItem = ({
   on: boolean;
   onChecked: () => void;
 }) => {
-  console.log(title, " - my on is ", on);
   const bgColor = `bg-${color}`;
   if (!on) {
     return <></>;

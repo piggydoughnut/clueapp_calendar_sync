@@ -92,7 +92,8 @@ export default function Sync() {
         setSendingEmail(false);
         setUserEmail("");
         console.log(res);
-      });
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -230,11 +231,11 @@ export default function Sync() {
                 />
               </div>
               <div className="flex flex-col justify-center align-centre gap-2 w-[360px] pb-10 h-[180px]">
-                <h2 className="font-bold mb-2 mt-4">
-                  Email yourself your personalized calendar 🤓
-                </h2>
                 {!sendingEmail ? (
                   <>
+                    <h2 className="font-bold mb-2 mt-4">
+                      Email yourself your personalized calendar 🤓
+                    </h2>
                     <Input
                       value={userEmail}
                       type={"email"}
