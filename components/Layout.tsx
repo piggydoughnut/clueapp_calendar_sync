@@ -26,7 +26,7 @@ const Navbar = () => (
       className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
       href="/"
     >
-      Cycle Nurture
+      Hack Your Cycle
     </Link>
     <div className="flex flex-row gap-12 items-center">
       {menu.map((item) => (

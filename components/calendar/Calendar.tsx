@@ -1,12 +1,11 @@
-import { Form, Formik } from "formik";
 import { MonthlyCalendar, MonthlyNav } from "./MonthlyCalendar";
 import { Phases, cyclePhaseColors } from "../../helpers/defines";
-import { format, getYear, startOfMonth } from "date-fns";
 import { useEffect, useState } from "react";
 
 import CalendarDay from "./CalendarDay";
 import LegendItem from "./LegendItem";
 import { MonthlyBody } from "./MonthlyBody";
+import { startOfMonth } from "date-fns";
 
 const phasesInfo = {
   [Phases.DREAM]: "This is the time to take extra care of yourself",
@@ -20,13 +19,13 @@ export default function Calendar({
   showLegend = true,
   events,
   id,
-  emailVersion,
+  reff,
 }: {
   startDate?: string;
   showLegend?: boolean;
   events: any;
   id: string;
-  emailVersion: boolean;
+  reff: any;
 }) {
   const [currentMonth, setCurrentMonth] = useState<Date>(
     startOfMonth(new Date(startDate ?? ""))
@@ -41,12 +40,6 @@ export default function Calendar({
     [Phases.TAKE]: true,
   });
 
-  useEffect(() => {
-    if (emailVersion) {
-      setExplanation(true);
-    }
-  }, [emailVersion]);
-
   const showItem = (item) => (
     <div key={item}>
       <LegendItem
@@ -54,7 +47,6 @@ export default function Calendar({
         color={cyclePhaseColors[item]}
         on={switches[item]}
         onChecked={() => filterEvents(item)}
-        emailVersion={emailVersion}
       />
       {explanation && (
         <p className="text-sm ml-12 opacity-60">{phasesInfo[item]}</p>
@@ -74,50 +66,32 @@ export default function Calendar({
   };
   return (
     <div
+      ref={reff}
       id={id}
-      className={`flex flex-row gap-24 ${emailVersion && "flex-col gap-12"}`}
+      className={`flex gap-24 bg-white flex-col sm:flex-row`}
     >
       <div>
         <MonthlyCalendar
           currentMonth={currentMonth}
           onCurrentMonthChange={(date) => setCurrentMonth(date)}
         >
-          {!emailVersion ? (
-            <MonthlyNav />
-          ) : (
-            <div className="mb-6 text-center font-bold uppercase">
-              {" "}
-              {format(
-                currentMonth,
-                getYear(currentMonth) === getYear(new Date())
-                  ? "LLLL"
-                  : "LLLL yyyy"
-              )}
-            </div>
-          )}
+          <MonthlyNav />
           <MonthlyBody events={monthEvents.filter((e) => e.on)}>
-            <CalendarDay emailVersion={emailVersion} />
+            <CalendarDay />
           </MonthlyBody>
         </MonthlyCalendar>
       </div>
 
-      <div>
+      <div className="not-for-email">
         {showLegend && (
           <div className="flex flex-col gap-6 mb-8 w-72">
-            {!emailVersion && (
-                <div
-                  className="underline mb-4 cursor-pointer"
-                  onClick={() => setExplanation(!explanation)}
-                >
-                  Explain the cycle phases to me
-                </div>
-              ) &&
-              Object.values(Phases).map((item) => showItem(item))}
-
-            {emailVersion &&
-              Object.values(Phases).map(
-                (item) => switches[item] && showItem(item)
-              )}
+            <div
+              className="underline mb-4 cursor-pointer"
+              onClick={() => setExplanation(!explanation)}
+            >
+              Explain the cycle phases to me
+            </div>
+            {Object.values(Phases).map((item) => showItem(item))}
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useMonthlyBody } from "./MonthlyBody";
 import { useMonthlyCalendar } from "./MonthlyCalendar";
 
-const CalendarDay = ({ emailVersion }: { emailVersion: boolean }) => {
+const CalendarDay = () => {
   let { locale } = useMonthlyCalendar();
   let { day, events }: { day: Date; events: Array<EventType> } =
     useMonthlyBody();
@@ -12,18 +12,8 @@ const CalendarDay = ({ emailVersion }: { emailVersion: boolean }) => {
   let circleColor = events.length > 0 ? cyclePhaseColors[events[0]?.type] : "";
   return (
     <div className="pt-1 pb-1">
-      <div
-        className={`${circleColor} p-1 w-8 flex justify-center rounded-3xl ${
-          emailVersion ? "p-1 mt-1 h-8" : ""
-        }`}
-      >
-        <p
-          className={`justify-self-center self-center ${
-            emailVersion ? "pb-3" : ""
-          }`}
-        >
-          {dayNumber}
-        </p>
+      <div className={`${circleColor} p-1 w-8 flex justify-center rounded-3xl`}>
+        <p className={`justify-self-center self-center `}>{dayNumber}</p>
       </div>
     </div>
   );
