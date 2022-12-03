@@ -40,12 +40,6 @@ export default function Calendar({
     [Phases.TAKE]: true,
   });
 
-  // useEffect(() => {
-  //   if (emailVersion) {
-  //     setExplanation(true);
-  //   }
-  // }, [emailVersion]);
-
   const showItem = (item) => (
     <div key={item}>
       <LegendItem
@@ -71,7 +65,11 @@ export default function Calendar({
     setMonthEvents(filtered);
   };
   return (
-    <div ref={reff} id={id} className={`flex flex-row gap-24 bg-white`}>
+    <div
+      ref={reff}
+      id={id}
+      className={`flex gap-24 bg-white flex-col sm:flex-row`}
+    >
       <div>
         <MonthlyCalendar
           currentMonth={currentMonth}

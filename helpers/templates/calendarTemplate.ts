@@ -28,9 +28,11 @@ const htmlOutput = mjml2html(
     </mj-section>
     <mj-section padding-bottom="100px" padding-top="50px">
       <mj-column>
-      <mj-text> <img style="border: 1px solid  #9F9F9F; border-radius: 4px; padding-top: 50px; padding-bottom: 50px; margin: auto;" alt="image" id="1" width="400px" src="cid:calendar.png"/></mj-text>
+      <mj-text align="center"> <img style="border: 1px solid  #F1B87E; border-radius: 4px; padding: 12px;" alt="image" id="1" width="400px" src="cid:calendar.png"/></mj-text>
 
-        <mj-text align="center">
+
+
+        <mj-text align="center" padding-top="60px">
           <div style="display: inline-block;">
             <div style="border-radius: 50px; height: 24px; width: 24px; background-color: #F8CFD3;"></div>
           </div>

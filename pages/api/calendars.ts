@@ -3,6 +3,16 @@
 import Mailgun from "mailgun.js";
 import { getCalendarTemplate } from "../../helpers/templates/calendarTemplate";
 const formData = require("form-data");
+const sharp = require("sharp");
+
+const resizeImage = async (fileBuffer) => {
+  return sharp(fileBuffer)
+    .extract({ left: 0, top: 0, width: 670, height: 540 })
+    .toBuffer()
+    .then((data) => {
+      return data;
+    });
+};
 
 export default async function handler(req, res) {
   const mailgun = new Mailgun(formData);
@@ -20,7 +30,10 @@ export default async function handler(req, res) {
     req.body.screenshot.length
   );
 
-  const fileBuffer = Buffer.from(base64String, "base64");
+  let fileBuffer = Buffer.from(base64String, "base64");
+
+  fileBuffer = await resizeImage(fileBuffer);
+
   const attachmentFile = {
     data: fileBuffer,
     filename: "calendar.png",
@@ -28,10 +41,9 @@ export default async function handler(req, res) {
   };
 
   const data = {
-    from: "Excited User <me@hack-your-cycle.com>",
-    to: "drmikhailova@gmail.com",
-    subject: "Hello",
-    text: "Testing some Mailgun awesomness!",
+    from: "Hack Your Cycle Team <team@hack-your-cycle.com>",
+    to: req.body.userEmail,
+    subject: "Personalized Cycle Calendar",
     html: template,
     inline: attachmentFile,
     attachment: [attachmentFile],

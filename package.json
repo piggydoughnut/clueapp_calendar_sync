@@ -26,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-loader-spinner": "^5.3.4",
+    "sharp": "^0.31.2",
     "use-react-screenshot": "^3.0.0",
     "yup": "^0.32.11"
   },

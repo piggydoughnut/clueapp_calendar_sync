@@ -8,6 +8,7 @@ import FormSchema from "../helpers/FormSchema";
 import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
+import Loading from "../components/Loading";
 import Note from "../components/Note";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import PricingOptions from "../components/PricingOptions";
@@ -37,7 +38,8 @@ export default function Sync() {
   const [loggedInWithClue, setLoggedInWithClue] = useState(false);
   const [params, setParams] = useState(initialValues);
   const ref = useRef<HTMLDivElement>(null);
-  const [base64Image, setBase64Image] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [sendingEmail, setSendingEmail] = useState(false);
 
   const prepareCalendar = (start, length, lengthCycle) => {
     setPeriodStartDate(start);
@@ -58,6 +60,7 @@ export default function Sync() {
     if (ref.current === null) {
       return;
     }
+    setSendingEmail(true);
     function filter(node) {
       const exclusionClasses = ["not-for-email"];
       return !exclusionClasses.some((classname) =>
@@ -73,22 +76,29 @@ export default function Sync() {
         gap: "12px",
         marginTop: "0px",
         backgroundColor: "white",
-        justifyItems: "center",
-        alignItems: "center",
+        justifyItems: "flex-start",
+        alignItems: "flex-start",
         paddingTop: "4px",
         paddingLeft: "12px",
-        width: "350px",
       },
-    }).then((dataUrl) => {
-      // setBase64Image(dataUrl);
-      axios.post("/api/calendars", { screenshot: dataUrl });
-    });
+    })
+      .then((dataUrl) =>
+        axios.post("/api/calendars", {
+          screenshot: dataUrl,
+          userEmail: userEmail,
+        })
+      )
+      .then((res) => {
+        setSendingEmail(false);
+        setUserEmail("");
+        console.log(res);
+      });
   };
 
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[5rem] pb-[2rem]">
+        <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
           Sync with your cycle.
         </h1>
         <div
@@ -207,10 +217,11 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-8 justify-center items-center h-[500px]">
+            <div className="flex flex-col gap-8 justify-center items-center">
               <div className="flex flex-col gap-2">
+                <div className="" />
                 <Title title="Your personal calendar" />
-                <div className="mt-12" />
+                <div className="mt-8" />
                 <Calendar
                   reff={ref}
                   id="mycustomcalendar"
@@ -218,31 +229,36 @@ export default function Sync() {
                   events={calEvents}
                 />
               </div>
-              <div className="flex flex-col justify-center align-centre gap-2 w-[360px]">
-                <h2 className="font-bold">
+              <div className="flex flex-col justify-center align-centre gap-2 w-[360px] pb-10 h-[180px]">
+                <h2 className="font-bold mb-2 mt-4">
                   Email yourself your personalized calendar 🤓
                 </h2>
-                <Input label="your email"></Input>
-                <Button
-                  className="bg-secondaryButton w-full h-11 capitalize"
-                  color={"indigo"}
-                  onClick={() => sendCalendar()}
-                  // onClick={onButtonClick}
-                >
-                  Send me my Calendar
-                </Button>
+                {!sendingEmail ? (
+                  <>
+                    <Input
+                      value={userEmail}
+                      type={"email"}
+                      onChange={(e) => setUserEmail(e.target.value)}
+                      label="your email"
+                    ></Input>
+                    <Button
+                      className="bg-secondaryButton w-full h-11 capitalize"
+                      color={"indigo"}
+                      onClick={() => sendCalendar()}
+                    >
+                      Send me my Calendar
+                    </Button>
+                  </>
+                ) : (
+                  <div className="flex flex-col justify-center items-center">
+                    <p>Email sent ✅</p>
+                    {/* <Loading /> */}
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
-
-        <img
-          width={800}
-          height={600}
-          src={base64Image}
-          className="mt-10"
-          alt={"afasd"}
-        />
         {showCalendar && (
           <div>
             <h2 className="text-lg font-bold text-center mt-24 mb-24">

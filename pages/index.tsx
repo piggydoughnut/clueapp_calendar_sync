@@ -27,14 +27,14 @@ export default function Welcome({ url }) {
               easy monotonus tasks.
             </h2>
             <div className="flex flex-row gap-8 mt-4">
-              <Button
+              {/* <Button
                 className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
                 onClick={() =>
                   signIn("google", { callbackUrl: "/api/auth/google" })
                 }
               >
                 Sign In{" "}
-              </Button>
+              </Button> */}
               <Button
                 className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("#whydoit")}
