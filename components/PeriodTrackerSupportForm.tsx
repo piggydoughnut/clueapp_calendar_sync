@@ -2,7 +2,7 @@ import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 
 export default function PeriodTrackerSupportForm() {
   return (
-    <div className="mt-24 flex flex-col justify-center items-center">
+    <div className="mx-10 sm:mx-0 mt-24 flex flex-col justify-center items-center">
       <h2 className="uppercase text-lg mb-4 font-bold">
         Is your period tracker not supported?
       </h2>

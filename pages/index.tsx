@@ -44,7 +44,7 @@ export default function Welcome({ url }) {
                   className="w-[325px]"
                 />
               </div>
-              <h2 className="block sm:hidden mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-2">
+              <h2 className="block sm:hidden mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-8 sm:mt-2">
                 Increase your productivity by hacking your cycle. Schedule
                 meetings on the days your are a rockstar and use the slow days
                 for easy monotonus tasks.

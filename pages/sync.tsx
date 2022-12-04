@@ -102,7 +102,7 @@ export default function Sync() {
           Sync with your cycle.
         </h1>
         <div
-          className={`drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white w-full sm:w-[480px] ${
+          className={`drop-shadow-md border pt-8 pb-8 pl-4 sm:pl-20 pr-4 sm:pr-20 mx-auto bg-white w-full md:w-[480px] ${
             showCalendar ? "w-auto" : ""
           } transition-width duration-1000 ease`}
         >
@@ -229,7 +229,7 @@ export default function Sync() {
                   events={calEvents}
                 />
               </div>
-              <div className="flex flex-col justify-center align-centre gap-2 w-[360px] pb-10 h-[180px]">
+              <div className="flex flex-col justify-center align-centre gap-2 w-full sm:w-[360px] pb-10 h-[180px]">
                 {!sendingEmail ? (
                   <>
                     <h2 className="font-bold mb-2 mt-4">
@@ -265,7 +265,7 @@ export default function Sync() {
               Use the newly found power to balance your life and hack your cycle
             </h2>
 
-            <div className="flex flex-row gap-6">
+            <div className="flex flex-col items-center sm:items-even md:flex-row gap-6">
               <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
                 <Image src={heart} width={32} height={32} alt="heart" />
                 <div>

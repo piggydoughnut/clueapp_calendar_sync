@@ -68,7 +68,7 @@ export default function Calendar({
     <div
       ref={reff}
       id={id}
-      className={`flex gap-24 bg-white flex-col sm:flex-row`}
+      className={`flex gap-24 bg-white flex-col lg:flex-row`}
     >
       <div>
         <MonthlyCalendar
@@ -84,7 +84,7 @@ export default function Calendar({
 
       <div className="not-for-email">
         {showLegend && (
-          <div className="flex flex-col gap-6 mb-8 w-72">
+          <div className="flex flex-col gap-6 mb-8 w-full sm:w-72">
             <div
               className="underline mb-4 cursor-pointer"
               onClick={() => setExplanation(!explanation)}
