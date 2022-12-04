@@ -8,7 +8,6 @@ import FormSchema from "../helpers/FormSchema";
 import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
 import Layout from "../components/Layout";
-import Loading from "../components/Loading";
 import Note from "../components/Note";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import PricingOptions from "../components/PricingOptions";
@@ -99,11 +98,11 @@ export default function Sync() {
   return (
     <Layout>
       <div className="flex flex-col items-center">
-        <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
+        <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
           Sync with your cycle.
         </h1>
         <div
-          className={`drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white  w-[480px] ${
+          className={`drop-shadow-md border pt-8 pb-8 pl-20 pr-20 mx-auto bg-white w-full sm:w-[480px] ${
             showCalendar ? "w-auto" : ""
           } transition-width duration-1000 ease`}
         >

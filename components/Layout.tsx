@@ -26,7 +26,7 @@ const Navbar = () => (
   <>
     {" "}
     {/* <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center mx-4 sm:mx-20 pt-4"> */}
-    <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center pt-4">
+    <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center mx-4 md:mx-20 pt-4">
       <Link
         className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
         href="/"
@@ -116,7 +116,7 @@ export default function Layout({
   return (
     <div
       // className={`bg-no-repeat bg-[url('/mobile-bg.svg')] sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
-      className={`bg-no-repeat sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
+      className={`bg-no-repeat ${bgImage} scroll-smooth`}
     >
       <Navbar />
       <main>{children}</main>
