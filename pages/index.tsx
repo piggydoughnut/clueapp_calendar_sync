@@ -11,22 +11,22 @@ export default function Welcome({ url }) {
   const router = useRouter();
   return (
     <Layout bgImage="bg-[url('/top-bg.svg')] bg-contain">
-      <div className="pt-[10rem]">
-        <div className="flex space-between gap-[10rem] justify-center">
+      <div className="pt-24 sm:pt-[10rem]">
+        <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col">
-            <h1 className="md:text-md lg:text-xl font-bold max-w-xl leading-10">
+            <h1 className="mx-3 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
               Sync your{" "}
               <span className="text-pu text-secondaryButton">
                 Google Calendar
               </span>{" "}
               with your cycle for higher productivity and balance.
             </h1>
-            <h2 className="text-sm max-w-md opacity-70 mt-2">
+            <h2 className="hidden sm:block mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-2">
               Increase your productivity by hacking your cycle. Schedule
               meetings on the days your are a rockstar and use the slow days for
               easy monotonus tasks.
             </h2>
-            <div className="flex flex-row gap-8 mt-4">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-12 sm:mt-4">
               {/* <Button
                 className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
                 onClick={() =>
@@ -35,20 +35,40 @@ export default function Welcome({ url }) {
               >
                 Sign In{" "}
               </Button> */}
+              <div className="sm:hidden flex justify-center pt-4">
+                <Image
+                  src={calendar}
+                  alt="calendar"
+                  width={325}
+                  height={348}
+                  className="w-[325px]"
+                />
+              </div>
+              <h2 className="block sm:hidden mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-2">
+                Increase your productivity by hacking your cycle. Schedule
+                meetings on the days your are a rockstar and use the slow days
+                for easy monotonus tasks.
+              </h2>
               <Button
-                className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
+                className="bg-secondaryButton w-full sm:w-36 h-11 capitalize font-plusJakarta mt-12 sm:mt-0"
                 onClick={() => router.push("#whydoit")}
               >
                 Why?{" "}
               </Button>
               <Button
-                className="bg-primaryButton w-36 h-11 capitalize font-plusJakarta"
+                className="bg-primaryButton w-full sm:w-36 h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
                 How?
               </Button>
+              <Button
+                variant="outlined"
+                className="w-full sm:hidden h-11 uppercase text-sm font-plusJakarta"
+              >
+                Sign Up
+              </Button>
             </div>
-            <div className="mt-6">
+            <div className="text-center sm:text-left mt-6">
               <h2 className="uppercase text-tiny mt-2 mb-2 opacity-60">
                 Supported period trackers
               </h2>
@@ -57,8 +77,9 @@ export default function Welcome({ url }) {
                 width={120}
                 height={40}
                 alt="exteralSource"
+                className="m-auto sm:m-0"
               />
-              <p className="max-w-[400px] text-sm opacity-70">
+              <p className="mr-8 ml-8 sm:ml-0 sm:mr-0 max-w-[400px] text-sm opacity-70">
                 If you are not using Clue,{" "}
                 <a
                   className="underline hover:opacity-70"
@@ -70,7 +91,7 @@ export default function Welcome({ url }) {
               </p>
             </div>
           </div>
-          <div className="flex pt-4">
+          <div className="hidden sm:flex pt-4 items-start">
             <Image
               src={calendar}
               alt="calendar"

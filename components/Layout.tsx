@@ -1,5 +1,7 @@
 import { Button } from "@material-tailwind/react";
+import Image from "next/image";
 import Link from "next/link";
+import burgerIcon from "../public/burger-icon.svg";
 
 const menu = [
   {
@@ -21,37 +23,52 @@ const menu = [
 ];
 
 const Navbar = () => (
-  <div className="flex justify-between items-center mx-20 pt-4">
-    <Link
-      className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
-      href="/"
-    >
-      Hack Your Cycle
-    </Link>
-    <div className="flex flex-row gap-12 items-center">
-      {menu.map((item) => (
-        <Link
-          key={item.name}
-          className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
-          href={item.url}
-        >
-          {item.name}
-        </Link>
-      ))}
-    </div>
-    <Link href="/signup">
-      <Button
-        variant="outlined"
-        className=" w-36 h-11 uppercase text-sm font-plusJakarta"
+  <>
+    {" "}
+    {/* <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center mx-4 sm:mx-20 pt-4"> */}
+    <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center pt-4">
+      <Link
+        className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
+        href="/"
       >
-        Sign Up
-      </Button>
-    </Link>
-  </div>
+        Hack Your Cycle
+      </Link>
+      <div className="flex flex-row gap-12 items-center">
+        {menu.map((item) => (
+          <Link
+            key={item.name}
+            className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+            href={item.url}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+      <Link href="/signup">
+        <Button
+          variant="outlined"
+          className=" w-36 h-11 uppercase text-sm font-plusJakarta"
+        >
+          Sign Up
+        </Button>
+      </Link>
+    </div>
+    <div className="sm:hidden mx-4 pt-4">
+      <div className="flex flex-row justify-between items-center">
+        <Link
+          className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
+          href="/"
+        >
+          Hack Your Cycle
+        </Link>
+        <Image src={burgerIcon} alt="menuicon" height="40" />
+      </div>
+    </div>
+  </>
 );
 const Footer = () => (
-  <div className="bg-white mt-20 pl-20 pr-20 pt-8 pb-8 ml-2 mr-2 mb-2 rounded-md border-peachy border-4">
-    <div className="flex flex-row justify-between">
+  <div className="bg-white mt-20 pl-4 sm:pl-20 pr-4 sm:pr-20 pt-8 pb-8 ml-2 mr-2 mb-2 rounded-md border-peachy border-4">
+    <div className="flex flex-col-reverse sm:flex-row justify-center text-center sm:text-left sm:justify-between">
       <div className="flex flex-col">
         <h3 className="font-bold mb-2">Hack the Cycle</h3>
         <p>
@@ -61,11 +78,11 @@ const Footer = () => (
           hello@hackthecyle.com
         </a>
       </div>
-      <div className="flex flex-row gap-12">
+      <div className="flex flex-row justify-center sm:justify-end gap-12 mb-8 sm:mb-0">
         {menu.map((item) => (
           <Link
             key={item.name}
-            className="text-sm hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
+            className="text-sm underline hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"
             href={item.url}
           >
             {item.name}
@@ -97,7 +114,10 @@ export default function Layout({
   children,
 }) {
   return (
-    <div className={`bg-no-repeat ${bgImage} scroll-smooth`}>
+    <div
+      // className={`bg-no-repeat bg-[url('/mobile-bg.svg')] sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
+      className={`bg-no-repeat sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
+    >
       <Navbar />
       <main>{children}</main>
       <Footer />
