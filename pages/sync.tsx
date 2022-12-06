@@ -102,9 +102,7 @@ export default function Sync() {
           Sync with your cycle.
         </h1>
         <div
-          className={`drop-shadow-md border pt-8 pb-8 pl-4 sm:pl-20 pr-4 sm:pr-20 mx-auto bg-white w-full md:w-[480px] ${
-            showCalendar ? "w-auto" : ""
-          } transition-width duration-1000 ease`}
+          className={`drop-shadow-md border pt-8 pb-8 pl-4 pr-4 sm:pl-20 sm:pr-20 mx-auto bg-white w-full sm:w-auto transition-width duration-1000 ease`}
         >
           {(showCalendar || showClueLogin) && (
             <a
