@@ -6,8 +6,8 @@ export const scope = [
 
 export const GoogleConfig = {
   redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI,
-  clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-  secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+  clientId: process.env.GOOGLE_CLIENT_ID,
+  secret: process.env.GOOGLE_CLIENT_SECRET,
 };
 
 const API = "https://www.googleapis.com";

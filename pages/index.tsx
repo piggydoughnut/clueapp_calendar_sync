@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import QA from "../components/QA";
 import calendar from "../public/calendar.svg";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 export default function Welcome({ url }) {
@@ -27,14 +26,6 @@ export default function Welcome({ url }) {
               easy monotonus tasks.
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-12 sm:mt-4">
-              {/* <Button
-                className="bg-secondaryButton w-36 h-11 capitalize font-plusJakarta"
-                onClick={() =>
-                  signIn("google", { callbackUrl: "/api/auth/google" })
-                }
-              >
-                Sign In{" "}
-              </Button> */}
               <div className="sm:hidden flex justify-center pt-4">
                 <Image
                   src={calendar}
