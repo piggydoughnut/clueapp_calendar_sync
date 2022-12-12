@@ -6,6 +6,7 @@ import { GoogleConfig, GoogleUrls } from "../../auth/config";
 import axios from "axios";
 import dbConnect from "../../db/mongodb";
 import { getTokens } from "../../auth/google-auth";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   //@todo handle errrrrs
@@ -30,14 +31,26 @@ export default async function handler(req, res) {
   // console.log("scope ", scope);
   // console.log(googleUser.data);
 
+  const jwtToken = jwt.sign(
+    {
+      data: "foobar",
+    },
+    "secret",
+    { expiresIn: "10min" }
+  );
   try {
     const userInTheDatabase = await User.find({ email: googleUser.data.email });
 
     if (userInTheDatabase.length === 0) {
       const user = await User.create({
-        refresh_token: refresh_token,
         name: googleUser.data.name,
         email: googleUser.data.email,
+        refreshToken: refresh_token,
+        scope: scope,
+        idToken: id_token,
+        accessToken: access_token,
+        // @todo check how many times each jwt was used, allow only once for each token
+        signupTokens: [{ token: jwtToken, used: 0 }],
       });
       // console.log("saved user ", user);
     } else {
@@ -46,5 +59,6 @@ export default async function handler(req, res) {
   } catch (error) {
     console.log(error);
   }
-  res.redirect("/signup?step=1");
+
+  res.redirect(`/signup?jwt=${jwtToken}`);
 }

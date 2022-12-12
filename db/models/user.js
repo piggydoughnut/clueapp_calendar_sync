@@ -1,5 +1,4 @@
 // models/User.js
-
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
@@ -9,12 +8,36 @@ const UserSchema = new mongoose.Schema({
   scope: String,
   idToken: String,
   accessToken: String,
+  clue: {
+    accessDetails: {
+      email: String,
+      password: String,
+    },
+    data: [
+      {
+        completed: Boolean,
+        start: String,
+        end: String,
+        excluded: Boolean,
+        expectedLength: Number,
+        isValid: Boolean,
+        length: Number,
+        phases: [],
+        predicted: Boolean,
+      },
+    ],
+  },
+  signupTokens: [
+    {
+      token: String,
+      used: Number,
+    },
+  ],
 });
 
+//encrypt ClueData, refreshToken
+
 let User;
-// const User = mongoose.model("users", UserSchema);
-// module.exports = mongoose.model("busers", UserSchema);
-// let User;
 if (mongoose.models.users) {
   User = mongoose.model("users");
 } else {

@@ -31,12 +31,13 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    console.log("MONGODB_URI: ", process.env.MONGODB_URI);
     cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
       return mongoose;
     });
   }
   cached.conn = await cached.promise;
+  console.log(cached);
+  console.log("DATABASE STUFF");
   return cached.conn;
 }
 

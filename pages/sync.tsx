@@ -34,7 +34,6 @@ export default function Sync() {
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
-  const [loggedInWithClue, setLoggedInWithClue] = useState(false);
   const [params, setParams] = useState(initialValues);
   const ref = useRef<HTMLDivElement>(null);
   const [userEmail, setUserEmail] = useState("");
@@ -51,8 +50,8 @@ export default function Sync() {
     const periodLength = data.phases[0].length;
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
+    console.log("----");
     setshowClueLogin(false);
-    setLoggedInWithClue(true);
   };
 
   const sendCalendar = async () => {

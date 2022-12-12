@@ -13,7 +13,9 @@ module.exports = withMT({
       plusJakarta: ["Plus Jakarta Sans", "sans-serif"],
     },
     colors: {
-      lightPink: "#FEF6F9",
+      lightPink: {
+        color: "#FEF6F9",
+      },
       peachy: "#FDF5ED",
       primaryButton: colors.red["200"],
       secondaryButton: colors.indigo["400"],

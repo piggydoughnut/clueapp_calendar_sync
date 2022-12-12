@@ -71,14 +71,12 @@ export default function Welcome({ url }) {
                 className="m-auto sm:m-0"
               />
               <p className="mr-8 ml-8 sm:ml-0 sm:mr-0 max-w-[400px] text-sm opacity-70">
-                If you are not using Clue,{" "}
                 <a
                   className="underline hover:opacity-70"
                   href="#periodtrackerform"
                 >
-                  please let us know which period tracker you use
+                  Not using Clue?
                 </a>
-                . We are working on integrating more period trackers.
               </p>
             </div>
           </div>

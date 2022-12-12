@@ -17,6 +17,10 @@ const menu = [
     url: "/pricing",
   },
   {
+    name: "Calendar",
+    url: "/sync",
+  },
+  {
     name: "FAQ",
     url: "/pricing#faq",
   },

@@ -3,8 +3,10 @@ import { beginnerReasons, proReasons } from "../data/pricing";
 
 import Image from "next/image";
 import Pricing from "./Pricing";
+import { useRouter } from "next/router";
 
 export default function PricingOptions() {
+  const router = useRouter();
   return (
     <div className="flex flex-row gap-12 justify-center">
       {/* <Pricing
@@ -43,15 +45,16 @@ export default function PricingOptions() {
               height={40}
               alt="exteralSource"
             />
-            <p className="max-w-[400px] text-tiny opacity-70">
-              If you are not using Clue,{" "}
+            <p className="max-w-[400px] text-tiny opacity-70 text-center">
               <a className="underline hover:opacity-70" href="">
-                please let us know which period tracker you use
+                Not using Clue?
               </a>
-              . We are working on integrating more period trackers.
             </p>
           </div>
-          <Button className="bg-transparent text-black border w-full h-11 capitalize">
+          <Button
+            className="bg-transparent text-black border w-full h-11 capitalize"
+            onClick={() => router.push("/signup")}
+          >
             Sync with Google Calendar
           </Button>
         </div>
