@@ -63,7 +63,8 @@ export default function ClueLogin({
               {buttonTitle}
             </Button>
             <a
-              href=""
+              href="/how-to/set-clue-password"
+              target={"_blank"}
               className="hover:opacity-70 underline text-sm mt-2 text-center"
             >
               I dont know my access details for Clue
