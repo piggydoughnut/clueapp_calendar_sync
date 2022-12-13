@@ -36,8 +36,6 @@ async function dbConnect() {
     });
   }
   cached.conn = await cached.promise;
-  console.log(cached);
-  console.log("DATABASE STUFF");
   return cached.conn;
 }
 

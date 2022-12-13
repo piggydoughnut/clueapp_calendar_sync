@@ -33,9 +33,10 @@ export default async function handler(req, res) {
 
   const jwtToken = jwt.sign(
     {
-      data: "foobar",
+      email: googleUser.data.email,
+      name: googleUser.data.name,
     },
-    "secret",
+    process.env.JWT,
     { expiresIn: "10min" }
   );
   try {
@@ -52,9 +53,9 @@ export default async function handler(req, res) {
         // @todo check how many times each jwt was used, allow only once for each token
         signupTokens: [{ token: jwtToken, used: 0 }],
       });
-      // console.log("saved user ", user);
+      console.log("Created a user ", user);
     } else {
-      console.log("We have already registered this user");
+      console.log("We have already registered this user ", userInTheDatabase);
     }
   } catch (error) {
     console.log(error);

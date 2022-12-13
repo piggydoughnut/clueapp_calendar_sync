@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   scope: String,
   idToken: String,
   accessToken: String,
+  calendarId: String,
   clue: {
     accessDetails: {
       email: String,
@@ -45,4 +46,3 @@ if (mongoose.models.users) {
 }
 
 module.exports = User;
-// module.exports = mongoose.model("users") || mongoose.model("users", UserSchema);

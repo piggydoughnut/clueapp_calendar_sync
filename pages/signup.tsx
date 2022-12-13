@@ -20,7 +20,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   const [jwt, setJwt] = useState();
   const [clueData, setClueData] = useState(null);
   const [cycleData, setCycleData] = useState(null);
-  const [confirmationSent, setConfirmationSent] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -32,42 +32,37 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   }, [router.query, jwt]);
 
   useEffect(() => {
-    if (clueData && cycleData) {
-      axios
-        .put(
-          "/api/users",
-          {
-            access: clueData,
-            data: cycleData,
+    const processUser = async () => {
+      try {
+        const data = {
+          access: clueData,
+          data: cycleData,
+        };
+        await axios.put("/api/users", data, {
+          headers: {
+            Authorization: jwt,
           },
-          {
-            headers: {
-              Authorization: jwt,
-            },
-          }
-        )
-        .then(() => {
-          setStep(Steps.FINISH);
-          if (!confirmationSent) {
-            console.log("sendinggg");
-            setConfirmationSent(true);
-            axios
-              .post(
-                "/api/emails/confirmation",
-                {},
-                {
-                  headers: { Authorization: jwt },
-                }
-              )
-              .then(() => {
-                console.log("confirmation sent");
-              })
-              .catch((e) => {
-                console.log(e);
-                setConfirmationSent(false);
-              });
-          }
         });
+        setStep(Steps.FINISH);
+        await axios.post(
+          "/api/googleCalendar",
+          {},
+          { headers: { Authorization: jwt } }
+        );
+        await axios.post(
+          "/api/emails/confirmation",
+          {},
+          {
+            headers: { Authorization: jwt },
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    if (clueData && cycleData) {
+      processUser();
     }
   }, [clueData, cycleData]);
 
@@ -75,6 +70,16 @@ export default function Signup({ googleuri }: { googleuri: string }) {
     <Layout>
       <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
         Sync your cycle with your Google calendar and schedule like a pro.
+        {step === Steps.FINISH && (
+          <Confetti
+            className="mt-0"
+            height={1000}
+            gravity={0.1}
+            numberOfPieces={3000}
+            recycle={false}
+            colors={["#EF9FC0", "#7A7CE1", "#FFB6B6", "#b6b7e2", "#ab1956"]}
+          />
+        )}
       </h1>
       <div className="flex flex-col justify-center items-center mt-24">
         <div className="flex flex-row justify-center items-center gap-8">
@@ -144,42 +149,38 @@ export default function Signup({ googleuri }: { googleuri: string }) {
             )}
             {step === Steps.PAYMENT && <div>Payment</div>}
             {step === Steps.FINISH && (
-              <div className="flex flex-col justify-center items-center">
-                <Confetti
-                  className="mt-0"
-                  width={2000}
-                  height={1000}
-                  gravity={0.1}
-                  numberOfPieces={3000}
-                  recycle={false}
-                  colors={[
-                    "#EF9FC0",
-                    "#7A7CE1",
-                    "#FFB6B6",
-                    "#b6b7e2",
-                    "#ab1956",
-                  ]}
-                  // @todo draw hearts
-                  // drawShape={(ctx) => {
-                />
-                <div className="text-center">
-                  <h2 className="text-lg mt-12 text-center">
-                    Congratulations! <br /> <br />
-                    You are one step closer to a more balanced life.
-                  </h2>
-                  <p className="mt-4">
-                    We sent you a confirmation email with more details to your
-                    gmail account.
+              <>
+                <div className="flex flex-col justify-center items-center">
+                  <div className="text-center">
+                    <h2 className="text-lg mt-12 text-center">
+                      Congratulations! <br /> <br />
+                      You are one step closer to a more balanced life.
+                    </h2>
+                    <p className="mt-4">
+                      We sent you a confirmation email with more details to your
+                      gmail account.
+                    </p>
+                  </div>{" "}
+                  <Button
+                    color="white"
+                    className="h-12 w-[300px] capitalize font-plusJakarta border border-black mt-16"
+                    onClick={() => router.push("https://gmail.com")}
+                  >
+                    Open Gmail
+                  </Button>
+                  <p className="text-sm mt-16">
+                    In the case you didnt receive an email or your Google
+                    calendar wasnt updated,{" "}
+                    <a
+                      className="underline hover:opacity-70 text-blue-700"
+                      href="mailto:support@hack-the-cycle.com"
+                    >
+                      please let us know
+                    </a>
+                    .
                   </p>
-                </div>{" "}
-                <Button
-                  color="white"
-                  className="h-12 w-[300px] capitalize font-plusJakarta border border-black mt-16"
-                  onClick={() => router.push("https://gmail.com")}
-                >
-                  Open Gmail
-                </Button>
-              </div>
+                </div>
+              </>
             )}
           </div>
         </div>
