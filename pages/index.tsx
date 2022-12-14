@@ -6,7 +6,7 @@ import QA from "../components/QA";
 import calendar from "../public/calendar.svg";
 import { useRouter } from "next/router";
 
-export default function Welcome({ url }) {
+export default function Welcome() {
   const router = useRouter();
   return (
     <Layout bgImage="bg-[url('/top-bg.svg')] bg-contain">
@@ -72,7 +72,7 @@ export default function Welcome({ url }) {
               />
               <p className="mr-8 ml-8 sm:ml-0 sm:mr-0 max-w-[400px] text-sm opacity-70">
                 <a
-                  className="underline hover:opacity-70"
+                  className="underline hover:opacity-80 ml-1 mt-1"
                   href="#periodtrackerform"
                 >
                   Not using Clue?

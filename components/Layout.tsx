@@ -20,10 +20,10 @@ const menu = [
     name: "Calendar",
     url: "/sync",
   },
-  {
-    name: "FAQ",
-    url: "/pricing#faq",
-  },
+  // {
+  //   name: "FAQ",
+  //   url: "/pricing#faq",
+  // },
 ];
 
 const Navbar = () => (
