@@ -11,22 +11,19 @@ const LegendItem = ({
   onChecked: () => void;
 }) => {
   const bgColor = `bg-${color}`;
-  if (!on) {
-    return <></>;
-  } else
-    return (
-      <div className="flex flex-row items-center gap-2">
-        <Switch
-          id={title}
-          className={`${bgColor} not-for-email`}
-          checked={on}
-          onChange={() => onChecked()}
-        />
-        <div className="flex justify-center"></div>
-        <div className={`${color} pt-2 h-4 w-4 rounded-3xl`}></div>
-        <p className="text-tiny uppercase">{title}</p>
-      </div>
-    );
+  return (
+    <div className="flex flex-row items-center gap-2">
+      <Switch
+        id={title}
+        className={`${bgColor} not-for-email`}
+        checked={on}
+        onChange={() => onChecked()}
+      />
+      <div className="flex justify-center"></div>
+      <div className={`${color} pt-2 h-4 w-4 rounded-3xl`}></div>
+      <p className="text-tiny uppercase">{title}</p>
+    </div>
+  );
 };
 
 export default LegendItem;
