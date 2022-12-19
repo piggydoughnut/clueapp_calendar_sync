@@ -40,9 +40,11 @@ export default async function handler(req, res) {
     { expiresIn: "10min" }
   );
   try {
+    /* @ts-ignore */
     const userInTheDatabase = await User.find({ email: googleUser.data.email });
 
     if (userInTheDatabase.length === 0) {
+      /* @ts-ignore */
       const user = await User.create({
         name: googleUser.data.name,
         email: googleUser.data.email,

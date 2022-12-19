@@ -45,7 +45,7 @@ const StepsExplanation = {
 
 export default function Signup({ googleuri }: { googleuri: string }) {
   const [step, setStep] = useState(SignupSteps.GOOGLE);
-  const [jwt, setJwt] = useState();
+  const [jwt, setJwt] = useState("");
   const [clueData, setClueData] = useState(null);
   const [cycleData, setCycleData] = useState(null);
 
@@ -53,6 +53,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
 
   useEffect(() => {
     if (router.query.jwt) {
+      /* @ts-ignore */
       setJwt(router?.query?.jwt);
       setStep(SignupSteps.CLUE);
       router.push({ pathname: router.pathname, query: {} });

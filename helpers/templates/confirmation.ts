@@ -1,11 +1,5 @@
-// wysiwig editor https://mjml.io/try-it-live/fy6JT1Cvo
-// documentation
-
-import mjml2html from "mjml";
-
-// <mj-text> <img style="border: 1px solid  #9F9F9F; border-radius: 4px; padding-top: 50px; padding-bottom: 50px; margin: auto;" alt="image" id="1" width="400px" src="cid:calendar.png"/></mj-text>
-
-const htmlOutput = mjml2html(
+import { compile } from "handlebars";
+const confirmation = compile(
   `<mjml>
   <mj-head>
     <mj-font name="helvetica" href="https://fonts.googleapis.com/css?family=helvetica" />
@@ -76,22 +70,7 @@ const htmlOutput = mjml2html(
       </mj-column>
     </mj-section>
   </mj-body>
-</mjml>`,
-  {}
+</mjml>`
 );
 
-export function interpolateTemplate(template, vars) {
-  // Interpolate variables.
-  let res = "";
-  for (const prop in vars) {
-    res = template.html.replaceAll(`{{ ${prop} }}`, vars[prop]);
-  }
-  return { ...template, html: res };
-}
-
-export function getTemplate() {
-  return htmlOutput.html;
-  // return interpolateTemplate(htmlOutput, {
-  //   imageUrl,
-  // }).html;
-}
+export default confirmation;

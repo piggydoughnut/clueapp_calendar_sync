@@ -2,7 +2,7 @@ import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 
 import Loading from "./Loading";
-import { sendEmail } from "../helpers/email";
+import axios from "axios";
 import { useState } from "react";
 
 const initialValues = {
@@ -34,7 +34,8 @@ export default function PeriodTrackerSupportForm() {
               setParams(vs);
               console.log(vs);
               setLoading(true);
-              // sendEmail('drmikhailova@gmail.com')
+              await axios.post("/api/emails/feedback", { ...vs });
+              setLoading(false);
             }}
           >
             {({ values, errors, handleChange, touched }) => (
@@ -88,9 +89,11 @@ export default function PeriodTrackerSupportForm() {
                 </div>
                 <div>
                   <Textarea
+                    id="feedback"
                     label="Please share any feedback that you have"
                     name="feedback"
                     rows={5}
+                    onChange={handleChange}
                   />
                 </div>
 

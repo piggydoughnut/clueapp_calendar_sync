@@ -1,7 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { TemplateName, getTemplate } from "../../helpers/templates";
+
 import Mailgun from "mailgun.js";
-import { getCalendarTemplate } from "../../helpers/templates/calendarTemplate";
+
 const formData = require("form-data");
 const sharp = require("sharp");
 
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
     key: process.env.EMAIL_API_KEY,
   });
 
-  const template = getCalendarTemplate();
+  const template = getTemplate({}, TemplateName.CALENDAR);
   const encoding = "data:image/png;base64,".length;
   const base64String = req.body.screenshot.substring(
     encoding,

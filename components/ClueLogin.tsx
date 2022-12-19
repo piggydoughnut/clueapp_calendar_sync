@@ -1,5 +1,6 @@
 import { Button, Input } from "@material-tailwind/react";
 
+import Link from "next/link";
 import Loading from "../components/Loading";
 import axios from "axios";
 import { useState } from "react";
@@ -62,13 +63,13 @@ export default function ClueLogin({
             >
               {buttonTitle}
             </Button>
-            <a
+            <Link
               href="/how-to/set-clue-password"
               target={"_blank"}
               className="hover:opacity-70 underline text-sm mt-2 text-center"
             >
               I dont know my access details for Clue
-            </a>
+            </Link>
           </div>
         )}
       </div>
