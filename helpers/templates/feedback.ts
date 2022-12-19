@@ -31,6 +31,7 @@ const feedback = compile(`
           <mj-text font-size="16px">
             Will change tracker: {{ changeTracker }}
           </mj-text>
+          <mj-text font-size="16px">Why change: {{ whychange }} </mj-text>
           <mj-text font-size="16px">Feedback: {{ feedback }} </mj-text>
         </mj-column>
       </mj-section>

@@ -1,6 +1,7 @@
 import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 
+import FeedbackSchema from "../helpers/FeedbackSchema";
 import Loading from "./Loading";
 import axios from "axios";
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { useState } from "react";
 const initialValues = {
   youremail: "",
   trackerName: "",
+  whychange: "",
   changeTracker: "",
   feedback: "",
 };
@@ -30,6 +32,7 @@ export default function PeriodTrackerSupportForm() {
           <Formik
             initialValues={params}
             enableReinitialize
+            validationSchema={FeedbackSchema}
             onSubmit={async (vs) => {
               setParams(vs);
               console.log(vs);
@@ -75,17 +78,28 @@ export default function PeriodTrackerSupportForm() {
                       id="yesTracker"
                       name="changeTracker"
                       label="Yes"
-                      value="yes"
+                      value="true"
                       onChange={handleChange}
                     />
                     <Radio
                       id="noTracker"
                       name="changeTracker"
                       label="No"
-                      value={"no"}
+                      value="false"
                       onChange={handleChange}
                     />
                   </div>
+                </div>
+                <div>
+                  {values.changeTracker === "false" && (
+                    <Textarea
+                      id="whychange"
+                      label={`Please explain why`}
+                      name="whychange"
+                      rows={5}
+                      onChange={handleChange}
+                    />
+                  )}
                 </div>
                 <div>
                   <Textarea
@@ -97,7 +111,9 @@ export default function PeriodTrackerSupportForm() {
                   />
                 </div>
 
-                <div className="h-4 text-tiny text-red-300 text-center">
+                <div className="h-8 text-tiny text-red-300 text-center">
+                  {Object.values(errors)[0] && "Please fill in all the fields"}
+                  <br />
                   {Object.values(errors)[0]}
                 </div>
                 <Button
