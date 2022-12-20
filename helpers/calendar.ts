@@ -1,7 +1,7 @@
 import { addDays, subDays } from "date-fns";
+import { getCyclePhaseDates, getLengthsByCycle } from "./cycleLengths";
 
 import { Phases } from "./defines";
-import { getLengthsByCycle } from "./cycleLengths";
 
 export const isGive = (events) => isType(events, Phases.GIVE);
 export const isTake = (events) => isType(events, Phases.TAKE);
@@ -14,6 +14,7 @@ export const isType = (events: Array<any>, typeName: string) =>
 export type EventType = {
   date: string;
   type: string;
+  on: boolean;
 };
 
 export const getCalendarData = (
@@ -79,5 +80,17 @@ export const getCalendarData = (
       on: true,
     });
   }
+  return events;
+};
+
+export const getGoogleCalendarData = (
+  start: string,
+  length: number,
+  cycleLength: number
+): Array<EventType> => {
+  const events = [];
+  const cycleLengths = getLengthsByCycle(length, cycleLength);
+  const cyclePhaseDates = getCyclePhaseDates(start, length, cycleLength);
+
   return events;
 };

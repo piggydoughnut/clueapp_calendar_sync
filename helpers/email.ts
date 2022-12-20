@@ -2,6 +2,10 @@ import Mailgun from "mailgun.js";
 const formData = require("form-data");
 
 export const sendEmail = async (email, template, subject) => {
+  if (process.env.EMAILS_OFF) {
+    return "emails are off";
+  }
+
   const mailgun = new Mailgun(formData);
 
   const DOMAIN = "hack-your-cycle.com";

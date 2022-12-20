@@ -1,8 +1,8 @@
 export const Phases = {
-  DREAM: "Stillness",
-  DO: "Ready to tackle the world",
-  GIVE: "Highest energy",
-  TAKE: "Time to slow down",
+  DREAM: "Dream",
+  DO: "Do",
+  GIVE: "Give",
+  TAKE: "Take",
 };
 
 export const cyclePhaseColors = {
@@ -10,6 +10,37 @@ export const cyclePhaseColors = {
   [Phases.DO]: "bg-teal-200",
   [Phases.TAKE]: "bg-indigo-200",
   [Phases.GIVE]: "bg-yellow-100",
+};
+
+export const googleCalendarConfig = {
+  [Phases.DREAM]: {
+    summary: `${Phases.DREAM} - slowest time of the month`,
+    description: Phases.DREAM,
+    colorId: "4",
+    start: {},
+    end: {},
+  },
+  [Phases.DO]: {
+    summary: `${Phases.DO} - ready to tackle the world`,
+    description: Phases.DO,
+    colorId: "10",
+    start: {},
+    end: {},
+  },
+  [Phases.GIVE]: {
+    summary: `${Phases.GIVE} - highest energy`,
+    description: Phases.GIVE,
+    colorId: "1",
+    start: {},
+    end: {},
+  },
+  [Phases.TAKE]: {
+    summary: `${Phases.TAKE} - start slowing down`,
+    description: Phases.TAKE,
+    colorId: "5",
+    start: {},
+    end: {},
+  },
 };
 
 export const SignupSteps = {
