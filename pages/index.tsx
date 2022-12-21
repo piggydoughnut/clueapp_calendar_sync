@@ -3,6 +3,7 @@ import Image from "next/image";
 import Layout from "../components/Layout";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import QA from "../components/QA";
+import SupportedTrackers from "../components/SupportedTrackers";
 import calendar from "../public/calendar.svg";
 import { useRouter } from "next/router";
 
@@ -12,8 +13,8 @@ export default function Welcome() {
     <Layout bgImage="bg-[url('/top-bg.svg')] bg-contain">
       <div className="pt-24 sm:pt-[10rem]">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
-          <div className="flex flex-col">
-            <h1 className="mx-3 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
+          <div className="flex flex-col mx-4 sm:mx-0">
+            <h1 className="ml-8 sm:ml-0 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
               Sync your{" "}
               <span className="text-pu text-secondaryButton">
                 Google Calendar
@@ -35,7 +36,7 @@ export default function Welcome() {
                   className="w-[325px]"
                 />
               </div>
-              <h2 className="block sm:hidden mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-8 sm:mt-2">
+              <h2 className="block sm:hidden ml-2 sm:ml-0 text-sm max-w-sm opacity-70 mt-8 sm:mt-2">
                 Increase your productivity by hacking your cycle. Schedule
                 meetings on the days your are a rockstar and use the slow days
                 for easy monotonus tasks.
@@ -59,26 +60,7 @@ export default function Welcome() {
                 Sign Up
               </Button>
             </div>
-            <div className="text-center sm:text-left mt-6">
-              <h2 className="uppercase text-tiny mt-2 mb-2 opacity-60">
-                Supported period trackers
-              </h2>
-              <Image
-                src="/clue.png"
-                width={120}
-                height={40}
-                alt="exteralSource"
-                className="m-auto sm:m-0"
-              />
-              <p className="mr-8 ml-8 sm:ml-0 sm:mr-0 max-w-[400px] text-sm opacity-70">
-                <a
-                  className="underline hover:opacity-80 ml-1 mt-1"
-                  href="#periodtrackerform"
-                >
-                  Not using Clue?
-                </a>
-              </p>
-            </div>
+            <SupportedTrackers />
           </div>
           <div className="hidden sm:flex pt-4 items-start">
             <Image
@@ -97,7 +79,7 @@ export default function Welcome() {
             title: "Why would I want to sync with my cycle?",
             key: "benefits",
             content: (
-              <p className="scroll scroll-mt-36">
+              <p className="mx-8 sm:mx-0 scroll scroll-mt-36">
                 There are many benefits to living in sync with one&apos s cycle.
                 If you learn how your cycle works aka how you work, you can
                 understand which days suit better for which tasks. You can use
@@ -113,7 +95,7 @@ export default function Welcome() {
             key: "work",
             content: (
               <div className="flex flex-col justify-center items-center">
-                <p className="mb-16">
+                <p className="mb-16 mx-8 sm:mx-0 ">
                   Women go through certain hormonal changes during their cycle.
                   Those hormones are responsible for changes in energy levels,
                   concentration, etc.
@@ -137,7 +119,7 @@ export default function Welcome() {
             title: "What is the science behind it?",
             key: "science",
             content: (
-              <p>
+              <p className="mx-8 sm:mx-0 ">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -149,9 +131,9 @@ export default function Welcome() {
             title: "Sources",
             key: "sources",
             content: (
-              <div>
+              <div className="mx-8 sm:mx-0 ">
                 There are many books written on the topic.
-                <ul className="list-inside flex flex-col gap-2 mt-4">
+                <ul className="list-inside flex flex-col gap-2 mt-4 ">
                   {[
                     {
                       title:

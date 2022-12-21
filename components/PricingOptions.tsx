@@ -3,6 +3,7 @@ import { beginnerReasons, proReasons } from "../data/pricing";
 
 import Image from "next/image";
 import Pricing from "./Pricing";
+import SupportedTrackers from "./SupportedTrackers";
 import { useRouter } from "next/router";
 
 export default function PricingOptions() {
@@ -33,23 +34,9 @@ export default function PricingOptions() {
         reasons={proReasons}
         highlight
       >
-        <div className="flex flex-col gap-2 mt-6 w-[300px]">
-          <div className="flex flex-col justify-center mx-auto">
-            <h2 className="uppercase text-tiny opacity-50 mt-2 mb-2 text-center">
-              Supported period trackers
-            </h2>
-            <Image
-              className="mx-auto"
-              src="/clue.png"
-              width={120}
-              height={40}
-              alt="exteralSource"
-            />
-            <p className="max-w-[400px] text-tiny opacity-70 text-center">
-              <a className="underline hover:opacity-70" href="">
-                Not using Clue?
-              </a>
-            </p>
+        <div className="flex flex-col gap-6 w-[300px]">
+          <div className="mx-auto">
+            <SupportedTrackers />
           </div>
           <Button
             className="bg-transparent text-black border w-full h-11 capitalize"
