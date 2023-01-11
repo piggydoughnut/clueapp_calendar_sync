@@ -1,6 +1,8 @@
+import Benefits from "../components/Benefits";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Layout from "../components/Layout";
+import Link from "next/link";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import QA from "../components/QA";
 import SupportedTrackers from "../components/SupportedTrackers";
@@ -14,7 +16,7 @@ export default function Welcome() {
       <div className="pt-24 sm:pt-[10rem]">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">
-            <h1 className="ml-8 sm:ml-0 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
+            <h1 className="ml-4 sm:ml-0 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
               Sync your{" "}
               <span className="text-pu text-secondaryButton">
                 Google Calendar
@@ -42,23 +44,26 @@ export default function Welcome() {
                 for easy monotonus tasks.
               </h2>
               <Button
-                className="bg-secondaryButton w-full sm:w-36 h-11 capitalize font-plusJakarta mt-12 sm:mt-0"
+                className="bg-secondaryButton w-full sm:w-36 h-14 sm:h-11 capitalize font-plusJakarta mt-12 sm:mt-0"
                 onClick={() => router.push("#whydoit")}
               >
                 Why?{" "}
               </Button>
               <Button
-                className="bg-primaryButton w-full sm:w-36 h-11 capitalize font-plusJakarta"
+                className="bg-primaryButton w-full sm:w-36 h-14 sm:h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
                 How?
               </Button>
-              <Button
-                variant="outlined"
-                className="w-full sm:hidden h-11 uppercase text-sm font-plusJakarta"
-              >
-                Sign Up
-              </Button>
+
+              <Link href="/signup">
+                <Button
+                  variant="outlined"
+                  className="w-full sm:hidden h-14 sm:h-11  uppercase text-sm font-plusJakarta"
+                >
+                  Sign Up
+                </Button>
+              </Link>
             </div>
             <SupportedTrackers />
           </div>
@@ -73,6 +78,10 @@ export default function Welcome() {
           </div>
         </div>
       </div>
+      <div className="mt-40 flex justify-center">
+        <Benefits />
+      </div>
+
       <div className="mt-40 scroll-smooth scroll-m-10" id="whydoit">
         {[
           {
