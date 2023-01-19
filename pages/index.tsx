@@ -89,51 +89,156 @@ export default function Welcome() {
             key: "benefits",
             content: (
               <p className="mx-8 sm:mx-0 scroll scroll-mt-36">
-                There are many benefits to living in sync with one&apos s cycle.
-                If you learn how your cycle works aka how you work, you can
-                understand which days suit better for which tasks. You can use
-                that knowledge to your advantage. You will know when to schedule
-                important calls or presentations and when it is better to stay
-                low and work on that writting assignment that you have been
-                postponing.
+                Syncing your life with your menstrual cycle as a woman can have
+                numerous benefits, including an increase in professional
+                productivity. By tracking your cycle and taking note of how you
+                feel at different points, you can plan your schedule and
+                activities accordingly. <br />
+                <br /> For example, if you know that you tend to feel more tired
+                and irritable during your premenstrual phase, you may want to
+                schedule less demanding tasks and activities during that time.
+                Additionally, by understanding the hormonal changes that occur
+                during your cycle, you can make lifestyle and dietary
+                adjustments that may improve your physical and mental health,
+                which can translate to increased productivity in the workplace.
+                <br />
+                <br /> Syncing your cycle can also be beneficial for your
+                reproductive health and fertility, which can be useful for
+                people trying to conceive or trying to avoid pregnancy.
               </p>
-            ),
-          },
-          {
-            title: "How does it work?",
-            key: "work",
-            content: (
-              <div className="flex flex-col justify-center items-center">
-                <p className="mb-16 mx-8 sm:mx-0 ">
-                  Women go through certain hormonal changes during their cycle.
-                  Those hormones are responsible for changes in energy levels,
-                  concentration, etc.
-                </p>
-                <Image
-                  src="/female-hormones.png"
-                  alt="hormones"
-                  width={500}
-                  height={200}
-                />
-                <p className="text-tiny underline">
-                  Source:{" "}
-                  <a href="https://www.researchgate.net/publication/270406731_Money_Status_and_the_Ovulatory_Cycle">
-                    Money, Status, and the Ovulatory Cycle
-                  </a>
-                </p>
-              </div>
             ),
           },
           {
             title: "What is the science behind it?",
             key: "science",
             content: (
-              <p className="mx-8 sm:mx-0 ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nis
-              </p>
+              <div className="flex flex-col justify-center items-center">
+                <div className="mx-8 sm:mx-0 ">
+                  <p>
+                    The menstrual cycle can be broken down into four phases: the
+                    dream phase, the do phase, the give phase, and the take
+                    phase.{" "}
+                  </p>
+                  <p className="font-bold mt-6 mb-2">
+                    The Dream phase <span>(3-7 days)</span>
+                  </p>
+                  <p>
+                    Your hormones level off as you prepare for menstruation.
+                    It's a good time to find a peaceful place to relax and
+                    reflect. Allow yourself to slow down, and focus on
+                    self-care, as your body needs rest. This is an opportunity
+                    to focus on self-love and to conserve energy for the next
+                    cycle. Listen to your intuition and think about the past
+                    month, reflect on your experiences, and emotions. Consider
+                    how you feel about the progress you've made, and what you
+                    want to achieve in the next cycle.
+                  </p>
+                  <p className="mt-4 opacity-70 text-sm">
+                    <span className="uppercase text-tiny">Facts:</span> <br />
+                    This phase is also known as the menstrual phase, is when the
+                    uterus sheds its lining, resulting in menstrual bleeding. It
+                    is characterized by low levels of estrogen and progesterone.
+                    During this phase, women may experience cramps, bloating,
+                    and fatigue.
+                  </p>
+                  <br />
+                  <br />
+                  <div className="flex flex-col justify-center items-center">
+                    <Image
+                      src="/female-hormones.png"
+                      alt="hormones"
+                      width={500}
+                      height={200}
+                    />
+                    <p className="text-tiny text-center">
+                      Image source:{" "}
+                      {/* <a href="https://www.researchgate.net/publication/270406731_Money_Status_and_the_Ovulatory_Cycle"> */}
+                      Period Queen, Lucy Peach
+                      {/* </a> */}
+                    </p>
+                  </div>
+                  <p className="font-bold mt-8 mb-2">
+                    The Do phase <span>(6-14 days)</span>
+                  </p>
+                  <p>
+                    Once menstruation is over, estrogen levels start to rise
+                    again. This is a time of renewed energy, and a feeling of
+                    readiness to tackle new challenges. This phase is often
+                    associated with a sense of empowerment and the ability to
+                    accomplish anything you set your mind to.
+                  </p>
+                  <p className="mt-4 opacity-70 text-sm">
+                    <span className="uppercase text-tiny">Facts:</span> <br />
+                    The Do phase is also known as the follicular phase. During
+                    this phase, the body begins to prepare for ovulation by
+                    increasing the levels of estrogen. This is the time when the
+                    lining of the uterus thickens, and the body releases
+                    follicle-stimulating hormone (FSH) to start growing an egg.
+                  </p>
+                  <p className="font-bold mt-8 mb-2">
+                    The Give phase <span>(about 6 days)</span>
+                  </p>
+                  <div>
+                    <p>
+                      This is the peak of the menstrual cycle! Take the time to
+                      appreciate and celebrate all the beauty that surrounds
+                      you, both inside and outside of yourself. You have a surge
+                      of hormones after ovulation, which can make you feel
+                      energized and full of life. This energy can make you feel
+                      like embracing every opportunity that comes your way and
+                      giving back to the world around you.
+                    </p>
+
+                    <p className="mt-4 opacity-70 text-sm">
+                      <span className="uppercase text-tiny">Facts:</span> <br />
+                      The Give phase, also known as the ovulation phase, is when
+                      the egg is released from the ovary. This phase is
+                      triggered by a surge in luteinizing hormone (LH) and
+                      typically occurs around day 14 of a 28-day cycle.
+                    </p>
+                  </div>
+                  <p className="font-bold mt-8 mb-2">
+                    The Take phase <span>(7+ days)</span>
+                  </p>
+                  <p>
+                    As the cycle comes to an end, it's a time for reflection and
+                    taking note of the progress made during the previous weeks.
+                    The body naturally prepares for the next cycle by shedding
+                    the lining of the uterus and releasing the egg that was not
+                    fertilized. It's a time to take care of oneself, to rest and
+                    recharge for the next cycle.
+                  </p>
+                  <p className="mt-4 opacity-70 text-sm">
+                    <span className="uppercase text-tiny">Facts:</span> <br />
+                    The Take phase is characterized by a decrease in estrogen
+                    and progesterone levels. During this phase, women may
+                    experience physical and emotional changes such as cramps,
+                    bloating, fatigue, irritability, breast tenderness, mood
+                    swings, anxiety and depression.
+                  </p>
+                  <br />
+                  <br />
+                  <p className="text-sm">
+                    It's worth noting that these are not scientific terms and
+                    they may not be commonly used across the scientific or
+                    medical communities. Also, the way each woman experience the
+                    menstrual cycle differently and some may experience a
+                    different pattern of energy levels than what is described
+                    here. Some women may experience no change in energy levels
+                    throughout the cycle, while others may experience a more
+                    dramatic change.
+                  </p>
+                  <p className="text-sm mt-4">
+                    More information: <br />
+                    <a
+                      className="underline"
+                      href="https://helloclue.com/articles/cycle-a-z/the-menstrual-cycle-more-than-just-the-period"
+                    >
+                      What is the menstrual cycle? - Clue
+                    </a>
+                  </p>
+                </div>
+              </div>
             ),
           },
           {
@@ -209,6 +314,49 @@ export default function Welcome() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-8">
+                  <p className="text-sm">
+                    {" "}
+                    Some more reputable sources that provide detailed
+                    information about hormones during the menstrual cycle:
+                  </p>
+                  <ul className="mt-4">
+                    <li className="mt-2">
+                      <a
+                        className="underline"
+                        href="https://www.womenshealth.gov/menstruation"
+                      >
+                        {" "}
+                        The Office on Women's Health, part of the U.S.
+                        Department of Health and Human Services
+                      </a>
+                    </li>
+                    <li className="mt-2">
+                      <a
+                        className="underline"
+                        href="https://www.acog.org/patient-resources/faqs/menstruation"
+                      >
+                        The American College of Obstetricians and Gynecologists
+                        (ACOG)
+                      </a>
+                    </li>
+                    <li className="mt-2">
+                      <a
+                        className="underline"
+                        href="https://www.nichd.nih.gov/health/topics/menstruation"
+                      >
+                        The National Institute of Child Health and Human
+                        Development (NICHD)
+                      </a>
+                    </li>
+                  </ul>
+                  {/* <p>
+                    It is important to keep in mind that these sources provide
+                    general information and some of the details may not apply to
+                    every individual. Always consult with a healthcare
+                    professional for personalized advice.
+                  </p> */}
+                </div>
               </div>
             ),
           },

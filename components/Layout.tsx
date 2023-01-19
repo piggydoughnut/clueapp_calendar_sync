@@ -97,17 +97,16 @@ const Footer = () => (
     <div className="mt-12 opacity-50 text-tiny">
       <p className="font-bold uppercase">DISCLAIMER</p>
       <p>
-        The content presented on this website is meant for inspiration and
-        informational purposes only. The user of this website understands that
-        the creator is not a medical professional, and the information contained
-        within this website is not intended to replace medical advice or to be
-        relied upon to treat, cure or prevent any disease, illness or medical
-        condition. It is understood that you will seek full medical clearance by
-        a licensed physician before making any changes mentioned on this
-        website. The author claims no responsibility to any person or entity for
-        any liability, loss or damage caused or alleged to be caused directly or
-        indirectly as a result of the use, application or interpretation of the
-        material on this website
+        The information provided on this website is intended to be used for
+        educational and inspirational purposes only, it's not intended to be a
+        substitute for professional medical advice, diagnosis, or treatment. The
+        website's creator is not a medical professional, and the information
+        contained on this website should not be used to diagnose or treat any
+        health issues. It's important to seek advice from a licensed physician
+        or healthcare professional before making any changes to your health
+        regimen. The author of this website cannot be held responsible for any
+        damages or losses that may occur as a result of using, interpreting or
+        applying the information provided on this website.
       </p>
     </div>
   </div>
