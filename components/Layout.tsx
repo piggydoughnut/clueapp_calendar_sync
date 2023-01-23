@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import burgerIcon from "../public/burger-icon.svg";
+import { useState } from "react";
 
 const menu = [
   {
@@ -25,6 +26,40 @@ const menu = [
   //   url: "/pricing#faq",
   // },
 ];
+
+const Burger = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const c =
+    "flex flex-col gap-12 justify-center bg-white w-full h-auto absolute pt-24 pl-12 pb-12";
+  const classStyle = !isOpen ? " hidden " + c : c;
+  return (
+    <div className="flex flex-row justify-end">
+      <div className="flex flex-row pr-8 pt-8">
+        <Image
+          src={burgerIcon}
+          alt="menuicon"
+          className="z-10"
+          height="40"
+          onClick={() => {
+            console.log("isOpen ", isOpen);
+            setIsOpen(!isOpen);
+          }}
+        />
+      </div>
+      <div className={classStyle}>
+        {menu.map((item) => (
+          <Link
+            key={item.name}
+            className="hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out text-xl uppercase"
+            href={item.url}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Navbar = () => (
   <>
@@ -57,16 +92,14 @@ const Navbar = () => (
         </Button>
       </Link>
     </div>
-    <div className="sm:hidden mx-4 pt-4">
-      <div className="flex flex-row justify-between items-center">
-        <Link
-          className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out"
-          href="/"
-        >
-          Hack Your Cycle
-        </Link>
-        <Image src={burgerIcon} alt="menuicon" height="40" />
-      </div>
+    <div className="sm:hidden flex flex-row justify-between items-center">
+      <Link
+        className="font-bold hover:text-indigo-400 transition-all hover:ease-in-out pt-8 text-lg ml-4"
+        href="/"
+      >
+        Hack Your Cycle
+      </Link>
+      <Burger />
     </div>
   </>
 );
