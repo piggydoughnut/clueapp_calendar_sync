@@ -30,8 +30,8 @@ const menu = [
 const Burger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const c =
-    "flex flex-col gap-12 justify-center bg-white w-full h-auto absolute pt-24 pl-12 pb-12";
-  const classStyle = !isOpen ? " hidden " + c : c;
+    "flex flex-col gap-12 justify-center bg-white w-full h-full pt-24 pl-12 pb-12 ease-linear transition-width transition-100 absolute";
+  const classStyle = !isOpen ? " w-0 overflow-clip " + c : c;
   return (
     <div className="flex flex-row justify-end">
       <div className="flex flex-row pr-8 pt-8">
@@ -48,14 +48,13 @@ const Burger = () => {
       </div>
       <div className={classStyle}>
         {menu.map((item) => (
-          <Link
-            key={item.name}
-            className="hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out text-xl uppercase"
-            href={item.url}
-          >
+          <Link key={item.name} className="text-xl uppercase" href={item.url}>
             {item.name}
           </Link>
         ))}
+        <Link className="font-bold" href="/">
+          Hack Your Cycle
+        </Link>
       </div>
     </div>
   );
