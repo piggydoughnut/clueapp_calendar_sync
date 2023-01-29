@@ -58,7 +58,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
       setStep(SignupSteps.CLUE);
       router.push({ pathname: router.pathname, query: {} });
     }
-  }, [router.query, jwt]);
+  }, [router, jwt]);
 
   useEffect(() => {
     const processUser = async () => {

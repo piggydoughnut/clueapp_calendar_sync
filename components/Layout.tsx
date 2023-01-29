@@ -1,7 +1,5 @@
 import { Button } from "@material-tailwind/react";
 import { Spin as Hamburger } from "hamburger-react";
-// import Hamburger from "hamburger-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -37,16 +35,6 @@ const Burger = () => {
     <div className="flex flex-row justify-end">
       <div className="flex flex-row pr-8 pt-8 z-10">
         <Hamburger toggled={isOpen} toggle={setIsOpen} color="#151313" />
-        {/* <Image
-          src={burgerIcon}
-          alt="menuicon"
-          className="z-10"
-          height="40"
-          onClick={() => {
-            console.log("isOpen ", isOpen);
-            setIsOpen(!isOpen);
-          }}
-        /> */}
       </div>
       <div className={classStyle}>
         <div className="pl-12 flex flex-col align-start gap-8 justify-start">
@@ -134,15 +122,16 @@ const Footer = () => (
       <p className="font-bold uppercase">DISCLAIMER</p>
       <p>
         The information provided on this website is intended to be used for
-        educational and inspirational purposes only, it's not intended to be a
-        substitute for professional medical advice, diagnosis, or treatment. The
-        website's creator is not a medical professional, and the information
-        contained on this website should not be used to diagnose or treat any
-        health issues. It's important to seek advice from a licensed physician
-        or healthcare professional before making any changes to your health
-        regimen. The author of this website cannot be held responsible for any
-        damages or losses that may occur as a result of using, interpreting or
-        applying the information provided on this website.
+        educational and inspirational purposes only, it`&apos;`s not intended to
+        be a substitute for professional medical advice, diagnosis, or
+        treatment. The website`&apos;`s creator is not a medical professional,
+        and the information contained on this website should not be used to
+        diagnose or treat any health issues. It`&apos;`s important to seek
+        advice from a licensed physician or healthcare professional before
+        making any changes to your health regimen. The author of this website
+        cannot be held responsible for any damages or losses that may occur as a
+        result of using, interpreting or applying the information provided on
+        this website.
       </p>
     </div>
   </div>

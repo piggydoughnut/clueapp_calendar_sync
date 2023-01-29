@@ -124,14 +124,14 @@ export default function Welcome() {
                   </p>
                   <p>
                     Your hormones level off as you prepare for menstruation.
-                    It's a good time to find a peaceful place to relax and
-                    reflect. Allow yourself to slow down, and focus on
+                    It`&apos;`s a good time to find a peaceful place to relax
+                    and reflect. Allow yourself to slow down, and focus on
                     self-care, as your body needs rest. This is an opportunity
                     to focus on self-love and to conserve energy for the next
                     cycle. Listen to your intuition and think about the past
                     month, reflect on your experiences, and emotions. Consider
-                    how you feel about the progress you've made, and what you
-                    want to achieve in the next cycle.
+                    how you feel about the progress you`&apos;`ve made, and what
+                    you want to achieve in the next cycle.
                   </p>
                   <p className="mt-4 opacity-70 text-sm">
                     <span className="uppercase text-tiny">Facts:</span> <br />
@@ -201,12 +201,12 @@ export default function Welcome() {
                     The Take phase <span>(7+ days)</span>
                   </p>
                   <p>
-                    As the cycle comes to an end, it's a time for reflection and
-                    taking note of the progress made during the previous weeks.
-                    The body naturally prepares for the next cycle by shedding
-                    the lining of the uterus and releasing the egg that was not
-                    fertilized. It's a time to take care of oneself, to rest and
-                    recharge for the next cycle.
+                    As the cycle comes to an end, it`&apos;`s a time for
+                    reflection and taking note of the progress made during the
+                    previous weeks. The body naturally prepares for the next
+                    cycle by shedding the lining of the uterus and releasing the
+                    egg that was not fertilized. It`&apos;`s a time to take care
+                    of oneself, to rest and recharge for the next cycle.
                   </p>
                   <p className="mt-4 opacity-70 text-sm">
                     <span className="uppercase text-tiny">Facts:</span> <br />
@@ -219,8 +219,8 @@ export default function Welcome() {
                   <br />
                   <br />
                   <p className="text-sm">
-                    It's worth noting that these are not scientific terms and
-                    they may not be commonly used across the scientific or
+                    It`&apos;`s worth noting that these are not scientific terms
+                    and they may not be commonly used across the scientific or
                     medical communities. Also, the way each woman experience the
                     menstrual cycle differently and some may experience a
                     different pattern of energy levels than what is described
@@ -327,7 +327,7 @@ export default function Welcome() {
                         href="https://www.womenshealth.gov/menstruation"
                       >
                         {" "}
-                        The Office on Women's Health, part of the U.S.
+                        The Office on Women`&apos;`s Health, part of the U.S.
                         Department of Health and Human Services
                       </a>
                     </li>
