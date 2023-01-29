@@ -12,10 +12,10 @@ const PriceTag = ({ price }: { price: string }) => {
 
 const ReasonRow = ({ sign, text }) => {
   return (
-    <p className="flex flex-row items-start gap-2 text-sm">
+    <div className="flex flex-row items-start gap-2 text-sm">
       <Image className="w-6 h-6" src={sign} alt={"sign"} />
       <p>{text}</p>
-    </p>
+    </div>
   );
 };
 

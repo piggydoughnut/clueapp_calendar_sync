@@ -29,8 +29,10 @@ const menu = [
 const Burger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const c =
-    "bg-white w-full h-full pt-24 pb-12 ease-linear transition translate-x-[-100%] absolute";
-  const classStyle = !isOpen ? " translate-x-0 overflow-hidden " + c : c;
+    "bg-white w-full h-full pt-24 pb-12 ease-linear transition absolute overflow-hidden";
+  const classStyle = isOpen
+    ? " translate-x-0 " + c
+    : c + " translate-x-[-100%] ";
   return (
     <div className="flex flex-row justify-end">
       <div className="flex flex-row pr-8 pt-8 z-10">
@@ -39,7 +41,12 @@ const Burger = () => {
       <div className={classStyle}>
         <div className="pl-12 flex flex-col align-start gap-8 justify-start">
           {menu.map((item) => (
-            <Link key={item.name} className="text-xl uppercase" href={item.url}>
+            <Link
+              key={item.name}
+              className="text-xl uppercase"
+              href={item.url}
+              g
+            >
               {item.name}
             </Link>
           ))}
