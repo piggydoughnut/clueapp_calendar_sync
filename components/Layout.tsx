@@ -29,8 +29,8 @@ const menu = [
 const Burger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const c =
-    "bg-white w-full h-full pt-24 pb-12 ease-linear transition-width transition-100 absolute";
-  const classStyle = !isOpen ? " w-0 overflow-hidden " + c : c;
+    "bg-white w-full h-full pt-24 pb-12 ease-linear transition translate-x-[-100%] absolute";
+  const classStyle = !isOpen ? " translate-x-0 overflow-hidden " + c : c;
   return (
     <div className="flex flex-row justify-end">
       <div className="flex flex-row pr-8 pt-8 z-10">
