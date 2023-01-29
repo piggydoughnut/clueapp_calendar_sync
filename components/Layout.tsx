@@ -35,7 +35,7 @@ const Burger = () => {
     : c + " translate-x-[-100%] ";
   return (
     <div className="flex flex-row justify-end">
-      <div className="flex flex-row pr-8 pt-8 z-10">
+      <div className="flex flex-row pr-6 pt-8 z-10">
         <Hamburger toggled={isOpen} toggle={setIsOpen} color="#151313" />
       </div>
       <div className={classStyle}>
@@ -149,7 +149,9 @@ export default function Layout({
       className={`bg-no-repeat ${bgImage} scroll-smooth`}
     >
       <Navbar />
-      <main>{children}</main>
+      <div className="mx-4 sm:mx-0">
+        <main>{children}</main>
+      </div>
       <Footer />
     </div>
   );

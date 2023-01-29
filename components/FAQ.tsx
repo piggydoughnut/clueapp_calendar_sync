@@ -36,7 +36,10 @@ const faqQuestions = [
 const FAQElement = ({ openMe, handleOpen, question, answer }) => {
   return (
     <Accordion open={openMe}>
-      <AccordionHeader className="text-md" onClick={() => handleOpen()}>
+      <AccordionHeader
+        className="text-md text-start"
+        onClick={() => handleOpen()}
+      >
         {question}
       </AccordionHeader>
       <AccordionBody className="font-normal">{answer}</AccordionBody>

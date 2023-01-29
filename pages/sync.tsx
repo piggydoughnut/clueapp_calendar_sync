@@ -2,6 +2,7 @@ import { Button, Input } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
 
+import Benefits from "../components/Benefits";
 import Calendar from "../components/calendar/Calendar";
 import ClueLogin from "../components/ClueLogin";
 import FormSchema from "../helpers/FormSchema";
@@ -93,6 +94,12 @@ export default function Sync() {
       })
       .catch((e) => console.log(e));
   };
+
+  const Subtitle = ({ text }: { text: string }) => (
+    <h2 className="text-lg font-bold text-center mt-24 mb-24 mx-6 sm:mx-0">
+      {text}
+    </h2>
+  );
 
   return (
     <Layout>
@@ -258,66 +265,9 @@ export default function Sync() {
         </div>
         {showCalendar && (
           <div>
-            <h2 className="text-lg font-bold text-center mt-24 mb-24">
-              Use the newly found power to balance your life and hack your cycle
-            </h2>
-
-            <div className="flex flex-col items-center sm:items-even md:flex-row gap-6">
-              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
-                <Image src={heart} width={32} height={32} alt="heart" />
-                <div>
-                  <p className="uppercase  font-bold">Your cycle data</p>
-                  <p className="text-sm">
-                    Data on which days you
-                    <ul className="list-disc list-inside">
-                      <li>need to take it slow</li>
-                      <li>can put some extra work in</li>
-                      <li>need to take extra care of yourself</li>
-                      <li>can be impatient</li>
-                      <li>not ready for social interaction</li>
-                    </ul>
-                  </p>
-                </div>
-              </div>
-
-              <Image src={plus} width={32} height={32} alt="plus" />
-              <div className="flex flex-row justify-start items-start gap-2 border-white border-2 rounded p-4 ">
-                <Image src={cal} width={32} height={32} alt="calendar" />
-                <div>
-                  <p className="uppercase font-bold">Your Google Calendar</p>
-                  <p className="text-sm">
-                    Space where you
-                    <ul className="list-disc list-inside">
-                      <li>plan your work mettings</li>
-                      <li>schedule dates</li>
-                      <li>add reminders for events to attend</li>
-                      <li>receive call invitations</li>
-                      <li>create travel plans</li>
-                    </ul>
-                  </p>
-                </div>
-              </div>
-
-              <Image src={eq} width={32} height={32} alt="eq" />
-              <div className="flex flex-row justify-start items-start gap-2 border-secondaryButton border-2 rounded p-4 ">
-                <div>
-                  <p className="uppercase font-bold text-secondaryButton">
-                    Balance
-                  </p>
-                  <p className="text-sm">
-                    <ul className="list-disc list-inside">
-                      <li>You know when to schedule busy days.</li>
-                      <li>You know when to take it slow.</li>
-                      <li>You are in tune with yourself.</li>
-                      <li>You are less stressed.</li>
-                    </ul>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <h2 className="text-lg font-bold text-center mt-24 mb-12">
-              Sign up to have your google calendar synced with your cycle.
-            </h2>
+            <Subtitle text="Use the newly found power to balance your life and hack your cycle" />
+            <Benefits />
+            <Subtitle text="Sign up to have your google calendar synced with your cycle." />
             <PricingOptions />
             <PeriodTrackerSupportForm />
           </div>
