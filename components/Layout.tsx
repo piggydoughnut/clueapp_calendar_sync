@@ -1,7 +1,8 @@
 import { Button } from "@material-tailwind/react";
+import { Spin as Hamburger } from "hamburger-react";
+// import Hamburger from "hamburger-react";
 import Image from "next/image";
 import Link from "next/link";
-import burgerIcon from "../public/burger-icon.svg";
 import { useState } from "react";
 
 const menu = [
@@ -30,12 +31,13 @@ const menu = [
 const Burger = () => {
   const [isOpen, setIsOpen] = useState(false);
   const c =
-    "flex flex-col gap-12 justify-center bg-white w-full h-full pt-24 pl-12 pb-12 ease-linear transition-width transition-100 absolute";
-  const classStyle = !isOpen ? " w-0 overflow-clip " + c : c;
+    "bg-white w-full h-full pt-24 pb-12 ease-linear transition-width transition-100 absolute";
+  const classStyle = !isOpen ? " w-0 overflow-hidden " + c : c;
   return (
     <div className="flex flex-row justify-end">
-      <div className="flex flex-row pr-8 pt-8">
-        <Image
+      <div className="flex flex-row pr-8 pt-8 z-10">
+        <Hamburger toggled={isOpen} toggle={setIsOpen} color="#151313" />
+        {/* <Image
           src={burgerIcon}
           alt="menuicon"
           className="z-10"
@@ -44,17 +46,19 @@ const Burger = () => {
             console.log("isOpen ", isOpen);
             setIsOpen(!isOpen);
           }}
-        />
+        /> */}
       </div>
       <div className={classStyle}>
-        {menu.map((item) => (
-          <Link key={item.name} className="text-xl uppercase" href={item.url}>
-            {item.name}
+        <div className="pl-12 flex flex-col align-start gap-8 justify-start">
+          {menu.map((item) => (
+            <Link key={item.name} className="text-xl uppercase" href={item.url}>
+              {item.name}
+            </Link>
+          ))}
+          <Link className="font-bold" href="/">
+            Hack Your Cycle
           </Link>
-        ))}
-        <Link className="font-bold" href="/">
-          Hack Your Cycle
-        </Link>
+        </div>
       </div>
     </div>
   );

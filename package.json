@@ -16,6 +16,7 @@
     "form-data": "^4.0.0",
     "formik": "^2.2.9",
     "googleapis": "^109.0.1",
+    "hamburger-react": "^2.5.0",
     "handlebars": "^4.7.7",
     "html-to-image": "^1.10.8",
     "html2canvas": "^1.4.1",
