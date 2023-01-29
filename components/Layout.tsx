@@ -41,12 +41,7 @@ const Burger = () => {
       <div className={classStyle}>
         <div className="pl-12 flex flex-col align-start gap-8 justify-start">
           {menu.map((item) => (
-            <Link
-              key={item.name}
-              className="text-xl uppercase"
-              href={item.url}
-              g
-            >
+            <Link key={item.name} className="text-xl uppercase" href={item.url}>
               {item.name}
             </Link>
           ))}
