@@ -74,6 +74,7 @@ const Burger = () => {
     <div className="flex flex-row justify-end z-10">
       <div className="flex flex-row pr-6 pt-8 z-10">
         <Hamburger
+          // @ts-ignore
           className="hamburger-react"
           toggled={isOpen}
           toggle={() => {
