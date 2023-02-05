@@ -68,7 +68,7 @@ export default function Calendar({
     <div
       ref={reff}
       id={id}
-      className={`flex gap-24 bg-white flex-col md:flex-row`}
+      className={`flex flex-col gap-24 bg-white lg:flex-row`}
     >
       <div>
         <MonthlyCalendar

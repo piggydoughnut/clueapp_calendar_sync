@@ -1,7 +1,7 @@
 import Benefits from "../components/Benefits";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
-import Layout from "../components/Layout";
+import Layout from "../components/nav/Layout";
 import Link from "next/link";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import QA from "../components/QA";
@@ -16,14 +16,14 @@ export default function Welcome() {
       <div className="pt-24 sm:pt-[10rem]">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">
-            <h1 className="ml-4 sm:ml-0 sm:mx-0 text-xl lg:text-xl font-bold max-w-xl leading-10">
+            <h1 className="text-xl lg:text-xl font-bold max-w-xl leading-10">
               Sync your{" "}
               <span className="text-pu text-secondaryButton">
                 Google Calendar
               </span>{" "}
               with your cycle for higher productivity and balance.
             </h1>
-            <h2 className="hidden sm:block mx-3 sm:mx-0 text-sm max-w-sm opacity-70 mt-2">
+            <h2 className="hidden sm:block text-sm max-w-sm opacity-70 mt-2">
               Increase your productivity by hacking your cycle. Schedule
               meetings on the days your are a rockstar and use the slow days for
               easy monotonus tasks.

@@ -1,5 +1,5 @@
 import FAQ from "../components/FAQ";
-import Layout from "../components/Layout";
+import Layout from "../components/nav/Layout";
 import PricingOptions from "../components/PricingOptions";
 
 export default function Pricing() {

@@ -8,7 +8,7 @@ import ClueLogin from "../components/ClueLogin";
 import FormSchema from "../helpers/FormSchema";
 import Image from "next/image";
 import InputToolTip from "../components/InputTooltip";
-import Layout from "../components/Layout";
+import Layout from "../components/nav/Layout";
 import Note from "../components/Note";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import PricingOptions from "../components/PricingOptions";
