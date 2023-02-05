@@ -56,7 +56,8 @@ const Burger = () => {
         }
         if (
           (menuRef.current && menuRef.current.contains(evt.target)) ||
-          evt.target.className === "hamburger-react"
+          // @ts-ignore
+          evt.target?.className === "hamburger-react"
         )
           return;
         setIsOpen(false);
