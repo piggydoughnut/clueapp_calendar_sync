@@ -60,6 +60,7 @@ const Burger = () => {
         )
           return;
         setIsOpen(false);
+        setListeningEnabled(false);
       });
       funcs.push(listener);
     });
@@ -76,7 +77,7 @@ const Burger = () => {
           toggled={isOpen}
           toggle={() => {
             setIsOpen(!isOpen);
-            setListeningEnabled(true);
+            setListeningEnabled(!isOpen);
           }}
           color="#151313"
         />
@@ -89,7 +90,7 @@ const Burger = () => {
               className="text-xl uppercase cursor-pointer"
               onClick={() => {
                 setIsOpen(false);
-                setListeningEnabled(true);
+                setListeningEnabled(false);
                 router.push(item.url);
               }}
             >
