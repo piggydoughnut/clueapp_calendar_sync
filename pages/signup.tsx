@@ -93,7 +93,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
       </h1>
       <div className="flex flex-col justify-center items-center mt-24">
         <div className="flex flex-row justify-center items-center gap-8">
-          <div className="bg-white w-full sm:w-[800px] p-4 h-[450px] rounded-md shadow-pink-300 border-pink-300 border">
+          <div className="bg-white w-full sm:w-[800px] p-4 h-auto pb-10 rounded-md shadow-pink-300 border-pink-300 border">
             <div className="flex flex-col items-center justify-center">
               <Progress
                 barProps={{
