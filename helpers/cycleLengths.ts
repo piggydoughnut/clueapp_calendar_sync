@@ -1,8 +1,12 @@
+import { PhaseInfo, PhaseName } from "./types";
 import { addDays, format, parseISO } from "date-fns";
 
 import { Phases } from "./defines";
 
-export const getLengthsByCycle = (periodLength, cycleLength = 28) => ({
+export const getLengthsByCycle = (
+  periodLength: number,
+  cycleLength: number = 28
+) => ({
   [Phases.DREAM]: periodLength ? periodLength : 5,
   [Phases.DO]: cycleLength - 15 - periodLength,
   [Phases.GIVE]: 7,
@@ -11,7 +15,13 @@ export const getLengthsByCycle = (periodLength, cycleLength = 28) => ({
 
 export const formatDate = (d) => format(d, "yyyy-MM-dd");
 
-export const getCyclePhaseDates = (cycleStart, periodLength, cycleLength) => {
+type CyclePhaseDates = Record<PhaseName, PhaseInfo>;
+
+export const getCyclePhaseDates = (
+  cycleStart: string,
+  periodLength: number,
+  cycleLength: number
+): CyclePhaseDates => {
   console.log("cycleStart ", cycleStart);
   console.log("periodLength ", periodLength);
   console.log("cycleLength ", cycleLength);
@@ -44,19 +54,19 @@ export const getCyclePhaseDates = (cycleStart, periodLength, cycleLength) => {
   };
 
   return {
-    [Phases.TAKE]: {
+    [PhaseName.TAKE]: {
       startDate: formatDate(takePhase.startDate),
       endDate: formatDate(takePhase.endDate),
     },
-    [Phases.GIVE]: {
+    [PhaseName.GIVE]: {
       startDate: formatDate(givePhase.startDate),
       endDate: formatDate(givePhase.endDate),
     },
-    [Phases.DO]: {
+    [PhaseName.DO]: {
       startDate: formatDate(doPhase.startDate),
       endDate: formatDate(doPhase.endDate),
     },
-    [Phases.DREAM]: {
+    [PhaseName.DREAM]: {
       startDate: formatDate(dreamPhase.startDate),
       endDate: formatDate(dreamPhase.endDate),
     },

@@ -13,11 +13,7 @@ import Note from "../components/Note";
 import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
 import PricingOptions from "../components/PricingOptions";
 import axios from "axios";
-import cal from "../public/calendar-icon.svg";
-import eq from "../public/eq.svg";
 import { getCalendarData } from "../helpers/calendar";
-import heart from "../public/heart-pulse.svg";
-import plus from "../public/plus.svg";
 import { toPng } from "html-to-image";
 
 const Title = ({ title }: { title: string }) => (

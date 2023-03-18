@@ -1,3 +1,5 @@
+export const CALENDAR_NAME = "My cycle";
+
 export const Phases = {
   DREAM: "Dream",
   DO: "Do",

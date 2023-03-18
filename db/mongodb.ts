@@ -26,17 +26,22 @@ if (!cached) {
 }
 
 async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+  try {
+    if (cached.conn) {
+      return cached.conn;
+    }
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
-      return mongoose;
-    });
+    if (!cached.promise) {
+      cached.promise = mongoose.connect(MONGODB_URI ?? "").then((mongoose) => {
+        return mongoose;
+      });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
+  } catch (e) {
+    console.log(e);
+    console.log("database connection issue");
   }
-  cached.conn = await cached.promise;
-  return cached.conn;
 }
 
 export default dbConnect;

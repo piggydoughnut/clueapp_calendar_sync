@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ClueLogin from "../components/ClueLogin";
 import Confetti from "react-confetti";
 import Layout from "../components/nav/Layout";
+import React from "react";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";
 

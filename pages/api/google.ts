@@ -58,10 +58,11 @@ export default async function handler(req, res) {
       console.log("Created a user ", user);
     } else {
       console.log("We have already registered this user ", userInTheDatabase);
+      // return res.status(400).json({ err: "USER_EXISTS" });
     }
   } catch (error) {
     console.log(error);
+    // return res.status(400).json(error);
   }
-
   res.redirect(`/signup?jwt=${jwtToken}`);
 }
