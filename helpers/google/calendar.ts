@@ -3,6 +3,7 @@ import { GoogleApis, google } from "googleapis";
 import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
 import axios from "axios";
+import dayjs from "dayjs";
 import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
 import jwt from "jsonwebtoken";
@@ -34,10 +35,15 @@ export const createCalendar = async (api) => {
   return newCal;
 };
 
-export const getScheduledEvents = async (api, id: string) =>
+export const getScheduledEvents = async (api, id: string) => {
+  const startDate = dayjs().subtract(1, "month");
   api.events.list({
     calendarId: id,
+    timeMin: startDate.toISOString(),
+    singleEvents: true,
+    orderBy: "startTime",
   });
+};
 
 export const listCalendars = async (api, id: string) =>
   api.calendarList.list({
