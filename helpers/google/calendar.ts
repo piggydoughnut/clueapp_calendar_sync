@@ -1,10 +1,10 @@
 import { CALENDAR_NAME, googleCalendarConfig } from "../defines";
+import { GoogleApis, google } from "googleapis";
 import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
 import axios from "axios";
 import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
-import { google } from "googleapis";
 import jwt from "jsonwebtoken";
 
 export const createGoogleCalendar = async (jwt: string) =>
@@ -42,6 +42,18 @@ export const getScheduledEvents = async (api, id: string) =>
 export const listCalendars = async (api, id: string) =>
   api.calendarList.list({
     calendarId: id,
+  });
+
+export const createEvent = async (api, event) => api.events.insert(event);
+
+export const removeEvent = async (
+  api,
+  id: string,
+  eventId: string | string[]
+) =>
+  api.events.delete({
+    calendarId: id,
+    eventId,
   });
 
 export const createCalendarForUser = async (jwtToken: string) => {
@@ -111,3 +123,40 @@ export const createCalendarForUser = async (jwtToken: string) => {
 
   return;
 };
+
+export const formatEvent = (conf, phase) => ({
+  ...conf,
+  start: {
+    date: phase.startDate,
+  },
+  end: {
+    date: phase.endDate,
+  },
+});
+
+export const scheduleEvents = async (api, calendarId, cyclePhaseDates) => {
+  let events: any = [];
+
+  for (let i in cyclePhaseDates) {
+    events.push({
+      calendarId,
+      resource: formatEvent(googleCalendarConfig[i], cyclePhaseDates[i]),
+    });
+  }
+
+  // prepare events for inserting Clue calendar events
+  await Promise.all(
+    events.map((event, idx) => {
+      console.log(event);
+      console.log("Adding event starting ", event.resource.start);
+      return setTimeout(() => createEvent(api, event), 10000 * idx);
+    })
+  );
+};
+
+export const removeMultipleEvents = (api, calendarId, eventIds) =>
+  Promise.all(
+    eventIds.map((id, idx) =>
+      setTimeout(() => removeEvent(api, calendarId, id), 1000 * idx)
+    )
+  );
