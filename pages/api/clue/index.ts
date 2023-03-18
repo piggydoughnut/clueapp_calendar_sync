@@ -11,21 +11,19 @@ import {
   setClientCredentials,
 } from "../../../helpers/google/oauthClient";
 
-import { Phases } from "../../../helpers/defines";
 import { calendar_v3 } from "googleapis";
 import dbConnect from "../../../db/mongodb";
 import { getCyclePhaseDates } from "../../../helpers/cycleLengths";
 import { login } from "../../../helpers/clue";
 
-var differenceInCalendarDays = require("date-fns/differenceInCalendarDays");
-
 export default async function handler(req, res) {
   const oauth2Client = getOauth2Client();
   await dbConnect();
 
-  const alluUsers = await User.find();
+  /* @ts-ignore */
+  const allUsers = await User.find();
 
-  alluUsers.forEach(async (user) => {
+  allUsers.forEach(async (user) => {
     setClientCredentials(oauth2Client, user);
     const calendarApi = await getCalendarApi(oauth2Client);
 
