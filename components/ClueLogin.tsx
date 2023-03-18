@@ -3,6 +3,7 @@ import { Button, Input } from "@material-tailwind/react";
 import Link from "next/link";
 import Loading from "../components/Loading";
 import axios from "axios";
+import { login } from "../helpers/clue";
 import { useState } from "react";
 
 export default function ClueLogin({
@@ -21,18 +22,20 @@ export default function ClueLogin({
   const loginToClue = async (email, password) => {
     try {
       setLoading(true);
-      const response = await axios.post("/api/tokens", {
+      const {
+        data: { token, cycles },
+      } = await axios.post("/api/tokens", {
         email,
         password,
       });
       if (getUserData) {
         getUserData({ email, password });
       }
-      if (response.data.token.access_token) {
+      if (token.access_token) {
         setLoading(false);
-        const total = response.data.cycles.length;
+        const total = cycles.length;
         if (setCycleData) {
-          setCycleData(response.data.cycles.slice(total - 3, total - 2)[0]);
+          setCycleData(cycles.slice(total - 3, total - 2)[0]);
         }
       }
     } catch (e) {
