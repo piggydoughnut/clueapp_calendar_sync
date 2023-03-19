@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 
 import ClueLogin from "@components/ClueLogin";
 import Confetti from "react-confetti";
+import Image from "next/image";
 import Layout from "@components/nav/Layout";
 import React from "react";
 import { getGoogleAuthURL } from "../auth/google-auth";
@@ -49,6 +50,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   const [jwt, setJwt] = useState("");
   const [clueData, setClueData] = useState(null);
   const [cycleData, setCycleData] = useState(null);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(null);
 
   const router = useRouter();
 
@@ -58,6 +60,13 @@ export default function Signup({ googleuri }: { googleuri: string }) {
       setJwt(router?.query?.jwt);
       setStep(SignupSteps.CLUE);
       router.push({ pathname: router.pathname, query: {} });
+    }
+    if (router.query.msg) {
+      if (router.query.msg === "101") {
+        setAlreadyRegistered(true);
+        setStep(null);
+        router.push({ pathname: router.pathname, query: {} });
+      }
     }
   }, [router, jwt]);
 
@@ -96,16 +105,69 @@ export default function Signup({ googleuri }: { googleuri: string }) {
         <div className="flex flex-row justify-center items-center gap-8">
           <div className="bg-white w-full sm:w-[800px] p-4 h-auto pb-10 rounded-md shadow-pink-300 border-pink-300 border">
             <div className="flex flex-col items-center justify-center">
-              <Progress
-                barProps={{
-                  className: "bg-red-100",
-                }}
-                className="max-w-[500px] border border-black h-4 bg-white mt-4"
-                value={(100 / 4) * step}
-              />
-              <h2 className="mb-4 mt-8 font-bold text-center">
-                {SignupStepsTitle[step]}
-              </h2>
+              {step && (
+                <Progress
+                  barProps={{
+                    className: "bg-red-100",
+                  }}
+                  className="max-w-[500px] border border-black h-4 bg-white mt-4"
+                  value={(100 / 4) * step}
+                />
+              )}
+              {alreadyRegistered && (
+                <div>
+                  <h1 className="text-lg font-bold text-center mt-8">
+                    {" "}
+                    It looks like you have already signed up.
+                  </h1>
+                  <p className="text-md mx-8 mt-8">
+                    Please check your{" "}
+                    <a
+                      href="https://gmail.com/"
+                      className="underline text-blue-400"
+                    >
+                      Gmail
+                    </a>{" "}
+                    for the instructions. <br />
+                  </p>{" "}
+                  <p className="text-md mx-8 mt-8">
+                    Assuming you have already followed the instructions, check
+                    your
+                    <a
+                      href="calendar.google.com/"
+                      className="underline text-blue-400"
+                    >
+                      Google calendar
+                    </a>
+                    . You will notice a newly added calendar named &apos;My
+                    cycle&apos; in your Google Calendar (note that it could be
+                    different colour for you).
+                  </p>
+                  <Image
+                    src="/calendars.png"
+                    alt="calendars"
+                    width={250}
+                    height={400}
+                    className="mx-auto border border-gray-300 mt-6"
+                  />
+                  <p className="text-sm mt-16 mx-8">
+                    In the case you didn&apos;t receive an email or your Google
+                    calendar was not updated,{" "}
+                    <a
+                      className="underline hover:opacity-70 text-blue-400"
+                      href="mailto:support@hack-the-cycle.com"
+                    >
+                      please let us know
+                    </a>
+                    .
+                  </p>
+                </div>
+              )}
+              {step && (
+                <h2 className="mb-4 mt-8 font-bold text-center">
+                  {SignupStepsTitle[step]}
+                </h2>
+              )}
               {step === SignupSteps.GOOGLE && (
                 <>
                   <Button
@@ -152,7 +214,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                       In the case you didnt receive an email or your Google
                       calendar was not updated,{" "}
                       <a
-                        className="underline hover:opacity-70 text-blue-700"
+                        className="underline hover:opacity-70 text-blue-400"
                         href="mailto:support@hack-the-cycle.com"
                       >
                         please let us know
@@ -162,9 +224,11 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                   </div>
                 </>
               )}
-              <p className="mt-14 text-tiny pl-10 pr-10 opacity-70 max-w-[600px]">
-                {StepsExplanation[step]()}
-              </p>
+              {step && (
+                <p className="mt-14 text-tiny pl-10 pr-10 opacity-70 max-w-[600px]">
+                  {StepsExplanation[step]()}
+                </p>
+              )}
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import * as User from "@db/models/user";
-
 import { GoogleConfig, GoogleUrls } from "../../../auth/config";
 
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import User from "@db/models/user";
 import axios from "axios";
 import dbConnect from "@db/mongodb";
 import { getTokens } from "../../../auth/google-auth";
@@ -26,11 +25,6 @@ export default async function handler(req, res) {
   });
 
   await dbConnect();
-  // console.log("expires_in ", expires_in);
-  // console.log("refresh_token ", refresh_token);
-  // console.log("scope ", scope);
-  // console.log(googleUser.data);
-
   const jwtToken = jwt.sign(
     {
       email: googleUser.data.email,
@@ -40,10 +34,12 @@ export default async function handler(req, res) {
     { expiresIn: "10min" }
   );
   try {
-    /* @ts-ignore */
-    const userInTheDatabase = await User.find({ email: googleUser.data.email });
+    // @ts-ignore
+    const userInTheDatabase = await User.findOne({
+      email: googleUser.data.email,
+    });
 
-    if (userInTheDatabase.length === 0) {
+    if (!userInTheDatabase) {
       /* @ts-ignore */
       const user = await User.create({
         name: googleUser.data.name,
@@ -58,6 +54,7 @@ export default async function handler(req, res) {
       console.log("Created a user ", user);
     } else {
       console.log("We have already registered this user ", userInTheDatabase);
+      res.redirect(`/signup?msg=101`);
       // return res.status(400).json({ err: "USER_EXISTS" });
     }
   } catch (error) {
