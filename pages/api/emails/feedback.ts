@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { TemplateName, getTemplate } from "../../../helpers/templates";
+import { TemplateName, getTemplate } from "@helpers/templates";
 
-import { sendEmail } from "../../../helpers/email";
+import { sendEmail } from "@helpers/email";
 
 export default async function handler(req, res) {
   try {

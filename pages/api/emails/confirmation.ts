@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import * as User from "../../../db/models/user";
+import * as User from "@db/models/user";
 
-import { TemplateName, getTemplate } from "../../../helpers/templates";
+import { TemplateName, getTemplate } from "@helpers/templates";
 
-import dbConnect from "../../../db/mongodb";
-import { sendEmail } from "../../../helpers/email";
+import dbConnect from "@db/mongodb";
+import { sendEmail } from "@helpers/email";
 
 export default async function handler(req, res) {
   await dbConnect();

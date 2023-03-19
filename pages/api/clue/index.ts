@@ -1,22 +1,22 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import * as User from "../../../db/models/user";
+import * as User from "@db/models/user";
 
 import {
   getCalendarApi,
   getScheduledEvents,
   removeMultipleEvents,
   scheduleEvents,
-} from "../../../helpers/google/calendar";
+} from "@helpers/google/calendar";
 import {
   getOauth2Client,
   setClientCredentials,
-} from "../../../helpers/google/oauthClient";
+} from "@helpers/google/oauthClient";
 
 import { calendar_v3 } from "googleapis";
-import dbConnect from "../../../db/mongodb";
-import { getCyclePhaseDates } from "../../../helpers/cycleLengths";
-import { login } from "../../../helpers/clue";
+import dbConnect from "@db/mongodb";
+import { getCyclePhaseDates } from "@helpers/cycleLengths";
+import { login } from "@helpers/clue";
 
 export default async function handler(req, res) {
   const oauth2Client = getOauth2Client();

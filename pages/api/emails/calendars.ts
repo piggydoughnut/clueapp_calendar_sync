@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { TemplateName, getTemplate } from "../../../helpers/templates";
+import { TemplateName, getTemplate } from "@helpers/templates";
 
 import Mailgun from "mailgun.js";
 

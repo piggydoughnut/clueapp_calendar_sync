@@ -75,7 +75,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
     if (clueData && cycleData) {
       processUser();
     }
-  }, [clueData, cycleData]);
+  }, [clueData, cycleData, jwt]);
 
   return (
     <Layout>
