@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "rootDir": "/",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@helpers/*": ["helpers/*"],
+      "@db/*": ["db/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",

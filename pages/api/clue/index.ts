@@ -32,8 +32,11 @@ export default async function handler(req, res) {
 
       try {
         // Get currently scheduled calendar events
-        const { data } = await getScheduledEvents(calendarApi, user.calendarId);
-        const events: Array<calendar_v3.Schema$Event> = data.items;
+        const { data: calEvents } = await getScheduledEvents(
+          calendarApi,
+          user.calendarId
+        );
+        const events: Array<calendar_v3.Schema$Event> = calEvents.items;
 
         const calendarDates = {};
         events.map((item) => {

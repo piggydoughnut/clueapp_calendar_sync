@@ -1,15 +1,15 @@
 import { CALENDAR_NAME, googleCalendarConfig } from "../defines";
-import { GoogleApis, google } from "googleapis";
 import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
 import axios from "axios";
 import dayjs from "dayjs";
 import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
+import { google } from "googleapis";
 import jwt from "jsonwebtoken";
 
 export const createGoogleCalendar = async (jwt: string) =>
-  axios.post("/api/googleCalendar", {}, { headers: { Authorization: jwt } });
+  axios.post("/api/google/calendar", {}, { headers: { Authorization: jwt } });
 
 export const getCalendarApi = async (client) =>
   google.calendar({
@@ -35,15 +35,13 @@ export const createCalendar = async (api) => {
   return newCal;
 };
 
-export const getScheduledEvents = async (api, id: string) => {
-  const startDate = dayjs().subtract(1, "month");
+export const getScheduledEvents = async (api, id: string) =>
   api.events.list({
     calendarId: id,
-    timeMin: startDate.toISOString(),
+    timeMin: dayjs().subtract(1, "month").toISOString(),
     singleEvents: true,
     orderBy: "startTime",
   });
-};
 
 export const listCalendars = async (api, id: string) =>
   api.calendarList.list({

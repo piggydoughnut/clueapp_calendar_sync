@@ -2,18 +2,18 @@ import { Button, Input } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
 
-import Benefits from "../components/Benefits";
-import Calendar from "../components/calendar/Calendar";
-import ClueLogin from "../components/ClueLogin";
-import FormSchema from "../helpers/FormSchema";
+import Benefits from "@components/Benefits";
+import Calendar from "@components/calendar/Calendar";
+import ClueLogin from "@components/ClueLogin";
+import FormSchema from "@helpers/FormSchema";
 import Image from "next/image";
-import InputToolTip from "../components/InputTooltip";
-import Layout from "../components/nav/Layout";
-import Note from "../components/Note";
-import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
-import PricingOptions from "../components/PricingOptions";
+import InputToolTip from "@components/InputTooltip";
+import Layout from "@components/nav/Layout";
+import Note from "@components/Note";
+import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
+import PricingOptions from "@components/PricingOptions";
 import axios from "axios";
-import { getCalendarData } from "../helpers/calendar";
+import { getCalendarData } from "@helpers/calendar";
 import { toPng } from "html-to-image";
 
 const Title = ({ title }: { title: string }) => (
@@ -78,7 +78,7 @@ export default function Sync() {
       },
     })
       .then((dataUrl) =>
-        axios.post("/api/calendars", {
+        axios.post("/api/emails/calendars", {
           screenshot: dataUrl,
           userEmail: userEmail,
         })

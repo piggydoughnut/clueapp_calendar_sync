@@ -1,11 +1,11 @@
-import Benefits from "../components/Benefits";
+import Benefits from "@components/Benefits";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
-import Layout from "../components/nav/Layout";
+import Layout from "@components/nav/Layout";
 import Link from "next/link";
-import PeriodTrackerSupportForm from "../components/PeriodTrackerSupportForm";
-import QA from "../components/QA";
-import SupportedTrackers from "../components/SupportedTrackers";
+import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
+import QA from "@components/QA";
+import SupportedTrackers from "@components/SupportedTrackers";
 import calendar from "../public/calendar.svg";
 import { useRouter } from "next/router";
 

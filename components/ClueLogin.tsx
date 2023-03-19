@@ -3,7 +3,6 @@ import { Button, Input } from "@material-tailwind/react";
 import Link from "next/link";
 import Loading from "../components/Loading";
 import axios from "axios";
-import { login } from "../helpers/clue";
 import { useState } from "react";
 
 export default function ClueLogin({
@@ -24,7 +23,7 @@ export default function ClueLogin({
       setLoading(true);
       const {
         data: { token, cycles },
-      } = await axios.post("/api/tokens", {
+      } = await axios.post("/api/clue/login", {
         email,
         password,
       });

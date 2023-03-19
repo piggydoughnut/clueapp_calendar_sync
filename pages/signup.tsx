@@ -1,5 +1,5 @@
 import { Button, Progress } from "@material-tailwind/react";
-import { SignupSteps, SignupStepsTitle } from "../helpers/defines";
+import { SignupSteps, SignupStepsTitle } from "@helpers/defines";
 import {
   createGoogleCalendar,
   sendConfirmation,
@@ -7,9 +7,9 @@ import {
 } from "../helpers/signup";
 import { useEffect, useState } from "react";
 
-import ClueLogin from "../components/ClueLogin";
+import ClueLogin from "@components/ClueLogin";
 import Confetti from "react-confetti";
-import Layout from "../components/nav/Layout";
+import Layout from "@components/nav/Layout";
 import React from "react";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";

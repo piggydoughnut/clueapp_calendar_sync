@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import * as User from "../../db/models/user";
+import * as User from "../../../db/models/user";
 
-import { GoogleConfig, GoogleUrls } from "../../auth/config";
+import { GoogleConfig, GoogleUrls } from "../../../auth/config";
 
 import axios from "axios";
-import dbConnect from "../../db/mongodb";
-import { getTokens } from "../../auth/google-auth";
+import dbConnect from "../../../db/mongodb";
+import { getTokens } from "../../../auth/google-auth";
 import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
