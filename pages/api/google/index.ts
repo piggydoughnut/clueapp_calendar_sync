@@ -58,9 +58,11 @@ export default async function handler(req, res) {
       });
       console.log("Created a user ", user);
     } else {
-      console.log("We have already registered this user ", userInTheDatabase);
-      res.redirect(`/signup?msg=101`);
-      // return res.status(400).json({ err: "USER_EXISTS" });
+      console.log(
+        "We have already registered this user ",
+        userInTheDatabase.email
+      );
+      return res.redirect(`/signup?msg=101`);
     }
   } catch (error) {
     console.log(error);
