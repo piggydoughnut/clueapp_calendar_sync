@@ -1,10 +1,10 @@
 import { Button, Input, Radio, Textarea } from "@material-tailwind/react";
 import { Form, Formik } from "formik";
+import { use, useState } from "react";
 
 import FeedbackSchema from "../helpers/FeedbackSchema";
 import Loading from "./Loading";
 import axios from "axios";
-import { useState } from "react";
 
 const initialValues = {
   youremail: "",
@@ -17,18 +17,22 @@ const initialValues = {
 export default function PeriodTrackerSupportForm() {
   const [params, setParams] = useState(initialValues);
   const [loading, setLoading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const message =
+    "Thank you for your feedback.❤️ We will update you on the new developments.";
+
   return (
     <div className="mx-10 sm:mx-0 mt-24 flex flex-col justify-center items-center">
       <h2 className="uppercase text-md mb-4 font-bold">
         Is your period tracker not supported?
       </h2>
-      <p className="font-normal">
-        Please let us know and we will notify you once we integrate it! ❤️
-      </p>
-      {loading ? (
-        <Loading />
-      ) : (
+      {loading && <Loading />}
+      {showMessage && <p>{message}</p>}
+      {!loading && !showMessage && (
         <div className="flex flex-col gap-2 mt-4 w-full sm:w-[300px]">
+          <p className="font-normal">
+            Please let us know and we will notify you once we integrate it! ❤️
+          </p>
           <Formik
             initialValues={params}
             enableReinitialize
@@ -39,6 +43,7 @@ export default function PeriodTrackerSupportForm() {
               setLoading(true);
               await axios.post("/api/emails/feedback", { ...vs });
               setLoading(false);
+              setShowMessage(true);
             }}
           >
             {({ values, errors, handleChange, touched }) => (

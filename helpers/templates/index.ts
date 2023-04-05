@@ -22,6 +22,7 @@ export function getTemplate(vars = {}, templateName: string) {
   let html;
   const template = templates[templateName];
   const mjml = template(vars);
+  console.log(vars);
   html = mjml2html(mjml);
   return html.html;
 }

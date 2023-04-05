@@ -13,6 +13,7 @@ export default async function handler(req, res) {
             youremail: req.body.youremail,
             trackerName: req.body.trackerName,
             changeTracker: req.body.changeTracker,
+            whychange: req.body.whychange,
             feedback: req.body.feedback,
           },
           TemplateName.FEEDBACK
