@@ -7,13 +7,14 @@ import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
 import QA from "@components/QA";
 import SupportedTrackers from "@components/SupportedTrackers";
 import calendar from "../public/calendar.svg";
+import { scrollToDiv } from "@helpers/client";
 import { useRouter } from "next/router";
 
 export default function Welcome() {
   const router = useRouter();
   return (
     <Layout bgImage="bg-[url('/top-bg.svg')] bg-contain">
-      <div className="pt-24 sm:pt-[10rem]">
+      <div className="pt-24 sm:pt-[10rem]  scroll-smooth">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">
             <h1 className="text-xl lg:text-xl font-bold max-w-xl leading-10">
@@ -45,7 +46,7 @@ export default function Welcome() {
               </h2>
               <Button
                 className="bg-secondaryButton w-full sm:w-36 h-14 sm:h-11 capitalize font-plusJakarta mt-12 sm:mt-0"
-                onClick={() => router.push("#whydoit")}
+                onClick={() => scrollToDiv(document, "reasonsToDoIt")}
               >
                 Why?{" "}
               </Button>
@@ -78,7 +79,10 @@ export default function Welcome() {
           </div>
         </div>
       </div>
-      <div className="mt-40 flex justify-center">
+      <div
+        className="mt-40 flex justify-center scroll-smooth"
+        id="reasonsToDoIt"
+      >
         <Benefits />
       </div>
 

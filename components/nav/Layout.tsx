@@ -8,10 +8,6 @@ const menu = [
     name: "The science",
     url: "/#whydoit",
   },
-  // {
-  //   name: "About",
-  //   url: "/about",
-  // },
   {
     name: "Pricing",
     url: "/pricing",
@@ -20,10 +16,6 @@ const menu = [
     name: "Calendar",
     url: "/sync",
   },
-  // {
-  //   name: "FAQ",
-  //   url: "/pricing#faq",
-  // },
 ];
 
 const Navbar = () => (
@@ -71,12 +63,17 @@ const Navbar = () => (
 
 export default function Layout({
   bgImage = "bg-[url('/heart.svg')] bg-center bg-peachy",
+  className,
   children,
+}: {
+  bgImage?: string;
+  className?: string;
+  children: React.ReactNode;
 }) {
   return (
     <div
       // className={`bg-no-repeat bg-[url('/mobile-bg.svg')] sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
-      className={`bg-no-repeat ${bgImage} scroll-smooth`}
+      className={`bg-no-repeat ${bgImage} scroll-smooth ${className}`}
     >
       <Navbar />
       <div className="mx-4 sm:mx-10 lg:mx-0">

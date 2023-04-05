@@ -13,7 +13,13 @@ export default function SetCluePassword() {
             <li className="mt-10 text-lg">
               <>
                 Open Clue App
-                <Image alt="step1" className="mt-6" src="/howto/step1.png" />
+                <Image
+                  alt="step1"
+                  className="mt-6"
+                  src="/howto/step1.png"
+                  width="200"
+                  height="200"
+                />
               </>
             </li>
             <li className="mt-10 text-lg">
@@ -24,6 +30,7 @@ export default function SetCluePassword() {
                   className="mt-6"
                   src="/howto/step2.png"
                   width={300}
+                  height="300"
                 />
               </>
             </li>
@@ -35,6 +42,7 @@ export default function SetCluePassword() {
                   className="mt-6"
                   src="/howto/step3.png"
                   width={300}
+                  height="300"
                 />
               </>
             </li>
@@ -46,6 +54,7 @@ export default function SetCluePassword() {
                   className="mt-6"
                   src="/howto/step4.png"
                   width={300}
+                  height="300"
                 />
               </>
             </li>
