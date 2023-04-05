@@ -235,6 +235,8 @@ export default function Welcome() {
                   <p className="text-sm mt-4">
                     More information: <br />
                     <a
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="underline"
                       href="https://helloclue.com/articles/cycle-a-z/the-menstrual-cycle-more-than-just-the-period"
                     >
@@ -327,6 +329,8 @@ export default function Welcome() {
                   <ul className="mt-4">
                     <li className="mt-2">
                       <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="underline"
                         href="https://www.womenshealth.gov/menstruation"
                       >
@@ -337,6 +341,8 @@ export default function Welcome() {
                     </li>
                     <li className="mt-2">
                       <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="underline"
                         href="https://www.acog.org/patient-resources/faqs/menstruation"
                       >
@@ -346,6 +352,8 @@ export default function Welcome() {
                     </li>
                     <li className="mt-2">
                       <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="underline"
                         href="https://www.nichd.nih.gov/health/topics/menstruation"
                       >

@@ -123,6 +123,8 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                   <p className="text-md mx-8 mt-8">
                     Please check your{" "}
                     <a
+                      target="_blank"
+                      rel="noopener noreferrer"
                       href="https://gmail.com/"
                       className="underline text-blue-400"
                     >
@@ -132,9 +134,11 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                   </p>{" "}
                   <p className="text-md mx-8 mt-8">
                     Assuming you have already followed the instructions, check
-                    your
+                    your{" "}
                     <a
-                      href="calendar.google.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://calendar.google.com/"
                       className="underline text-blue-400"
                     >
                       Google calendar
