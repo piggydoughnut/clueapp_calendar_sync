@@ -20,7 +20,12 @@ import { login } from "@helpers/clue";
 
 export default async function handler(req, res) {
   const oauth2Client = getOauth2Client();
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ err: e });
+  }
 
   /* @ts-ignore */
   const allUsers = await User.find();

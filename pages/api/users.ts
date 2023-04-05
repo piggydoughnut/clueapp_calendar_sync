@@ -5,7 +5,12 @@ import { getUser } from "../../helpers/database";
 import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ err: e });
+  }
 
   if (req.method === "PUT") {
     try {

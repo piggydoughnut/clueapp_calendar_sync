@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Layout from "../../components/nav/Layout";
 
 export default function SetCluePassword() {
@@ -12,13 +13,13 @@ export default function SetCluePassword() {
             <li className="mt-10 text-lg">
               <>
                 Open Clue App
-                <img alt="step1" className="mt-6" src="/howto/step1.png" />
+                <Image alt="step1" className="mt-6" src="/howto/step1.png" />
               </>
             </li>
             <li className="mt-10 text-lg">
               <>
                 Open Settings
-                <img
+                <Image
                   alt="step2"
                   className="mt-6"
                   src="/howto/step2.png"
@@ -29,7 +30,7 @@ export default function SetCluePassword() {
             <li className="mt-10 text-lg">
               <>
                 Enter Profile Tab
-                <img
+                <Image
                   alt="step3"
                   className="mt-6"
                   src="/howto/step3.png"
@@ -40,7 +41,7 @@ export default function SetCluePassword() {
             <li className="mt-10 text-lg">
               <>
                 Click on Password section
-                <img
+                <Image
                   alt="step4"
                   className="mt-6"
                   src="/howto/step4.png"

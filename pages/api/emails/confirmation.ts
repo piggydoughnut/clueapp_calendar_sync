@@ -8,7 +8,12 @@ import dbConnect from "@db/mongodb";
 import { sendEmail } from "@helpers/email";
 
 export default async function handler(req, res) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ err: e });
+  }
   const template = getTemplate({}, TemplateName.CONFIRMATION);
 
   const jwtToken = req.headers.authorization;
