@@ -38,5 +38,15 @@ const UserSchema = new mongoose.Schema({
 
 // encrypt ClueData, refreshToken
 
-const User = mongoose.models.users || mongoose.model("users", UserSchema);
+let User;
+try {
+  User = mongoose.model("users");
+} catch {
+  const UserSchema = new mongoose.Schema({
+    // ...
+  });
+
+  User = mongoose.model("users", UserSchema);
+}
+
 export default User;
