@@ -130,7 +130,9 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                     >
                       Gmail
                     </a>{" "}
-                    for the instructions. <br />
+                    for the instructions. Look for emails with sender Hack Your
+                    Cycle Team {`<`}team@hack-your-cycle.com{`>`}
+                    <br />
                   </p>{" "}
                   <p className="text-md mx-8 mt-8">
                     Assuming you have already followed the instructions, check

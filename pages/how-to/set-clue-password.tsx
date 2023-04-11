@@ -16,7 +16,7 @@ export default function SetCluePassword() {
                 <Image
                   alt="step1"
                   className="mt-6"
-                  src="/howto/step1.png"
+                  src="/howto/step1.PNG"
                   width="200"
                   height="200"
                 />
@@ -28,7 +28,7 @@ export default function SetCluePassword() {
                 <Image
                   alt="step2"
                   className="mt-6"
-                  src="/howto/step2.png"
+                  src="/howto/step2.PNG"
                   width={300}
                   height="300"
                 />
@@ -40,7 +40,7 @@ export default function SetCluePassword() {
                 <Image
                   alt="step3"
                   className="mt-6"
-                  src="/howto/step3.png"
+                  src="/howto/step3.PNG"
                   width={300}
                   height="300"
                 />
@@ -52,7 +52,7 @@ export default function SetCluePassword() {
                 <Image
                   alt="step4"
                   className="mt-6"
-                  src="/howto/step4.png"
+                  src="/howto/step4.PNG"
                   width={300}
                   height="300"
                 />
