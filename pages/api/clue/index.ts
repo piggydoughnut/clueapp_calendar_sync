@@ -103,7 +103,7 @@ export default async function handler(
           break;
         }
         if (
-          cyclePhaseDates[i]?.startDate !== calendarDates[i]?.startDate &&
+          cyclePhaseDates[i]?.startDate !== calendarDates[i]?.startDate ||
           cyclePhaseDates[i]?.endDate !== calendarDates[i]?.endDate
         ) {
           diff = true;

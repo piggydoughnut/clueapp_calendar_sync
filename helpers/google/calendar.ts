@@ -151,8 +151,9 @@ export const scheduleEvents = async (api, calendarId, cyclePhaseDates) => {
   // prepare events for inserting Clue calendar events
   await Promise.all(
     events.map((event, idx) => {
-      console.log(event);
-      console.log("Adding event starting ", event.resource.start);
+      console.log(
+        `Adding event ${event.resource.summary} starting ${event.resource.start}`
+      );
       return setTimeout(() => createEvent(api, event), 10000 * idx);
     })
   );
