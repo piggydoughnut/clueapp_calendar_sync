@@ -20,11 +20,13 @@ export const getCyclePhaseDates = (
   periodLength: number,
   cycleLength: number
 ): CyclePhaseDates => {
-  console.log("cycleStart ", cycleStart);
-  console.log("periodLength ", periodLength);
-  console.log("cycleLength ", cycleLength);
+  const extraLogs = process.env.EXTRA_LOGS === "true";
+  extraLogs && console.log("cycleStart ", cycleStart);
+  extraLogs && console.log("periodLength ", periodLength);
+  extraLogs && console.log("cycleLength ", cycleLength);
+
   const cycleLengths = getLengthsByCycle(periodLength, cycleLength);
-  console.log(cycleLengths);
+  extraLogs && console.log(cycleLengths);
 
   const dreamEndDate = addDays(
     parseISO(cycleStart),

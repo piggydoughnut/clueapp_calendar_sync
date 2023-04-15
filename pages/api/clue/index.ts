@@ -4,7 +4,6 @@ import {
   CalendarDatesType,
   CalendarEvent,
   CyclePhaseDates,
-  PhaseName,
 } from "@helpers/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
@@ -19,7 +18,6 @@ import {
 } from "@helpers/google/oauthClient";
 
 import User from "@db/models/user";
-import { calendar_v3 } from "googleapis";
 import dbConnect from "@db/mongodb";
 import { getCyclePhaseDates } from "@helpers/cycleLengths";
 import { login } from "@helpers/clue";
@@ -35,18 +33,20 @@ export default async function handler(
     console.log(e);
     return res.status(400).json({ err: e });
   }
-
+  const extraLogs = process.env.EXTRA_LOGS === "true";
   const allUsers = await User.find();
 
   for (const user of allUsers) {
+    console.log(`Processing ${user.id}`);
     setClientCredentials(oauth2Client, user);
     const calendarApi = await getCalendarApi(oauth2Client);
     if (!user.calendarId) {
-      console.error(
-        `Calendar was not created for this user - ${user.id}: ${user.get(
-          "email"
-        )}`
-      );
+      extraLogs &&
+        console.error(
+          `Calendar was not created for this user - ${user.id}: ${user.get(
+            "email"
+          )}`
+        );
       return;
     }
     try {
@@ -72,9 +72,10 @@ export default async function handler(
         }
       });
       // each user, I get Clue details data
-      console.log(
-        `${user.id} : StartEnd ${user.clue.data[0].start} - ${user.clue.data[0].end}, length: ${user.clue.data[0].expectedLength}`
-      );
+      extraLogs &&
+        console.log(
+          `${user.id} : StartEnd ${user.clue.data[0].start} - ${user.clue.data[0].end}, length: ${user.clue.data[0].expectedLength}`
+        );
       const clue = user.clue.accessDetails;
       const response = await login(clue.email, clue.password);
       const total = response.cycles.length;
@@ -85,8 +86,8 @@ export default async function handler(
         cycle.expectedLength
       );
 
-      console.log("cyclePhaseDates ", cyclePhaseDates);
-      console.log("calendarDates", calendarDates);
+      extraLogs && console.log("cyclePhaseDates ", cyclePhaseDates);
+      extraLogs && console.log("calendarDates", calendarDates);
       if (!Object.keys(calendarDates).length) {
         console.log(
           `No events are scheduled in the calendar for user ${user.id}`
@@ -97,7 +98,7 @@ export default async function handler(
       }
       // compare dates
       let diff = false;
-      for (const i: typeof PhaseName in calendarDates) {
+      for (const i in calendarDates) {
         if (diff) {
           break;
         }
