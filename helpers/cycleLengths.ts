@@ -1,4 +1,4 @@
-import { PhaseInfo, PhaseName } from "./types";
+import { CyclePhaseDates, PhaseInfo, PhaseName } from "./types";
 import { addDays, format, parseISO } from "date-fns";
 
 import { Phases } from "./defines";
@@ -14,8 +14,6 @@ export const getLengthsByCycle = (
 });
 
 export const formatDate = (d) => format(d, "yyyy-MM-dd");
-
-type CyclePhaseDates = Record<PhaseName, PhaseInfo>;
 
 export const getCyclePhaseDates = (
   cycleStart: string,
