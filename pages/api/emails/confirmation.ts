@@ -1,9 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import * as User from "@db/models/user";
-
 import { TemplateName, getTemplate } from "@helpers/templates";
 
+import User from "@db/models/user";
 import dbConnect from "@db/mongodb";
 import { sendEmail } from "@helpers/email";
 
