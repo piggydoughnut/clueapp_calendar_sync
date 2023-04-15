@@ -18,7 +18,7 @@ export const updateUserWithClueData = async (
 
 export const createGoogleCalendar = async (jwt: string) =>
   await axios.post(
-    "/api/googleCalendar",
+    "/api/google/calendar",
     {},
     { headers: { Authorization: jwt } }
   );
