@@ -16,8 +16,8 @@ const calendar = compile(
     <mj-section>
       <mj-column>
         <mj-text font-size="16px" color="#342525" font-family="helvetica" padding-top="60px">Hello there dear human!</mj-text>
-        <mj-text font-size="16px" color="#342525" font-family="helvetica">Here is your personalized cycle calendar. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </mj-text>
-        <mj-text font-size="16px" color="#342525" font-family="helvetica">Cursus risus at ultrices mi. Amet est placerat in egestas erat. Diam donec adipiscing tristique risus nec.</mj-text>
+        <mj-text font-size="16px" color="#342525" font-family="helvetica">Here is your personalized cycle calendar. It will guide you through your month. </mj-text>
+        <mj-text font-size="16px" color="#342525" font-family="helvetica">Everyone's experience with their menstrual cycle is unique, and it's important to honor your own needs and preferences. Remember, it's okay to listen to your body and adjust your routine as needed, and self-care looks different for everyone.</mj-text>
       </mj-column>
     </mj-section>
     <mj-section padding-bottom="100px" padding-top="50px">
