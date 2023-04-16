@@ -1,10 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { NextApiRequest, NextApiResponse } from "next";
+
 import dbConnect from "../../db/mongodb";
 import { getUser } from "../../helpers/database";
 import jwt from "jsonwebtoken";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     await dbConnect();
   } catch (e) {
@@ -15,9 +20,9 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     try {
       // @todo add validation
-      const jwtToken = req.headers.authorization;
-      const decoded = jwt.verify(jwtToken, process.env.JWT);
-
+      const jwtToken: string | undefined = req.headers.authorization;
+      const decoded = jwt.verify(jwtToken ?? "", process.env.JWT ?? "");
+      //@ts-ignore
       const userInTheDatabase = await getUser({ email: decoded.email });
 
       if (userInTheDatabase) {
@@ -38,7 +43,7 @@ export default async function handler(req, res) {
         //   }
         // );
         await userInTheDatabase.save();
-        return res.status(200).json();
+        return res.status(200).end();
       } else {
         return res.status(400).json({ err: "Token has been already used" });
       }

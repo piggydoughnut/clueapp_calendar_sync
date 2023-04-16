@@ -40,7 +40,7 @@ export default function Calendar({
     [Phases.TAKE]: true,
   });
 
-  const showItem = (item) => (
+  const showItem = (item: string) => (
     <div key={item}>
       <LegendItem
         title={item}
@@ -54,8 +54,13 @@ export default function Calendar({
     </div>
   );
 
-  const filterEvents = (type) => {
-    const filtered = monthEvents.map((event) => {
+  type CalendarEvent = {
+    type: string;
+    on: boolean;
+  };
+
+  const filterEvents = (type: string) => {
+    const filtered = monthEvents.map((event: CalendarEvent) => {
       if (event.type === type) {
         event.on = !event.on;
       }
@@ -76,7 +81,7 @@ export default function Calendar({
           onCurrentMonthChange={(date) => setCurrentMonth(date)}
         >
           <MonthlyNav />
-          <MonthlyBody events={monthEvents.filter((e) => e.on)}>
+          <MonthlyBody events={monthEvents.filter((e: CalendarEvent) => e.on)}>
             <CalendarDay />
           </MonthlyBody>
         </MonthlyCalendar>

@@ -1,23 +1,28 @@
+//@ts-nocheck
+// FIX-ME
 import { CALENDAR_NAME, googleCalendarConfig } from "../defines";
+import { calendar_v3, google } from "googleapis";
 import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
+import { OAuth2Client } from "google-auth-library";
 import axios from "axios";
 import dayjs from "dayjs";
 import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
-import { google } from "googleapis";
 import jwt from "jsonwebtoken";
 
 export const createGoogleCalendar = async (jwt: string) =>
   axios.post("/api/google/calendar", {}, { headers: { Authorization: jwt } });
 
-export const getCalendarApi = async (client) =>
+export const getCalendarApi = async (
+  client: OAuth2Client
+): Promise<calendar_v3.Calendar> =>
   google.calendar({
     version: "v3",
     auth: client,
   });
 
-export const getCalendar = async (api, id: string) => {
+export const getCalendar = async (api: calendar_v3.Calendar, id: string) => {
   const exists = await api.calendars.get({
     calendarId: id,
   });
@@ -25,7 +30,7 @@ export const getCalendar = async (api, id: string) => {
   return exists;
 };
 
-export const createCalendar = async (api) => {
+export const createCalendar = async (api: calendar_v3.Calendar) => {
   const newCal = await api.calendars.insert({
     requestBody: {
       summary: CALENDAR_NAME,
@@ -35,7 +40,10 @@ export const createCalendar = async (api) => {
   return newCal;
 };
 
-export const getScheduledEvents = async (api, id: string) =>
+export const getScheduledEvents = async (
+  api: calendar_v3.Calendar,
+  id: string
+) =>
   api.events.list({
     calendarId: id,
     timeMin: dayjs().subtract(1, "month").toISOString(),
@@ -43,29 +51,26 @@ export const getScheduledEvents = async (api, id: string) =>
     orderBy: "startTime",
   });
 
-export const listCalendars = async (api, id: string) =>
-  api.calendarList.list({
-    calendarId: id,
-  });
-
-export const createEvent = async (api, event) => api.events.insert(event);
+export const createEvent = async (api: calendar_v3.Calendar, event: any) =>
+  api.events.insert(event);
 
 export const removeEvent = async (
-  api,
+  api: calendar_v3.Calendar,
   id: string,
   eventId: string | string[]
 ) =>
+  //@ts-ignore
   api.events.delete({
     calendarId: id,
     eventId,
   });
 
-export const createCalendarForUser = async (jwtToken: string) => {
+export const createCalendarForUser = async (jwtToken: string | null) => {
   try {
     const oauth2Client = getOauth2Client();
 
-    const decoded = jwt.verify(jwtToken, process.env.JWT);
-    const u = await getUser({ email: decoded.email });
+    const decoded = jwt.verify(jwtToken, process.env.JWT ?? "");
+    const u = await getUser({ email: (decoded as { email: string }).email });
 
     setClientCredentials(oauth2Client, u);
 

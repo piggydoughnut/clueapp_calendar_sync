@@ -12,7 +12,7 @@ const getCycleData = async (token: string) =>
     },
   });
 
-const auth = async (email, password) =>
+const auth = async (email: string, password: string) =>
   await axios.post(Api.Auth, {
     email: email,
     password: password,

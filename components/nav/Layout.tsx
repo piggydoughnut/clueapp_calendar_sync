@@ -3,7 +3,11 @@ import { Button } from "@material-tailwind/react";
 import Footer from "./Footer";
 import Link from "next/link";
 
-const menu = [
+export type MenuItem = {
+  name: string;
+  url: string;
+};
+const menu: Array<MenuItem> = [
   {
     name: "The science",
     url: "/#whydoit",

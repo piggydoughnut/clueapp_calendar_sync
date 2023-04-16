@@ -22,12 +22,8 @@ export type CyclePhaseDates = Record<
 export type CalendarDatesType = PhaseInfo & { id: string };
 
 export interface CalendarEvent extends calendar_v3.Schema$Event {
-  description?: string;
-  start?: {
-    date?: string;
-  };
-  end?: {
-    date?: string;
-  };
-  id?: string;
+  description?: string | null;
+  start?: calendar_v3.Schema$EventDateTime;
+  end?: calendar_v3.Schema$EventDateTime;
+  id?: string | undefined;
 }

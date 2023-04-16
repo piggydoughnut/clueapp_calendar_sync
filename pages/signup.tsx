@@ -16,7 +16,7 @@ import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";
 
 const StepsExplanation = {
-  1: () => (
+  [SignupSteps.GOOGLE]: () => (
     <>
       <b>Why? </b> <br />
       We need access to your calendar to add your cycle phase data there. <br />
@@ -31,7 +31,7 @@ const StepsExplanation = {
       </b>
     </>
   ),
-  2: () => (
+  [SignupSteps.CLUE]: () => (
     <>
       <b>Why do we need this? </b> <br />
       We need access to your cycle information to create calendar events. <br />
@@ -41,8 +41,8 @@ const StepsExplanation = {
       </b>
     </>
   ),
-  3: () => <></>,
-  4: () => <></>,
+  [SignupSteps.PAYMENT]: () => <></>,
+  [SignupSteps.FINISH]: () => <></>,
 };
 
 export default function Signup({ googleuri }: { googleuri: string }) {
@@ -50,7 +50,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   const [jwt, setJwt] = useState("");
   const [clueData, setClueData] = useState(null);
   const [cycleData, setCycleData] = useState(null);
-  const [alreadyRegistered, setAlreadyRegistered] = useState(null);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   const router = useRouter();
 
@@ -61,10 +61,11 @@ export default function Signup({ googleuri }: { googleuri: string }) {
       setStep(SignupSteps.CLUE);
       router.push({ pathname: router.pathname, query: {} });
     }
+    // show error if msg 400
     if (router.query.msg) {
       if (router.query.msg === "101") {
         setAlreadyRegistered(true);
-        setStep(null);
+        setStep(0);
         router.push({ pathname: router.pathname, query: {} });
       }
     }
@@ -189,9 +190,9 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                 <>
                   <div className="w-[300px]">
                     <ClueLogin
-                      setCycleData={(a) => setCycleData(a)}
+                      setCycleData={(a: any) => setCycleData(a)}
                       buttonTitle="Sync with Clue"
-                      getUserData={(data) => setClueData(data)}
+                      getUserData={(data: any) => setClueData(data)}
                     />
                   </div>
                 </>

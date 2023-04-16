@@ -28,7 +28,6 @@ export default function PricingOptions() {
         </div>
       </Pricing> */}
       <Pricing
-        type=""
         title="Monthly auto sync your cycle with your Google Calendar 😎"
         price="$5/mo"
         reasons={proReasons}

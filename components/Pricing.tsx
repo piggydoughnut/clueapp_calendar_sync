@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Reason } from "data/pricing";
 import minus from "../public/minus-circle-outline.svg";
 import plus from "../public/check-circle.svg";
 
@@ -10,7 +11,7 @@ const PriceTag = ({ price }: { price: string }) => {
   );
 };
 
-const ReasonRow = ({ sign, text }) => {
+const ReasonRow = ({ sign, text }: { sign: string; text: string }) => {
   return (
     <div className="flex flex-row items-start gap-2 text-sm">
       <Image className="w-6 h-6" src={sign} alt={"sign"} />
@@ -20,12 +21,17 @@ const ReasonRow = ({ sign, text }) => {
 };
 
 export default function Pricing({
-  type,
   title,
   price,
   reasons,
   children,
   highlight = false,
+}: {
+  title: string;
+  price: string;
+  reasons: Array<Reason>;
+  children: React.ReactNode | React.ReactNode[];
+  highlight: boolean;
 }) {
   return (
     <div

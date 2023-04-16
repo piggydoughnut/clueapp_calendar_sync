@@ -89,6 +89,12 @@ const weekDays = {
   Friday: "Fri",
   Saturday: "Sat",
 };
+
+type DayType = {
+  label: string;
+  day: number;
+};
+
 export function MonthlyBody<DayData>({
   omitDays,
   events,
@@ -106,13 +112,13 @@ export function MonthlyBody<DayData>({
   return (
     <div className="bg-white p-l-2 ">
       <div className={`grid grid-cols-7`}>
-        {headings.map((day) => (
+        {headings.map((day: DayType) => (
           <div
             key={day.day}
             className={headingClassName}
             aria-label="Day of Week"
           >
-            {weekDays[day.label]}
+            {weekDays[day.label as keyof typeof weekDays]}
           </div>
         ))}
         {padding.map((_, index) => (

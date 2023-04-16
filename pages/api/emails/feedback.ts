@@ -1,13 +1,18 @@
+import { NextApiRequest, NextApiResponse } from "next";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { TemplateName, getTemplate } from "@helpers/templates";
 
+import Config from "config";
 import { sendEmail } from "@helpers/email";
 
-export default async function handler(req, res) {
-  try {
-    if (req.method === "POST") {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === "POST") {
+    try {
       const result = await sendEmail(
-        "drmikhailova@gmail.com",
+        Config.email.support,
         getTemplate(
           {
             youremail: req.body.youremail,
@@ -21,11 +26,11 @@ export default async function handler(req, res) {
         "Hack The Cycle - Feedback Form"
       );
       res.status(200).json({ RRR: result });
-    } else {
-      return res.status(400).json();
+    } catch (e) {
+      console.log(e);
+      return res.status(400).end();
     }
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json();
+  } else {
+    return res.status(405).end();
   }
 }

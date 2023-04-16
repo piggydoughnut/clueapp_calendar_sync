@@ -1,4 +1,9 @@
-export const beginnerReasons = [
+export type Reason = {
+  adv: boolean;
+  text: string;
+};
+
+export const beginnerReasons: Array<Reason> = [
   {
     adv: true,
     text: "Calendar with cycle phases of your preferences sent to your email.",
@@ -17,7 +22,7 @@ export const beginnerReasons = [
   },
 ];
 
-export const proReasons = [
+export const proReasons: Array<Reason> = [
   {
     adv: true,
     text: "Cycle phases of your preference marked in your Google calendar.",

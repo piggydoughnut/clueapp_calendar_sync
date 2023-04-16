@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 
 import { Spin as Hamburger } from "hamburger-react";
 import Link from "next/link";
+import { MenuItem } from "./Layout";
 import { useRouter } from "next/router";
 
-const Burger = ({ menu }) => {
+const Burger = ({ menu }: { menu: Array<MenuItem> }) => {
   const router = useRouter();
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [listeningEnabled, setListeningEnabled] = useState(false);
@@ -22,7 +23,7 @@ const Burger = ({ menu }) => {
     if (!listeningEnabled) return;
     if (listening) return;
     if (!menuRef.current) return;
-    let funcs = [];
+    let funcs: Array<any> = [];
 
     setListening(true);
     [`click`, `touchstart`].forEach((type) => {
@@ -31,7 +32,7 @@ const Burger = ({ menu }) => {
           return;
         }
         if (
-          (menuRef.current && menuRef.current.contains(evt.target)) ||
+          (menuRef.current && menuRef.current.contains(evt.target as Node)) ||
           // @ts-ignore
           evt.target?.className === "hamburger-react"
         )
@@ -62,7 +63,7 @@ const Burger = ({ menu }) => {
       </div>
       <div className={classStyle} ref={menuRef}>
         <div className="pl-12 flex flex-col align-start gap-8 justify-start">
-          {menu.map((item) => (
+          {menu.map((item: any) => (
             <div
               key={item.name}
               className="text-xl uppercase cursor-pointer"

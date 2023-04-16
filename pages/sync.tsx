@@ -1,4 +1,5 @@
 import { Button, Input } from "@material-tailwind/react";
+import { EventType, getCalendarData } from "@helpers/calendar";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
 
@@ -13,7 +14,6 @@ import Note from "@components/Note";
 import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
 import PricingOptions from "@components/PricingOptions";
 import axios from "axios";
-import { getCalendarData } from "@helpers/calendar";
 import { toPng } from "html-to-image";
 
 const Title = ({ title }: { title: string }) => (
@@ -29,21 +29,25 @@ const initialValues = {
 export default function Sync() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
-  const [calEvents, setCalEvents] = useState([]);
+  const [calEvents, setCalEvents] = useState<EventType[]>([]);
   const [showClueLogin, setshowClueLogin] = useState(false);
   const [params, setParams] = useState(initialValues);
   const ref = useRef<HTMLDivElement>(null);
   const [userEmail, setUserEmail] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
 
-  const prepareCalendar = (start, length, lengthCycle) => {
+  const prepareCalendar = (
+    start: string,
+    length: number,
+    lengthCycle: number
+  ) => {
     setPeriodStartDate(start);
     const events = getCalendarData(start, length, lengthCycle);
     setCalEvents(events);
     setShowCalendar(true);
   };
 
-  const processClueData = (data) => {
+  const processClueData = (data: any) => {
     const periodLength = data.phases[0].length;
     const cycleLength = data.length;
     prepareCalendar(data.start, periodLength, cycleLength);
@@ -56,7 +60,7 @@ export default function Sync() {
       return;
     }
     setSendingEmail(true);
-    function filter(node) {
+    function filter(node: any) {
       const exclusionClasses = ["not-for-email"];
       return !exclusionClasses.some((classname) =>
         node.className?.includes(classname)
@@ -120,7 +124,7 @@ export default function Sync() {
           {showClueLogin ? (
             <div className="flex flex-col justify-center items-center">
               <Title title="Login to Clue" />
-              <ClueLogin setCycleData={(a) => processClueData(a)} />
+              <ClueLogin setCycleData={(a: any) => processClueData(a)} />
               <div className="mb-8 text-tiny opacity-60 mt-1">
                 <p>DISCLAIMER</p>
                 <p>We do not store or collect any of your data</p>

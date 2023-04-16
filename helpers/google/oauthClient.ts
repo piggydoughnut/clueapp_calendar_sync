@@ -1,6 +1,8 @@
 const { google } = require("googleapis");
 
-export const getOauth2Client = () => {
+import { OAuth2Client } from "google-auth-library";
+
+export const getOauth2Client = (): OAuth2Client => {
   return new google.auth.OAuth2({
     // code,
     clientId: process.env.GOOGLE_CLIENT_ID,
@@ -10,8 +12,18 @@ export const getOauth2Client = () => {
 };
 
 export const setClientCredentials = (
-  client,
-  { refreshToken, accessToken, idToken, scope }
+  client: OAuth2Client,
+  {
+    refreshToken,
+    accessToken,
+    idToken,
+    scope,
+  }: {
+    refreshToken: string;
+    accessToken: string;
+    idToken: string;
+    scope: string;
+  }
 ) => {
   client.setCredentials({
     refresh_token: refreshToken,

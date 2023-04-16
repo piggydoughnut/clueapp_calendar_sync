@@ -33,7 +33,17 @@ const faqQuestions = [
   },
 ];
 
-const FAQElement = ({ openMe, handleOpen, question, answer }) => {
+const FAQElement = ({
+  openMe,
+  handleOpen,
+  question,
+  answer,
+}: {
+  openMe: boolean;
+  handleOpen: () => void;
+  question: string;
+  answer: string | (string | JSX.Element)[];
+}) => {
   return (
     <Accordion open={openMe}>
       <AccordionHeader
@@ -50,7 +60,7 @@ const FAQElement = ({ openMe, handleOpen, question, answer }) => {
 export default function FAQ() {
   const [open, setOpen] = useState(1);
 
-  const handleOpen = (value) => {
+  const handleOpen = (value: number) => {
     setOpen(open === value ? 0 : value);
   };
   return (

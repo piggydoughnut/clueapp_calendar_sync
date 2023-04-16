@@ -1,28 +1,33 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { NextApiRequest, NextApiResponse } from "next";
 import { TemplateName, getTemplate } from "@helpers/templates";
 
+import Config from "config";
 import Mailgun from "mailgun.js";
 
 const formData = require("form-data");
 const sharp = require("sharp");
 
-const resizeImage = async (fileBuffer) => {
+const resizeImage = async (fileBuffer: Buffer) => {
   return sharp(fileBuffer)
     .extract({ left: 0, top: 0, width: 670, height: 540 })
     .toBuffer()
-    .then((data) => {
+    .then((data: Buffer) => {
       return data;
     });
 };
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const mailgun = new Mailgun(formData);
 
   const DOMAIN = "hack-your-cycle.com";
   const client = mailgun.client({
     username: "api",
-    key: process.env.EMAIL_API_KEY,
+    key: Config.email.apiKey,
   });
 
   const template = getTemplate({}, TemplateName.CALENDAR);

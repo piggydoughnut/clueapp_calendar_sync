@@ -1,4 +1,5 @@
 import { GoogleConfig, GoogleUrls } from "../../../auth/config";
+import { NextApiRequest, NextApiResponse } from "next";
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import User from "@db/models/user";
@@ -7,15 +8,18 @@ import dbConnect from "@db/mongodb";
 import { getTokens } from "../../../auth/google-auth";
 import jwt from "jsonwebtoken";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   //@todo handle errrrrs
   const code = req.query.code as string;
   const { id_token, access_token, expires_in, refresh_token, scope } =
     await getTokens({
       code,
-      clientId: GoogleConfig.clientId,
-      clientSecret: GoogleConfig.secret,
-      redirectUri: GoogleConfig.redirectUri,
+      clientId: GoogleConfig.clientId ?? "",
+      clientSecret: GoogleConfig.secret ?? "",
+      redirectUri: GoogleConfig.redirectUri ?? "",
     });
 
   const googleUser = await axios.get(GoogleUrls.USER_INFO(access_token), {
@@ -30,12 +34,15 @@ export default async function handler(req, res) {
     console.log(e);
     return res.status(400).json({ err: e });
   }
+  if (!process.env.JWT) {
+    return res.redirect(`/signup?msg=400`);
+  }
   const jwtToken = jwt.sign(
     {
       email: googleUser.data.email,
       name: googleUser.data.name,
     },
-    process.env.JWT,
+    process.env.JWT ?? "",
     { expiresIn: "10min" }
   );
   try {

@@ -3,16 +3,8 @@ import { getCyclePhaseDates, getLengthsByCycle } from "./cycleLengths";
 
 import { Phases } from "./defines";
 
-export const isGive = (events) => isType(events, Phases.GIVE);
-export const isTake = (events) => isType(events, Phases.TAKE);
-export const isDream = (events) => isType(events, Phases.DREAM);
-export const isDo = (events) => isType(events, Phases.DO);
-
-export const isType = (events: Array<any>, typeName: string) =>
-  events.length > 0 ? events[0].type === typeName : false;
-
 export type EventType = {
-  date: string;
+  date: string | Date;
   type: string;
   on: boolean;
 };
@@ -80,17 +72,5 @@ export const getCalendarData = (
       on: true,
     });
   }
-  return events;
-};
-
-export const getGoogleCalendarData = (
-  start: string,
-  length: number,
-  cycleLength: number
-): Array<EventType> => {
-  const events = [];
-  const cycleLengths = getLengthsByCycle(length, cycleLength);
-  const cyclePhaseDates = getCyclePhaseDates(start, length, cycleLength);
-
   return events;
 };

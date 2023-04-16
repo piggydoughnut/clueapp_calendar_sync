@@ -18,7 +18,7 @@ export default function ClueLogin({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginToClue = async (email, password) => {
+  const loginToClue = async (email: string, password: string) => {
     try {
       setLoading(true);
       const {

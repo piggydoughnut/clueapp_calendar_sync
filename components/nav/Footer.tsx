@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { MenuItem } from "./Layout";
 
-const Footer = ({ menu }) => (
+const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
   <div className="bg-white mt-20 pl-4 sm:pl-20 pr-4 sm:pr-20 pt-8 pb-8 ml-2 mr-2 mb-2 rounded-md border-peachy border-4">
     <div className="flex flex-col-reverse sm:flex-row justify-center text-center sm:text-left sm:justify-between">
       <div className="flex flex-col">
@@ -13,7 +14,7 @@ const Footer = ({ menu }) => (
         </a>
       </div>
       <div className="flex flex-row justify-center sm:justify-end gap-12 mb-8 sm:mb-0">
-        {menu.map((item) => (
+        {menu.map((item: any) => (
           <Link
             key={item.name}
             className="text-sm underline hover:underline hover:underline-offset-4 hover:decoration-2 transition-all hover:ease-in-out"

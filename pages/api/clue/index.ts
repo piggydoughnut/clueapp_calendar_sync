@@ -18,6 +18,7 @@ import {
 } from "@helpers/google/oauthClient";
 
 import User from "@db/models/user";
+import { calendar_v3 } from "googleapis";
 import dbConnect from "@db/mongodb";
 import { getCyclePhaseDates } from "@helpers/cycleLengths";
 import { login } from "@helpers/clue";
@@ -55,14 +56,14 @@ export default async function handler(
         calendarApi,
         user.calendarId
       );
-      const events: Array<CalendarEvent> = calEvents.items;
+      const events: calendar_v3.Schema$Event[] | undefined = calEvents.items;
 
-      if (!!events.length) {
+      if (!!events?.length) {
         // schedule the events for this person
       }
 
       const calendarDates: Record<string, CalendarDatesType> = {};
-      events.map((item: CalendarEvent) => {
+      events?.map((item: calendar_v3.Schema$Event) => {
         if (item.description && item.start?.date && item.end?.date && item.id) {
           calendarDates[item?.description] = {
             startDate: item?.start.date,
@@ -127,6 +128,7 @@ export default async function handler(
       return res.json("");
     } catch (e: unknown) {
       console.log(e);
+      // @ts-ignore
       console.log(e?.response?.data?.errors);
     }
   }

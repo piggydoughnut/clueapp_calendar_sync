@@ -13,7 +13,7 @@ export const getLengthsByCycle = (
   [Phases.TAKE]: 8,
 });
 
-export const formatDate = (d) => format(d, "yyyy-MM-dd");
+export const formatDate = (d: Date) => format(d, "yyyy-MM-dd");
 
 export const getCyclePhaseDates = (
   cycleStart: string,

@@ -1,12 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { NextApiRequest, NextApiResponse } from "next";
 import { TemplateName, getTemplate } from "@helpers/templates";
 
 import User from "@db/models/user";
 import dbConnect from "@db/mongodb";
 import { sendEmail } from "@helpers/email";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     await dbConnect();
   } catch (e) {
@@ -28,6 +32,8 @@ export default async function handler(req, res) {
     );
     res.status(200).json({ RRR: result });
   } else {
-    return res.status(400).json();
+    return res.status(400).json({
+      error: "User is not in the database. Could not send a confirmation.",
+    });
   }
 }

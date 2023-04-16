@@ -53,7 +53,7 @@ export const SignupSteps = {
 };
 
 export const SignupStepsTitle = {
-  1: "STEP 1 - GOOGLE CALENDAR PERMISSION",
-  2: "STEP 2 - CLUE LOGIN DETAILS",
-  4: "CONGRATULATIONS!",
-};
+  [SignupSteps.GOOGLE]: "STEP 1 - GOOGLE CALENDAR PERMISSION",
+  [SignupSteps.CLUE]: "STEP 2 - CLUE LOGIN DETAILS",
+  [SignupSteps.FINISH]: "CONGRATULATIONS!",
+} as const;
