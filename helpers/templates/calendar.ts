@@ -1,3 +1,4 @@
+// https://mjml.io/try-it-live/jSAzkIaCd
 import { compile } from "handlebars";
 const calendar = compile(
   `<mjml>

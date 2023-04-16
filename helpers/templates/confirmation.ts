@@ -15,16 +15,16 @@ const confirmation = compile(
     </mj-section>
     <mj-section>
       <mj-column>
-        <mj-text font-size="16px" color="#342525" font-family="helvetica" padding-top="60px">Thank you for signing up, dear human!</mj-text>
-        <mj-text font-size="16px" color="#342525" font-family="helvetica">We are excited that you have decided to take your cycle under control and leverage your beautiful cylic nature.</mj-text>
-        <mj-text font-size="16px" color="#342525" font-family="helvetica">We have created a new calendar for you where we have synced your cycle data for the current and coming month.</mj-text>
+        <mj-text font-size="16px" color="#342525" font-family="helvetica" padding-top="60px">Thank you for signing up, dear!</mj-text>
+        <mj-text font-size="16px" color="#342525" font-family="helvetica" line-height="24px">We are delighted that you have made the decision to take charge of your menstrual cycle and embrace the natural beauty of your cyclical nature.</mj-text>
+        <mj-text font-size="16px" color="#342525" font-family="helvetica" line-height="24px">A personalized calendar has been created for you, where your cycle data for the current and upcoming months has been synchronized.</mj-text>
         
-        <mj-text align="left" padding-top="36px" font-size="16px" color="#342525" font-family="helvetica">1. Open you calendar <a style="font-weight:700;" href="https://calendar.google.com">Google Calendar</a></mj-text>
+        <mj-text line-height="24px" align="left" padding-top="36px" font-size="16px" color="#342525" font-family="helvetica">1. Open you calendar <a style="font-weight:700;" href="https://calendar.google.com">Google Calendar</a></mj-text>
         
-        <mj-text align="left" padding-top="12px" font-size="16px" color="#342525" font-family="helvetica">2. Find your new calendar in the left column under "My calendars". It is called "My Cycle". You can turn it on and off to your liking. </mj-text>
+        <mj-text line-height="24px" align="left" padding-top="12px" font-size="16px" color="#342525" font-family="helvetica">2. Find your new calendar in the left column under "My calendars". It is called "My Cycle". You can turn it on and off to your liking. </mj-text>
         
-        <mj-image width="200px" src="https://i.ibb.co/TqyQ7dP/my-cycle.png"></mj-image>
-                <mj-text align="left" padding-top="12px" font-size="16px" color="#342525" font-family="helvetica">We will update your calendar according to the data you enter in Clue. That way it will always be up to date with your cycle data. If your next period comes earlier or later, we will make sure to update your Google Calendar accordingly.</mj-text>
+        <mj-image width="200px" src="https://www.hack-your-cycle.com/calendars.png"></mj-image>
+                <mj-text align="left" padding-top="12px" font-size="16px" color="#342525" font-family="helvetica" line-height="24px">We will ensure that your calendar remains up to date with your cycle data by regularly updating it based on the information you provide in Clue. In the event that your next period arrives earlier or later than expected, we will promptly adjust your Google Calendar to reflect the updated information.</mj-text>
       </mj-column>
     </mj-section>
 
@@ -60,7 +60,7 @@ const confirmation = compile(
     <mj-section full-width="full-width" background-color="#FDF5ED">
 
       <mj-column>
-        <mj-text>
+        <mj-text line-height="24px">
           <p style="opacity: 0.4">
             DISCLAIMER <br />
             The content presented in this email is meant for inspiration and informational purposes only. The user of this email understands that the creator is not a medical professional, and the information contained within this email is not intended to replace medical advice or to be relied upon to treat, cure or prevent any disease, illness or medical condition. It is understood that you will seek full medical clearance by a licensed physician before making any changes mentioned in this email. The author claims no responsibility to any person or entity for any liability, loss or damage caused or alleged to be caused directly or indirectly as a result of the use, application or interpretation of the material on this email.
