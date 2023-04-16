@@ -18,11 +18,13 @@ export default async function handler(
     return res.status(400).json({ err: e });
   }
   const template = getTemplate({}, TemplateName.CONFIRMATION);
-
   const jwtToken = req.headers.authorization;
-  /* @ts-ignore */
   const userInTheDatabase = await User.findOne({
-    "signupTokens:token": jwtToken,
+    signupTokens: {
+      $elemMatch: {
+        token: jwtToken,
+      },
+    },
   });
   if (userInTheDatabase) {
     const result = await sendEmail(
