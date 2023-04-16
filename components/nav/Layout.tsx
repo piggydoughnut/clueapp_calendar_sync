@@ -1,6 +1,7 @@
 import Burger from "./Buger";
 import { Button } from "@material-tailwind/react";
 import Footer from "./Footer";
+import Head from "next/head";
 import Link from "next/link";
 
 export type MenuItem = {
@@ -67,10 +68,12 @@ const Navbar = () => (
 
 export default function Layout({
   bgImage = "bg-[url('/heart.svg')] bg-center bg-peachy",
+  title,
   className,
   children,
 }: {
   bgImage?: string;
+  title: string;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -79,6 +82,9 @@ export default function Layout({
       // className={`bg-no-repeat bg-[url('/mobile-bg.svg')] sm:${bgImage} scroll-smooth mx-4 md:mx-20`}
       className={`bg-no-repeat ${bgImage} scroll-smooth ${className}`}
     >
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Navbar />
       <div className="mx-4 sm:mx-10 lg:mx-0">
         <main>{children}</main>

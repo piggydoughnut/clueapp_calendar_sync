@@ -14,7 +14,6 @@ import Note from "@components/Note";
 import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
 import PricingOptions from "@components/PricingOptions";
 import axios from "axios";
-import { toPng } from "html-to-image";
 
 const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
@@ -66,21 +65,25 @@ export default function Sync() {
         node.className?.includes(classname)
       );
     }
-    toPng(ref.current, {
-      filter: filter,
-      cacheBust: true,
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        marginTop: "0px",
-        backgroundColor: "white",
-        justifyItems: "flex-start",
-        alignItems: "flex-start",
-        paddingTop: "4px",
-        paddingLeft: "12px",
-      },
-    })
+    // Dynamically load libraries
+    const htmlToImage = await import("html-to-image");
+
+    htmlToImage
+      .toPng(ref.current, {
+        filter: filter,
+        cacheBust: true,
+        style: {
+          display: "flex",
+          flexDirection: "column",
+          gap: "12px",
+          marginTop: "0px",
+          backgroundColor: "white",
+          justifyItems: "flex-start",
+          alignItems: "flex-start",
+          paddingTop: "4px",
+          paddingLeft: "12px",
+        },
+      })
       .then((dataUrl) =>
         axios.post("/api/emails/calendars", {
           screenshot: dataUrl,
@@ -102,7 +105,7 @@ export default function Sync() {
   );
 
   return (
-    <Layout>
+    <Layout title="Hack The Cycle: Calendar Sync">
       <div className="flex flex-col items-center">
         <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
           Sync with your cycle.

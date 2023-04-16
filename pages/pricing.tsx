@@ -4,7 +4,7 @@ import PricingOptions from "@components/PricingOptions";
 
 export default function Pricing() {
   return (
-    <Layout>
+    <Layout title="Hack The Cycle: Pricing">
       <div className="flex flex-col justify-center items-center">
         <h1 className="md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[5rem] pb-[2rem]">
           Sync with your cycle and schedule like a pro.
