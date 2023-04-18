@@ -27,3 +27,20 @@ export interface CalendarEvent extends calendar_v3.Schema$Event {
   end?: calendar_v3.Schema$EventDateTime;
   id?: string | undefined;
 }
+
+export type GoogleCalendarCreateEvent = {
+  calendarId: string;
+  resource: Resource;
+};
+
+export type Resource = {
+  summary: string;
+  description: string;
+  colorId: string;
+  start: {
+    date?: string;
+  };
+  end: {
+    date?: string;
+  };
+};

@@ -34,7 +34,7 @@ export default function ClueLogin({
         setLoading(false);
         const total = cycles.length;
         if (setCycleData) {
-          setCycleData(cycles.slice(total - 3, total - 2)[0]);
+          setCycleData(cycles.slice(total - 5, total - 2));
         }
       }
     } catch (e) {

@@ -5,7 +5,7 @@ export interface User {
   scope: string;
   idToken: string;
   accessToken: string;
-  calendarId: string;
+  calendarId: string | undefined;
   clue: {
     accessDetails: {
       email: string;

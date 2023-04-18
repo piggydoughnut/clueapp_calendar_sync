@@ -19,10 +19,10 @@ export const setClientCredentials = (
     idToken,
     scope,
   }: {
-    refreshToken: string;
-    accessToken: string;
-    idToken: string;
-    scope: string;
+    refreshToken: string | undefined;
+    accessToken: string | undefined;
+    idToken: string | undefined;
+    scope: string | undefined;
   }
 ) => {
   client.setCredentials({
