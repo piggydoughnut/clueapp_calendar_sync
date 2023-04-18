@@ -78,6 +78,11 @@ export const createCalendarForUser = async (jwtToken: string | null) => {
       email: (decoded as { email: string }).email,
     });
 
+    if (!u) {
+      console.error("The user does not exist: ", decoded);
+      return;
+    }
+
     setClientCredentials(oauth2Client, {
       refreshToken: u?.refreshToken,
       accessToken: u?.accessToken,
@@ -92,11 +97,11 @@ export const createCalendarForUser = async (jwtToken: string | null) => {
 
     let calendarToEdit: string = "";
 
-    if (!u?.calendarId) {
+    if (!u.calendarId) {
       console.log("The calendar DOES NOT exist. Create new one");
       const newCal = await createCalendar(calendarApi);
       // @ts-ignore
-      u?.calendarId = newCal.data.id ?? "";
+      u.calendarId = newCal.data.id ?? "";
       await u?.save();
       calendarToEdit = newCal.data.id ?? "";
     } else {
@@ -138,11 +143,20 @@ export const createCalendarForUser = async (jwtToken: string | null) => {
     });
 
     // prepare events for inserting Clue calendar events
+    // @todo save calendar event ids and use them when checking for calendar changes
+    // const scheduledEvents = [];
     await Promise.all(
       events.map((event, idx) => {
-        return setTimeout(() => calendarApi.events.insert(event), 1000 * idx);
+        return setTimeout(
+          () => calendarApi.events.insert(event),
+          // const eventResponse = await calendarApi.events.insert(event);
+          // console.log("Schduled an event with ", eventResponse);
+          // scheduledEvents.push(eventResponse.data);
+          1000 * idx
+        );
       })
     );
+    // u.googleEvents = scheduledEvents;
   } catch (e) {
     console.log(e);
   }

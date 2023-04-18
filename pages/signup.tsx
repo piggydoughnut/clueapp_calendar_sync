@@ -106,7 +106,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
         <div className="flex flex-row justify-center items-center gap-8">
           <div className="bg-white w-full sm:w-[800px] p-4 h-auto pb-10 rounded-md shadow-pink-300 border-pink-300 border">
             <div className="flex flex-col items-center justify-center">
-              {step && (
+              {step > 0 && (
                 <Progress
                   barProps={{
                     className: "bg-red-100",
