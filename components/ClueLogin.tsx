@@ -17,6 +17,7 @@ export default function ClueLogin({
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const loginToClue = async (email: string, password: string) => {
     try {
@@ -38,7 +39,10 @@ export default function ClueLogin({
         }
       }
     } catch (e) {
-      console.log(e);
+      setError(
+        e.response?.data?.error ?? "There was an error. Please try again later."
+      );
+      setLoading(false);
     }
   };
   return (
@@ -72,6 +76,9 @@ export default function ClueLogin({
             >
               I dont know my access details for Clue
             </Link>
+            <div className="h-2 text-red-300 text-center mt-3">
+              {error && <div>Error: {error}</div>}
+            </div>
           </div>
         )}
       </div>

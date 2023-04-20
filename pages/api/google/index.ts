@@ -63,7 +63,7 @@ export default async function handler(
         // @todo check how many times each jwt was used, allow only once for each token
         signupTokens: [{ token: jwtToken, used: 0 }],
       });
-      console.log("Created a user ", user);
+      // console.log("Created a user ", user);
     } else {
       console.log(
         "We have already registered this user ",
