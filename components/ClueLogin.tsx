@@ -40,6 +40,7 @@ export default function ClueLogin({
       }
     } catch (e) {
       setError(
+        //@ts-ignore
         e.response?.data?.error ?? "There was an error. Please try again later."
       );
       setLoading(false);
