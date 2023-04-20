@@ -1,5 +1,6 @@
 import "/styles/globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import ReactGA from "react-ga4";
 import { ThemeProvider } from "@material-tailwind/react";
 
@@ -9,6 +10,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <Component {...pageProps} />
+      <Analytics />
     </ThemeProvider>
   );
 }
