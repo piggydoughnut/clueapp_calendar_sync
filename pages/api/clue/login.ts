@@ -11,6 +11,7 @@ export default async function handler(
     const data = await login(req.body.email, req.body.password);
     res.status(200).json(data);
   } catch (e: unknown) {
+    // @ts-ignore
     if (e.response.status === 401) {
       return res.status(401).json({ error: "Invalid Credentials" });
     }
