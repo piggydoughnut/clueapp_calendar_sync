@@ -10,16 +10,12 @@ export type MenuItem = {
 };
 const menu: Array<MenuItem> = [
   {
-    name: "The science",
-    url: "/#whydoit",
-  },
-  {
-    name: "Pricing",
-    url: "/pricing",
-  },
-  {
-    name: "Calendar",
+    name: "Your Cycle Calendar",
     url: "/sync",
+  },
+  {
+    name: "FAQ",
+    url: "/faq",
   },
 ];
 
