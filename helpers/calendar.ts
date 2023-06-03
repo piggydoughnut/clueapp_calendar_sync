@@ -1,7 +1,7 @@
 import { addDays, subDays } from "date-fns";
-import { getCyclePhaseDates, getLengthsByCycle } from "./cycleLengths";
 
 import { Phases } from "./defines";
+import { getLengthsByCycle } from "./cycleLengths";
 
 export type EventType = {
   date: string | Date;

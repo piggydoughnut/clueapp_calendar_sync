@@ -1,16 +1,12 @@
-import { GoogleConfig, GoogleUrls } from "../../../auth/config";
+import { GoogleConfig, GoogleUrls } from "@auth/config";
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  createEvents,
-  getCalendarForUser,
-  getCycleEventsForCalendar,
-} from "@helpers/google/calendar";
+import { createEvents, getCalendarForUser } from "@helpers/google/calendar";
 
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import User from "@db/models/user";
 import axios from "axios";
 import dbConnect from "@db/mongodb";
-import { getTokens } from "../../../auth/google-auth";
+import { getCyclePhaseDates } from "@helpers/cycleLengths";
+import { getTokens } from "@auth/google-auth";
 import jwt from "jsonwebtoken";
 
 export default async function handler(
@@ -51,12 +47,13 @@ export default async function handler(
     { expiresIn: "10min" }
   );
   try {
-    const userInTheDatabase = await User.findOne({
+    let user = await User.findOne({
       email: googleUser.data.email,
     });
+    let calendarId;
 
-    if (!userInTheDatabase) {
-      const user = await User.create({
+    if (!user) {
+      user = await User.create({
         name: googleUser.data.name,
         email: googleUser.data.email,
         refreshToken: refresh_token,
@@ -66,33 +63,30 @@ export default async function handler(
         // @todo check how many times each jwt was used, allow only once for each token
         signupTokens: [{ token: jwtToken, used: 0 }],
       });
-
-      // create calendar
-
-      const calendarId = await getCalendarForUser(
-        googleUser.data.email ?? null
-      );
-      await user.update({ calendarId: calendarId });
-      const events = getCycleEventsForCalendar(calendarId ?? "");
-      await createEvents(events, user);
-      // sync
+      calendarId = await getCalendarForUser(googleUser.data.email ?? null);
     } else {
-      console.log(
-        "We have already registered this user ",
-        userInTheDatabase.email
-      );
-
-      // use existing calendar
-      const calendarId = await getCalendarForUser(
-        googleUser.data.email ?? null
-      );
-      await userInTheDatabase.update({ calendarId: calendarId });
-      const events = getCycleEventsForCalendar(calendarId ?? "");
-      console.log(events);
-      await createEvents(events, userInTheDatabase);
-      // sync
-      return res.redirect(`/google-sync?msg=101`);
+      console.log("We have already registered this user ", user.email);
+      calendarId = user.calendarId;
     }
+
+    await user.update({ calendarId: calendarId });
+
+    // @fixme pass these from FE
+    const start = "2023-06-01";
+    const periodLength = "5";
+    const cycleLength = "27";
+
+    const events = getCyclePhaseDates(
+      start,
+      Number(periodLength),
+      Number(cycleLength)
+    );
+
+    const created = await createEvents(events, user);
+    // @todo check already existing events
+    user.googleEvents.push(created);
+    await user.update({ googleEvents: user.googleEvents.flat() });
+    return res.redirect(`/google-sync?msg=101`);
   } catch (error) {
     console.log(error);
   }

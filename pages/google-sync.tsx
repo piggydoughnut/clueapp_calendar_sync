@@ -1,17 +1,11 @@
 import { Button, Progress } from "@material-tailwind/react";
-import { SignupSteps, SignupStepsTitle, emails } from "@helpers/defines";
-import {
-  createGoogleCalendar,
-  sendConfirmation,
-  updateUserWithClueData,
-} from "../helpers/signup";
 import { useEffect, useState } from "react";
 
-import ClueLogin from "@components/ClueLogin";
 import Confetti from "react-confetti";
 import Image from "next/image";
 import Layout from "@components/nav/Layout";
 import React from "react";
+import { SignupSteps } from "@helpers/defines";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";
 
@@ -37,7 +31,6 @@ const StepsExplanation = {
 export default function Signup({ googleuri }: { googleuri: string }) {
   const [step, setStep] = useState(SignupSteps.GOOGLE);
   const [jwt, setJwt] = useState("");
-  const [cycleData, setCycleData] = useState(null);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   const router = useRouter();
@@ -92,22 +85,6 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                   <h1 className="text-lg font-bold text-center mt-8">
                     We are happy to see you come back!
                   </h1>
-                  {/* <p className="text-md mx-8 mt-8">
-                    Please check your{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://gmail.com/"
-                      className="underline text-blue-400"
-                    >
-                      Gmail
-                    </a>{" "}
-                    for the instructions. Look for emails with sender Hack Your
-                    Cycle Team {`<`}
-                    {emails.team}
-                    {`>`}
-                    <br />
-                  </p>{" "} */}
                   <p className="text-md mx-8 mt-8">
                     We have updated you{" "}
                     <a

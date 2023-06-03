@@ -7,6 +7,7 @@ export const getOauth2Client = (): OAuth2Client => {
     // code,
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // @fixme swap URL
     redirectUri: "http://localhost:3000/api/google",
   });
 };

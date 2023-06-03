@@ -6,16 +6,22 @@ import {
   Resource,
 } from "@helpers/types";
 import { calendar_v3, google } from "googleapis";
-import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
+import { GoogleCalendarSingleton } from "./calendarApi";
 import { OAuth2Client } from "google-auth-library";
-import axios from "axios";
+import { User } from "@db/models/types";
 import dayjs from "dayjs";
-import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
 
-export const createGoogleCalendar = async (jwt: string) =>
-  axios.post("/api/google/calendar", {}, { headers: { Authorization: jwt } });
+export const getApi = (user: User) => {
+  const credentials = {
+    refreshToken: user?.refreshToken,
+    accessToken: user?.accessToken,
+    idToken: user?.idToken,
+    scope: user?.scope,
+  };
+  return GoogleCalendarSingleton.getInstance(credentials);
+};
 
 export const getCalendarApi = async (
   client: OAuth2Client
@@ -70,7 +76,6 @@ export const removeEvent = async (
 
 export const getCalendarForUser = async (userEmail: string | null) => {
   try {
-    const oauth2Client = getOauth2Client();
     const user = await getUser({
       email: userEmail,
     });
@@ -78,72 +83,20 @@ export const getCalendarForUser = async (userEmail: string | null) => {
       console.error("The user does not exist: ", userEmail);
       return null;
     }
-    setClientCredentials(oauth2Client, {
-      refreshToken: user?.refreshToken,
-      accessToken: user?.accessToken,
-      idToken: user?.idToken,
-      scope: user?.scope,
-    });
-
-    const calendarApi = await google.calendar({
-      version: "v3",
-      auth: oauth2Client,
-    });
     if (!user.calendarId) {
       console.log("The calendar DOES NOT exist. Create new one");
-      const newCal = await createCalendar(calendarApi);
+      const apiInstance = getApi(user);
+      const newCal = await apiInstance.createCalendar();
       return newCal.data.id;
-    } else {
-      return user.calendarId;
     }
+    return user.calendarId;
   } catch (e) {
     console.log(e);
   }
 };
 
-export const getCycleEventsForCalendar = (calendarId: string) => {
-  if (!calendarId) {
-    return;
-  }
-  let events: GoogleCalendarCreateEvent[] = [];
-
-  const start = "2023-06-01";
-  const periodLength = "5";
-  const cycleLength = "27";
-  const cyclePhaseDates = getCyclePhaseDates(
-    start,
-    Number(periodLength),
-    Number(cycleLength)
-  );
-  for (let i in cyclePhaseDates) {
-    events.push({
-      calendarId: calendarId,
-      resource: formatEvent(googleCalendarConfig[i], cyclePhaseDates[i]),
-    });
-  }
-  return events;
-};
-
-export const createEvents = async (events, user) => {
-  const oauth2Client = getOauth2Client();
-  setClientCredentials(oauth2Client, {
-    refreshToken: user?.refreshToken,
-    accessToken: user?.accessToken,
-    idToken: user?.idToken,
-    scope: user?.scope,
-  });
-  const calendarApi = await google.calendar({
-    version: "v3",
-    auth: oauth2Client,
-  });
-
-  return await Promise.all(
-    events.map((event, idx) => {
-      // @todo save calendarEvents Ids to check for later
-      return setTimeout(() => calendarApi.events.insert(event), 1000 * idx);
-    })
-  );
-};
+export const createEvents = async (events, user) =>
+  getApi(user).scheduleEvents(user.calendarId, events);
 
 export const formatEvent = (conf: Resource, phase: PhaseInfo) => ({
   ...conf,

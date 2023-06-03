@@ -23,6 +23,7 @@ export interface User {
       predicted: boolean;
     }[];
   };
+  googleEvents: [];
   signupTokens: {
     token: string;
     used: number;
