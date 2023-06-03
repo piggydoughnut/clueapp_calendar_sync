@@ -7,13 +7,12 @@ import Benefits from "@components/Benefits";
 import Calendar from "@components/calendar/Calendar";
 import ClueLogin from "@components/ClueLogin";
 import FormSchema from "@helpers/FormSchema";
-import Image from "next/image";
 import InputToolTip from "@components/InputTooltip";
 import Layout from "@components/nav/Layout";
 import Note from "@components/Note";
-import PeriodTrackerSupportForm from "@components/PeriodTrackerSupportForm";
-import PricingOptions from "@components/PricingOptions";
 import axios from "axios";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
 
 const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
@@ -22,7 +21,7 @@ const Title = ({ title }: { title: string }) => (
 const initialValues = {
   periodLength: 0,
   cycleLength: 0,
-  start: "",
+  start: dayjs(),
 };
 
 export default function Sync() {
@@ -34,6 +33,8 @@ export default function Sync() {
   const ref = useRef<HTMLDivElement>(null);
   const [userEmail, setUserEmail] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
+
+  const router = useRouter();
 
   const prepareCalendar = (
     start: string,
@@ -108,7 +109,7 @@ export default function Sync() {
     <Layout title="Hack The Cycle: Calendar Sync">
       <div className="flex flex-col items-center">
         <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
-          Sync with your cycle.
+          Sync with your cycle
         </h1>
         <div
           className={`drop-shadow-md border pt-8 pb-8 pl-4 pr-4 sm:pl-20 sm:pr-20 mx-auto bg-white w-full sm:w-auto transition-width duration-1000 ease z-1`}
@@ -145,6 +146,15 @@ export default function Sync() {
                   onSubmit={async (vs) => {
                     setParams(vs);
                     prepareCalendar(vs.start, vs.periodLength, vs.cycleLength);
+                    localStorage.setItem("start", vs.start.toString());
+                    localStorage.setItem(
+                      "periodLength",
+                      vs.periodLength.toString()
+                    );
+                    localStorage.setItem(
+                      "cycleLength",
+                      vs.cycleLength.toString()
+                    );
                   }}
                 >
                   {({ values, errors, handleChange, touched }) => (
@@ -202,12 +212,12 @@ export default function Sync() {
                     </Form>
                   )}
                 </Formik>
-                <div className="flex flex-row justify-center items-center gap-4">
+                {/* <div className="flex flex-row justify-center items-center gap-4">
                   <hr className="w-32"></hr>
                   <p className="opacity-40">OR</p>
                   <hr className="w-32"></hr>
-                </div>
-                <div className="text-sm flex flex-col justify-center items-center gap-2">
+                </div> */}
+                {/* <div className="text-sm flex flex-col justify-center items-center gap-2">
                   <button
                     onClick={() => setshowClueLogin(true)}
                     className="transition-all hover:opacity-80"
@@ -220,7 +230,7 @@ export default function Sync() {
                       alt="exteralSource"
                     />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           ) : (
@@ -255,6 +265,13 @@ export default function Sync() {
                     >
                       Send me my Calendar
                     </Button>
+                    <Button
+                      className="bg-secondaryButton w-full h-11 capitalize"
+                      color={"indigo"}
+                      onClick={() => router.push("/google-sync")}
+                    >
+                      Sync with my Google Calendar
+                    </Button>
                   </>
                 ) : (
                   <div className="flex flex-col justify-center items-center">
@@ -270,9 +287,9 @@ export default function Sync() {
           <div>
             <Subtitle text="Use the newly found power to balance your life and hack your cycle" />
             <Benefits />
-            <Subtitle text="Sign up to have your google calendar synced with your cycle." />
-            <PricingOptions />
-            <PeriodTrackerSupportForm />
+            {/* <Subtitle text="Sign up to have your google calendar synced with your cycle." /> */}
+            {/* <PricingOptions /> */}
+            {/* <PeriodTrackerSupportForm /> */}
           </div>
         )}
       </div>

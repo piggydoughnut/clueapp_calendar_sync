@@ -57,3 +57,7 @@ export const SignupStepsTitle = {
   [SignupSteps.CLUE]: "STEP 2 - CLUE LOGIN DETAILS",
   [SignupSteps.FINISH]: "CONGRATULATIONS!",
 } as const;
+
+export const emails = {
+  team: "team@hack-your-cycle.com",
+};

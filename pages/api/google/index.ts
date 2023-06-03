@@ -1,5 +1,10 @@
 import { GoogleConfig, GoogleUrls } from "../../../auth/config";
 import { NextApiRequest, NextApiResponse } from "next";
+import {
+  createEvents,
+  getCalendarForUser,
+  getCycleEventsForCalendar,
+} from "@helpers/google/calendar";
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import User from "@db/models/user";
@@ -46,13 +51,11 @@ export default async function handler(
     { expiresIn: "10min" }
   );
   try {
-    // @ts-ignore
     const userInTheDatabase = await User.findOne({
       email: googleUser.data.email,
     });
 
     if (!userInTheDatabase) {
-      /* @ts-ignore */
       const user = await User.create({
         name: googleUser.data.name,
         email: googleUser.data.email,
@@ -63,17 +66,35 @@ export default async function handler(
         // @todo check how many times each jwt was used, allow only once for each token
         signupTokens: [{ token: jwtToken, used: 0 }],
       });
-      // console.log("Created a user ", user);
+
+      // create calendar
+
+      const calendarId = await getCalendarForUser(
+        googleUser.data.email ?? null
+      );
+      await user.update({ calendarId: calendarId });
+      const events = getCycleEventsForCalendar(calendarId ?? "");
+      await createEvents(events, user);
+      // sync
     } else {
       console.log(
         "We have already registered this user ",
         userInTheDatabase.email
       );
-      return res.redirect(`/signup?msg=101`);
+
+      // use existing calendar
+      const calendarId = await getCalendarForUser(
+        googleUser.data.email ?? null
+      );
+      await userInTheDatabase.update({ calendarId: calendarId });
+      const events = getCycleEventsForCalendar(calendarId ?? "");
+      console.log(events);
+      await createEvents(events, userInTheDatabase);
+      // sync
+      return res.redirect(`/google-sync?msg=101`);
     }
   } catch (error) {
     console.log(error);
-    // return res.status(400).json(error);
   }
-  res.redirect(`/signup?jwt=${jwtToken}`);
+  res.redirect(`/google-sync?jwt=${jwtToken}`);
 }

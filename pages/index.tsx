@@ -2,8 +2,6 @@ import Benefits from "@components/Benefits";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Layout from "@components/nav/Layout";
-import Link from "next/link";
-import SupportedTrackers from "@components/SupportedTrackers";
 import calendar from "../public/calendar.svg";
 import { useRouter } from "next/router";
 
@@ -47,17 +45,7 @@ export default function Welcome() {
               >
                 Show me my cycle calendar
               </Button>
-
-              <Link href="/signup">
-                <Button
-                  variant="outlined"
-                  className="w-full sm:hidden h-14 sm:h-11  uppercase text-sm font-plusJakarta"
-                >
-                  Sign Up
-                </Button>
-              </Link>
             </div>
-            {/* <SupportedTrackers /> */}
           </div>
           <div className="hidden sm:flex pt-4 items-start">
             <Image

@@ -1,10 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import {
-  CalendarDatesType,
-  CalendarEvent,
-  CyclePhaseDates,
-} from "@helpers/types";
+import { CalendarDatesType, CyclePhaseDates } from "@helpers/types";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   getCalendarApi,
@@ -73,22 +69,38 @@ export default async function handler(
         }
       });
       // each user, I get Clue details data
-      extraLogs &&
-        console.log(
-          `${user.id} : StartEnd ${user.clue.data[0].start} - ${user.clue.data[0].end}, length: ${user.clue.data[0].expectedLength}`
-        );
+
       const clue = user.clue.accessDetails;
       const response = await login(clue.email, clue.password);
       const total = response.cycles.length;
-      const cycle = response.cycles.slice(total - 3, total - 2)[0];
-      const cyclePhaseDates: CyclePhaseDates = getCyclePhaseDates(
-        cycle.phases[0].start,
-        cycle.phases[0].length,
-        cycle.expectedLength
+      const cycleLast = response.cycles.slice(total - 5, total - 4)[0];
+      const cyclePhaseDatesLast: CyclePhaseDates = getCyclePhaseDates(
+        cycleLast.phases[0].start,
+        cycleLast.phases[0].length,
+        cycleLast.expectedLength
       );
+      console.log("Last cycle ", cyclePhaseDatesLast);
 
-      extraLogs && console.log("cyclePhaseDates ", cyclePhaseDates);
-      extraLogs && console.log("calendarDates", calendarDates);
+      const cycleCurrent = response.cycles.slice(total - 4, total - 3)[0];
+      const cyclePhaseDatesCurrent: CyclePhaseDates = getCyclePhaseDates(
+        cycleCurrent.phases[0].start,
+        cycleCurrent.phases[0].length,
+        cycleCurrent.expectedLength
+      );
+      extraLogs && console.log("Current cycle ", cyclePhaseDatesCurrent);
+
+      const cycleComing = response.cycles.slice(total - 3, total - 2)[0];
+      const cyclePhaseDatesComing: CyclePhaseDates = getCyclePhaseDates(
+        cycleComing.phases[0].start,
+        cycleComing.phases[0].length,
+        cycleComing.expectedLength
+      );
+      extraLogs && console.log("Next cycle", cyclePhaseDatesComing);
+
+      if (extraLogs) {
+        console.log("calendar dates ", calendarDates);
+      }
+      return;
       if (!Object.keys(calendarDates).length) {
         console.log(
           `No events are scheduled in the calendar for user ${user.id}`

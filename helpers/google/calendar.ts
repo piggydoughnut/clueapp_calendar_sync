@@ -13,7 +13,6 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { getCyclePhaseDates } from "../cycleLengths";
 import { getUser } from "../database";
-import jwt from "jsonwebtoken";
 
 export const createGoogleCalendar = async (jwt: string) =>
   axios.post("/api/google/calendar", {}, { headers: { Authorization: jwt } });
@@ -69,99 +68,81 @@ export const removeEvent = async (
     eventId,
   });
 
-export const createCalendarForUser = async (jwtToken: string | null) => {
+export const getCalendarForUser = async (userEmail: string | null) => {
   try {
     const oauth2Client = getOauth2Client();
-
-    const decoded = jwt.verify(jwtToken ?? "", process.env.JWT ?? "");
-    const u = await getUser({
-      email: (decoded as { email: string }).email,
+    const user = await getUser({
+      email: userEmail,
     });
-
-    if (!u) {
-      console.error("The user does not exist: ", decoded);
-      return;
+    if (!user) {
+      console.error("The user does not exist: ", userEmail);
+      return null;
     }
-
     setClientCredentials(oauth2Client, {
-      refreshToken: u?.refreshToken,
-      accessToken: u?.accessToken,
-      idToken: u?.idToken,
-      scope: u?.scope,
+      refreshToken: user?.refreshToken,
+      accessToken: user?.accessToken,
+      idToken: user?.idToken,
+      scope: user?.scope,
     });
 
     const calendarApi = await google.calendar({
       version: "v3",
       auth: oauth2Client,
     });
-
-    let calendarToEdit: string = "";
-
-    if (!u.calendarId) {
+    if (!user.calendarId) {
       console.log("The calendar DOES NOT exist. Create new one");
       const newCal = await createCalendar(calendarApi);
-      // @ts-ignore
-      u.calendarId = newCal.data.id ?? "";
-      await u?.save();
-      calendarToEdit = newCal.data.id ?? "";
+      return newCal.data.id;
     } else {
-      const calendarExists = await getCalendar(calendarApi, u.calendarId);
-      calendarToEdit = calendarExists.data.id ?? "";
+      return user.calendarId;
     }
-    // add the events for the given user
-    console.log("Editing calendar with id: ", calendarToEdit);
-    if (!calendarToEdit) {
-      console.error("There is no calendar to edit for user ", u?.id);
-      return;
-    }
-
-    let events: GoogleCalendarCreateEvent[] = [];
-    u?.clue.data.forEach((dataPoint) => {
-      if (!dataPoint.completed) {
-        const cyclePhaseDates = getCyclePhaseDates(
-          dataPoint.start,
-          dataPoint.phases[0].length,
-          dataPoint.length
-        );
-        console.log("cyclePhaseDates ", cyclePhaseDates);
-
-        for (let i in cyclePhaseDates) {
-          events.push({
-            calendarId: calendarToEdit,
-            resource: {
-              ...googleCalendarConfig[i],
-              start: {
-                date: cyclePhaseDates[i].startDate,
-              },
-              end: {
-                date: cyclePhaseDates[i].endDate,
-              },
-            },
-          });
-        }
-      }
-    });
-
-    // prepare events for inserting Clue calendar events
-    // @todo save calendar event ids and use them when checking for calendar changes
-    // const scheduledEvents = [];
-    await Promise.all(
-      events.map((event, idx) => {
-        return setTimeout(
-          () => calendarApi.events.insert(event),
-          // const eventResponse = await calendarApi.events.insert(event);
-          // console.log("Schduled an event with ", eventResponse);
-          // scheduledEvents.push(eventResponse.data);
-          1000 * idx
-        );
-      })
-    );
-    // u.googleEvents = scheduledEvents;
   } catch (e) {
     console.log(e);
   }
+};
 
-  return;
+export const getCycleEventsForCalendar = (calendarId: string) => {
+  if (!calendarId) {
+    return;
+  }
+  let events: GoogleCalendarCreateEvent[] = [];
+
+  const start = "2023-06-01";
+  const periodLength = "5";
+  const cycleLength = "27";
+  const cyclePhaseDates = getCyclePhaseDates(
+    start,
+    Number(periodLength),
+    Number(cycleLength)
+  );
+  for (let i in cyclePhaseDates) {
+    events.push({
+      calendarId: calendarId,
+      resource: formatEvent(googleCalendarConfig[i], cyclePhaseDates[i]),
+    });
+  }
+  return events;
+};
+
+export const createEvents = async (events, user) => {
+  const oauth2Client = getOauth2Client();
+  setClientCredentials(oauth2Client, {
+    refreshToken: user?.refreshToken,
+    accessToken: user?.accessToken,
+    idToken: user?.idToken,
+    scope: user?.scope,
+  });
+  const calendarApi = await google.calendar({
+    version: "v3",
+    auth: oauth2Client,
+  });
+
+  return await Promise.all(
+    events.map((event, idx) => {
+      // @todo save calendarEvents Ids to check for later
+      return setTimeout(() => calendarApi.events.insert(event), 1000 * idx);
+    })
+  );
 };
 
 export const formatEvent = (conf: Resource, phase: PhaseInfo) => ({

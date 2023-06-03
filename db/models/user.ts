@@ -33,6 +33,7 @@ const User: Model<Document & UserInerface> =
           },
         ],
       },
+      googleEvents: [],
       signupTokens: [
         {
           token: String,
