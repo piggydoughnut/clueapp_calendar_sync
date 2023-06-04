@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 
 import Benefits from "@components/Benefits";
 import Calendar from "@components/calendar/Calendar";
-import ClueLogin from "@components/ClueLogin";
 import FormSchema from "@helpers/FormSchema";
 import InputToolTip from "@components/InputTooltip";
 import Layout from "@components/nav/Layout";
@@ -28,7 +27,6 @@ export default function Sync() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const [periodStartDate, setPeriodStartDate] = useState<string>("");
   const [calEvents, setCalEvents] = useState<EventType[]>([]);
-  const [showClueLogin, setshowClueLogin] = useState(false);
   const [params, setParams] = useState(initialValues);
   const ref = useRef<HTMLDivElement>(null);
   const [userEmail, setUserEmail] = useState("");
@@ -45,14 +43,6 @@ export default function Sync() {
     const events = getCalendarData(start, length, lengthCycle);
     setCalEvents(events);
     setShowCalendar(true);
-  };
-
-  const processClueData = (data: any) => {
-    const periodLength = data.phases[0].length;
-    const cycleLength = data.length;
-    prepareCalendar(data.start, periodLength, cycleLength);
-    console.log("----");
-    setshowClueLogin(false);
   };
 
   const sendCalendar = async () => {
@@ -114,27 +104,17 @@ export default function Sync() {
         <div
           className={`drop-shadow-md border pt-8 pb-8 pl-4 pr-4 sm:pl-20 sm:pr-20 mx-auto bg-white w-full sm:w-auto transition-width duration-1000 ease z-1`}
         >
-          {(showCalendar || showClueLogin) && (
+          {showCalendar && (
             <a
               onClick={() => {
                 setShowCalendar(false);
-                setshowClueLogin(false);
               }}
               className="text-tiny opacity-50 font-bold absolute left-8 hover:cursor-pointer transition-all hover:opacity-40"
             >
               BACK
             </a>
           )}
-          {showClueLogin ? (
-            <div className="flex flex-col justify-center items-center">
-              <Title title="Login to Clue" />
-              <ClueLogin setCycleData={(a: any) => processClueData(a)} />
-              <div className="mb-8 text-tiny opacity-60 mt-1">
-                <p>DISCLAIMER</p>
-                <p>We do not store or collect any of your data</p>
-              </div>
-            </div>
-          ) : !showCalendar ? (
+          {!showCalendar ? (
             <div>
               <Title title="set yourself up for a balanced month" />
               <Note note="Enter details about your cycle to get a personalized cycle phase calendar." />
@@ -212,25 +192,6 @@ export default function Sync() {
                     </Form>
                   )}
                 </Formik>
-                {/* <div className="flex flex-row justify-center items-center gap-4">
-                  <hr className="w-32"></hr>
-                  <p className="opacity-40">OR</p>
-                  <hr className="w-32"></hr>
-                </div> */}
-                {/* <div className="text-sm flex flex-col justify-center items-center gap-2">
-                  <button
-                    onClick={() => setshowClueLogin(true)}
-                    className="transition-all hover:opacity-80"
-                  >
-                    <p>GET MY DATA FROM</p>
-                    <Image
-                      src="/clue.png"
-                      width={120}
-                      height={40}
-                      alt="exteralSource"
-                    />
-                  </button>
-                </div> */}
               </div>
             </div>
           ) : (
