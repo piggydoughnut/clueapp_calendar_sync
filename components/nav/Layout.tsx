@@ -2,7 +2,9 @@ import Burger from "./Buger";
 import { Button } from "@material-tailwind/react";
 import Footer from "./Footer";
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
+import mail from "../../public/mail.svg";
 
 export type MenuItem = {
   name: string;
@@ -41,17 +43,15 @@ const Navbar = () => (
           </Link>
         ))}
       </div>
-      <div>
-        Made by <a href="https://dariah.dev">Daria</a>
-      </div>
-      {/* <Link href="/signup">
-        <Button
-          variant="outlined"
-          className=" w-36 h-11 uppercase text-sm font-plusJakarta"
+      <div className="">
+        <a
+          href="mailto:support@hack-the-cycle.com"
+          className="text-sm hover:opacity-75 flex gap-2 items-center"
         >
-          Sign Up
-        </Button>
-      </Link> */}
+          Contact
+          <Image height={24} width={24} alt="mail" src={mail} />
+        </a>
+      </div>
     </div>
     <div className="sm:hidden flex flex-row justify-between items-center">
       <Link

@@ -61,7 +61,7 @@ const headers = {
 };
 
 export default function Signup({ googleuri }: { googleuri: string }) {
-  const [step, setStep] = useState(SignupSteps.RETURNING);
+  const [step, setStep] = useState(SignupSteps.GOOGLE);
   const [jwt, setJwt] = useState("");
   const router = useRouter();
 
