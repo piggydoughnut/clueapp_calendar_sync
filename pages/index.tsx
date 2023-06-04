@@ -34,13 +34,13 @@ export default function Welcome() {
                   className="w-[325px]"
                 />
               </div>
-              <h2 className="block sm:hidden ml-2 sm:ml-0 text-sm max-w-sm opacity-70 mt-8 sm:mt-2">
+              <h2 className="block sm:hidden ml-2 sm:ml-0 text-sm max-w-md opacity-70 mt-8 sm:mt-2">
                 Increase your productivity by hacking your cycle. Schedule
                 meetings on the days your are a rockstar and use the slow days
                 for easy monotonus tasks.
               </h2>
               <Button
-                className="bg-primaryButton w-full sm:w-fit h-14 sm:h-11 capitalize font-plusJakarta"
+                className="bg-secondaryButton w-full sm:w-fit h-14 sm:h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
                 Show me my cycle calendar

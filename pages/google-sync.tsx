@@ -9,8 +9,8 @@ import { SignupSteps } from "@helpers/defines";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";
 
-const StepsExplanation = {
-  [SignupSteps.GOOGLE]: () => (
+const footnote = {
+  [SignupSteps.GOOGLE]: (
     <>
       <b>Why? </b> <br />
       We need access to your calendar to add your cycle phase data there. <br />
@@ -26,27 +26,56 @@ const StepsExplanation = {
       <br />
     </>
   ),
+  [SignupSteps.FINISH]: (
+    <p className="text-sm mt-16">
+      In the case you didnt receive an email or your Google calendar was not
+      updated,{" "}
+      <a
+        className="underline hover:opacity-70 text-blue-400"
+        href="mailto:support@hack-the-cycle.com"
+      >
+        please let us know
+      </a>
+      .
+    </p>
+  ),
+  [SignupSteps.RETURNING]: (
+    <p className="text-sm mt-16">
+      In the case you didnt receive an email or your Google calendar was not
+      updated,{" "}
+      <a
+        className="underline hover:opacity-70 text-blue-400"
+        href="mailto:support@hack-the-cycle.com"
+      >
+        please let us know
+      </a>
+      .
+    </p>
+  ),
+};
+
+const headers = {
+  [SignupSteps.GOOGLE]: "Sync your Cycle calendar with Google Calendar",
+  [SignupSteps.FINISH]: "You are one step closer to a more balanced life",
+  [SignupSteps.RETURNING]: "We are happy to see you come back!",
 };
 
 export default function Signup({ googleuri }: { googleuri: string }) {
-  const [step, setStep] = useState(SignupSteps.GOOGLE);
+  const [step, setStep] = useState(SignupSteps.RETURNING);
   const [jwt, setJwt] = useState("");
-  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
-
   const router = useRouter();
 
   useEffect(() => {
     if (router.query.jwt) {
       /* @ts-ignore */
       setJwt(router?.query?.jwt);
-      setStep(SignupSteps.CLUE);
+      setStep(SignupSteps.FINISH);
       router.push({ pathname: router.pathname, query: {} });
     }
     // show error if msg 400
     if (router.query.msg) {
       if (router.query.msg === "101") {
-        setAlreadyRegistered(true);
-        setStep(0);
+        setStep(SignupSteps.RETURNING);
         router.push({ pathname: router.pathname, query: {} });
       }
     }
@@ -54,8 +83,8 @@ export default function Signup({ googleuri }: { googleuri: string }) {
 
   return (
     <Layout title="Hack The Cycle: Signup">
-      <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
-        Sync your cycle with your Google calendar and schedule like a pro.
+      <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-2 pt-[2rem]">
+        Sync your cycle with your Google calendar and schedule like a pro
         {step === SignupSteps.FINISH && (
           <Confetti
             className="mt-0"
@@ -71,22 +100,13 @@ export default function Signup({ googleuri }: { googleuri: string }) {
         <div className="flex flex-row justify-center items-center gap-8">
           <div className="bg-white w-full sm:w-[800px] p-4 h-auto pb-10 rounded-md shadow-pink-300 border-pink-300 border">
             <div className="flex flex-col items-center justify-center">
-              {step > 0 && (
-                <Progress
-                  barProps={{
-                    className: "bg-red-100",
-                  }}
-                  className="max-w-[500px] border border-black h-4 bg-white mt-4"
-                  value={(100 / 4) * step}
-                />
-              )}
-              {alreadyRegistered && (
+              <h2 className="mb-8 mt-8 font-bold text-center">
+                {headers[step]}
+              </h2>
+              {step === SignupSteps.RETURNING && (
                 <div>
-                  <h1 className="text-lg font-bold text-center mt-8">
-                    We are happy to see you come back!
-                  </h1>
-                  <p className="text-md mx-8 mt-8">
-                    We have updated you{" "}
+                  <p className="text-md mx-8">
+                    We have updated your{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -106,24 +126,10 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                     height={400}
                     className="mx-auto border border-gray-300 mt-6"
                   />
-                  <p className="text-sm mt-16 mx-8">
-                    In the case you didn&apos;t receive an email or your Google
-                    calendar was not updated,{" "}
-                    <a
-                      className="underline hover:opacity-70 text-blue-400"
-                      href="mailto:support@hack-the-cycle.com"
-                    >
-                      please let us know
-                    </a>
-                    .
-                  </p>
                 </div>
               )}
               {step === SignupSteps.GOOGLE && (
                 <>
-                  <h2 className="mb-4 mt-8 font-bold text-center">
-                    Sync your Cycle calendar with Google Calendar
-                  </h2>
                   <Button
                     color="white"
                     className="h-12 w-[300px] capitalize font-plusJakarta border border-black"
@@ -134,42 +140,21 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                 </>
               )}
               {step === SignupSteps.FINISH && (
-                <>
-                  <div className="flex flex-col justify-center items-center">
-                    <div className="text-center">
-                      <h2 className="text-lg mt-6 text-center">
-                        You are one step closer to a more balanced life.
-                      </h2>
-                      <p className="mt-4">
-                        We sent you a confirmation email with more details to
-                        your gmail account.
-                      </p>
-                    </div>{" "}
-                    <Button
-                      color="white"
-                      className="h-12 w-[300px] capitalize font-plusJakarta border border-black mt-16"
-                      onClick={() => router.push("https://gmail.com")}
-                    >
-                      Open Gmail
-                    </Button>
-                    <p className="text-sm mt-16">
-                      In the case you didnt receive an email or your Google
-                      calendar was not updated,{" "}
-                      <a
-                        className="underline hover:opacity-70 text-blue-400"
-                        href="mailto:support@hack-the-cycle.com"
-                      >
-                        please let us know
-                      </a>
-                      .
-                    </p>
-                  </div>
-                </>
+                <div className="flex flex-col justify-center items-center">
+                  <p className="mt-0 mb-8 text-center">
+                    We sent you a confirmation email with more details to your
+                    gmail account.
+                  </p>
+                  <Button
+                    className="bg-secondaryButton h-12 w-[300px] capitalize font-plusJakarta border border-black"
+                    onClick={() => router.push("https://gmail.com")}
+                  >
+                    Open Gmail
+                  </Button>
+                </div>
               )}
               {!!step && (
-                <p className="mt-14 text-tiny pl-10 pr-10 opacity-70 max-w-[600px]">
-                  {StepsExplanation[step]()}
-                </p>
+                <p className="mt-10 text-tiny opacity-70">{footnote[step]}</p>
               )}
             </div>
           </div>

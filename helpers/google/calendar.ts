@@ -49,16 +49,8 @@ export const createCalendar = async (api: calendar_v3.Calendar) => {
   return newCal;
 };
 
-export const getScheduledEvents = async (
-  api: calendar_v3.Calendar,
-  id: string
-) =>
-  api.events.list({
-    calendarId: id,
-    timeMin: dayjs().subtract(1, "month").toISOString(),
-    singleEvents: true,
-    orderBy: "startTime",
-  });
+export const getScheduledEvents = async (calendarId: string, user: User) =>
+  getApi(user).getScheduledEvents(calendarId);
 
 export const createEvent = async (api: calendar_v3.Calendar, event: any) =>
   api.events.insert(event);
@@ -95,8 +87,8 @@ export const getCalendarForUser = async (userEmail: string | null) => {
   }
 };
 
-export const createEvents = async (events, user) =>
-  getApi(user).scheduleEvents(user.calendarId, events);
+export const createEvents = async (events, user: User, calendarId) =>
+  getApi(user).scheduleEvents(calendarId ?? "", events);
 
 export const formatEvent = (conf: Resource, phase: PhaseInfo) => ({
   ...conf,
@@ -143,3 +135,22 @@ export const removeMultipleEvents = (
       setTimeout(() => removeEvent(api, calendarId, id), 1000 * idx)
     )
   );
+
+export const filterOutAlreadyScheduledEvents = (newEvents, googleEvents) => {
+  if (!googleEvents) {
+    return newEvents;
+  }
+  return Object.entries(newEvents)
+    .filter(
+      ([eventName, eventDates]) =>
+        !googleEvents.some(
+          (googleEvent) =>
+            googleEvent.event.start === eventDates.startDate &&
+            googleEvent.event.end === eventDates.endDate
+        )
+    )
+    .reduce((obj, [eventName, eventDates]) => {
+      obj[eventName] = eventDates;
+      return obj;
+    }, {});
+};

@@ -42,7 +42,7 @@ const Navbar = () => (
         ))}
       </div>
       <div>
-        Made by <a href="dariah.dev">Daria</a>
+        Made by <a href="https://dariah.dev">Daria</a>
       </div>
       {/* <Link href="/signup">
         <Button

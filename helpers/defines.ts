@@ -50,6 +50,7 @@ export const SignupSteps = {
   CLUE: 2,
   PAYMENT: 3,
   FINISH: 4,
+  RETURNING: 5,
 };
 
 export const SignupStepsTitle = {

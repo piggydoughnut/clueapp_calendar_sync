@@ -1,7 +1,6 @@
 import FAQ from "@components/FAQ";
 import Image from "next/image";
 import Layout from "@components/nav/Layout";
-import PricingOptions from "@components/PricingOptions";
 
 type Question = {
   question: string;
@@ -41,7 +40,7 @@ const scienceQuestions: Array<Question> = [
           alt="hormones"
           className="h-contain w-auto"
           width={500}
-          height={200}
+          height={300}
         />
         <p className="text-tiny text-center">
           Image source: Period Queen, Lucy Peach
@@ -282,7 +281,7 @@ const scienceQuestions: Array<Question> = [
 
 export default function FAQPage() {
   return (
-    <Layout title="Hack The Cycle: Pricing">
+    <Layout title="Hack The Cycle: FAQ">
       <div className="flex flex-col justify-center items-center">
         <div className="max-w-[600px]">
           <FAQ questions={scienceQuestions} />
