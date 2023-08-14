@@ -32,7 +32,7 @@ const calendar = compile(
             <div style="border-radius: 50px; height: 24px; width: 24px; background-color: #F8CFD3;"></div>
           </div>
 
-          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">Self-care time</p>
+          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">The Dream phase</p>
         </mj-text>
         <mj-text  line-height="24px" color="#342525" font-family="helvetica" font-size="16px">Take it easy and prioritize self-care activities that help you feel relaxed and nurtured during this time of physical and emotional release. Listen to your body and give yourself permission to slow down and rest. The way you spend this phase will dictate how the rest of your month goes.</mj-text>
         <mj-text color="#342525" font-family="helvetica" font-size="16px">
@@ -48,7 +48,7 @@ const calendar = compile(
             <div style="border-radius: 50px; height: 24px; width: 24px; background-color: #91C8C3;"></div>
           </div>
 
-          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">Ready to tackle the world</p>
+          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">The Do Phase - coming back to life</p>
         </mj-text>
 
         <mj-text color="#342525"   line-height="24px" font-family="helvetica" font-size="16px">You're feeling renewed and motivated, so take advantage of this energy to set goals and build healthy habits.</mj-text>
@@ -67,7 +67,7 @@ const calendar = compile(
             <div style="border-radius: 50px; height: 24px; width: 24px; background-color: #FEFACA;"></div>
           </div>
 
-          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">MOST PRODUCTIVE</p>
+          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">The Give Phase - productive</p>
         </mj-text>
 
 
@@ -86,7 +86,7 @@ const calendar = compile(
             <div style="border-radius: 50px; height: 24px; width: 24px; background-color: #A0A7D6;"></div>
           </div>
 
-          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">TIME TO SLOW DOWN</p>
+          <p style="font-size: 18px; text-transform: uppercase; font-family: helvetica;">The Take Phase - slow down</p>
         </mj-text>
 
         <mj-text   line-height="24px" color="#342525" font-family="helvetica" font-size="16px">It's important to be gentle with yourself during this time of fluctuating emotions and physical discomfort. Remember, this is a natural part of your cycle and will pass in due time.</mj-text>

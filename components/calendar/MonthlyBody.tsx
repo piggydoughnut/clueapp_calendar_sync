@@ -110,7 +110,7 @@ export function MonthlyBody<DayData>({
   let headingClassName =
     "p-2 uppercase opacity-70 font-bold text-tiny text-left";
   return (
-    <div className="bg-white p-l-2 ">
+    <div className="bg-white p-4 mb-4">
       <div className={`grid grid-cols-7`}>
         {headings.map((day: DayType) => (
           <div

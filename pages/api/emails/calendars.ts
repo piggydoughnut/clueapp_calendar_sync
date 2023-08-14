@@ -10,8 +10,17 @@ const formData = require("form-data");
 const sharp = require("sharp");
 
 const resizeImage = async (fileBuffer: Buffer) => {
+  const metadata = await sharp(fileBuffer).metadata();
+  const isPortrait = metadata.height > metadata.width;
+  let newHeight = 540;
+  let newWidth = 670;
+  if (isPortrait) {
+    newWidth = metadata.width;
+    newHeight = metadata.height / 2;
+  }
+
   return sharp(fileBuffer)
-    .extract({ left: 0, top: 0, width: 670, height: 540 })
+    .extract({ left: 0, top: 0, width: newWidth, height: newHeight })
     .toBuffer()
     .then((data: Buffer) => {
       return data;

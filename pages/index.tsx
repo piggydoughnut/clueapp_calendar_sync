@@ -19,7 +19,7 @@ export default function Welcome() {
               </span>{" "}
               with your cycle for higher productivity and balance.
             </h1>
-            <h2 className="hidden sm:block text-sm max-w-sm opacity-70 mt-2">
+            <h2 className="hidden sm:block text-sm max-w-lg opacity-70 mt-2">
               Increase your productivity by hacking your cycle. Schedule
               meetings on the days your are a rockstar and use the slow days for
               easy monotonus tasks.
@@ -43,7 +43,7 @@ export default function Welcome() {
                 className="bg-secondaryButton w-full sm:w-fit h-14 sm:h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
               >
-                Show me my cycle calendar
+                Get my cycle calendar
               </Button>
             </div>
           </div>

@@ -63,7 +63,7 @@ export const MonthlyNav = () => {
   let { locale, currentMonth, onCurrentMonthChange } = useMonthlyCalendar();
 
   return (
-    <div className="flex justify-between mb-1 pr-2 w-[300px]">
+    <div className="flex justify-between mb-1 pr-2">
       <button
         onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
         className="cursor-pointer opacity-50 not-for-email"

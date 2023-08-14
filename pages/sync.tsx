@@ -3,12 +3,12 @@ import { EventType, getCalendarData } from "@helpers/calendar";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
 
-import Benefits from "@components/Benefits";
 import Calendar from "@components/calendar/Calendar";
 import FormSchema from "@helpers/FormSchema";
 import InputToolTip from "@components/InputTooltip";
 import Layout from "@components/nav/Layout";
 import Note from "@components/Note";
+import Separator from "@components/Separator";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -88,12 +88,6 @@ export default function Sync() {
       })
       .catch((e) => console.log(e));
   };
-
-  const Subtitle = ({ text }: { text: string }) => (
-    <h2 className="text-lg font-bold text-center mt-24 mb-24 mx-6 sm:mx-0">
-      {text}
-    </h2>
-  );
 
   return (
     <Layout title="Hack The Cycle: Calendar Sync">
@@ -207,7 +201,7 @@ export default function Sync() {
                   events={calEvents}
                 />
               </div>
-              <div className="flex flex-col justify-center align-centre gap-2 w-full sm:w-[360px] pb-10 h-[180px]">
+              <div className="flex flex-col justify-center align-centre gap-2 w-full sm:w-[360px] pb-10">
                 {!sendingEmail ? (
                   <>
                     <h2 className="font-bold mb-2 mt-4">
@@ -226,33 +220,24 @@ export default function Sync() {
                     >
                       Send me my Calendar
                     </Button>
-                    <Button
-                      className="bg-secondaryButton w-full h-11 capitalize"
-                      color={"indigo"}
-                      onClick={() => router.push("/google-sync")}
-                    >
-                      Sync with my Google Calendar
-                    </Button>
                   </>
                 ) : (
                   <div className="flex flex-col justify-center items-center">
                     <p>Email sent ✅</p>
-                    {/* <Loading /> */}
                   </div>
                 )}
+                <Separator />
+                <Button
+                  className="bg-secondaryButton w-full h-11 capitalize"
+                  color={"indigo"}
+                  onClick={() => router.push("/google-sync")}
+                >
+                  Sync with my Google Calendar
+                </Button>
               </div>
             </div>
           )}
         </div>
-        {showCalendar && (
-          <div>
-            <Subtitle text="Use the newly found power to balance your life and hack your cycle" />
-            <Benefits />
-            {/* <Subtitle text="Sign up to have your google calendar synced with your cycle." /> */}
-            {/* <PricingOptions /> */}
-            {/* <PeriodTrackerSupportForm /> */}
-          </div>
-        )}
       </div>
     </Layout>
   );
