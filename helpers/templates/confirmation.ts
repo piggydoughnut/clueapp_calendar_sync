@@ -44,7 +44,7 @@ const confirmation = compile(
     <mj-section full-width="full-width" background-color="#FDF5ED" padding-top="36px">
       <mj-column>
         <mj-text font-size="16px">
-          Hack Your Cycle <a href="mailto:hello@hackthecyle.com">hello@hackthecyle.com</a>
+          Hack Your Cycle <a href="mailto:confirmation@dariah.dev">confirmation@dariah.dev</a>
         </mj-text>
       </mj-column>
       <mj-column>
