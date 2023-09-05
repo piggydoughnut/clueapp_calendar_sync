@@ -53,14 +53,14 @@ const scienceQuestions: Array<Question> = [
     question: "The Dream phase (3 - 7 days)",
     answer: [
       <p key="dream-hormones">
-        Your hormones level off as you prepare for menstruation. It's a good
+        Your hormones level off as you prepare for menstruation. It is a good
         time to find a peaceful place to relax and reflect. Allow yourself to
         slow down, and focus on self-care, as your body needs rest.
         <br /> <br />
         This is an opportunity to focus on self-love and to conserve energy for
         the next cycle. Listen to your intuition and think about the past month,
         reflect on your experiences, and emotions. Consider how you feel about
-        the progress you've made, and what you want to achieve in the next
+        the progress you have made, and what you want to achieve in the next
         cycle.
       </p>,
       <p key="dream-facts" className="mt-4 opacity-70 text-sm">
@@ -247,8 +247,8 @@ const scienceQuestions: Array<Question> = [
                 href="https://www.womenshealth.gov/menstruation"
               >
                 {" "}
-                The Office on Women's Health, part of the U.S. Department of
-                Health and Human Services
+                The Office on Women`&apos;` Health, part of the U.S. Department
+                of Health and Human Services
               </a>
             </li>
             <li className="mt-2">
