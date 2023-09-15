@@ -12,11 +12,13 @@ const sharp = require("sharp");
 const resizeImage = async (fileBuffer: Buffer) => {
   const metadata = await sharp(fileBuffer).metadata();
   const isPortrait = metadata.height > metadata.width;
-  let newHeight = 540;
-  let newWidth = 670;
+  let newWidth, newHeight;
   if (isPortrait) {
     newWidth = metadata.width;
     newHeight = metadata.height / 2;
+  } else {
+    newWidth = metadata.width / 2;
+    newHeight = metadata.height;
   }
 
   return sharp(fileBuffer)

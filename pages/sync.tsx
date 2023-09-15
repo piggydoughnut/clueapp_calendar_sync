@@ -194,11 +194,11 @@ export default function Sync() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-8 justify-center items-center">
+            <div className="flex flex-col gap-2 sm:gap-8 justify-center items-center mt-8 sm:mt-0">
               <div className="flex flex-col gap-2">
                 <div className="" />
                 <Title title="Your personal calendar" />
-                <div className="mt-8" />
+                <div className="mt-2 sm:mt-8" />
                 <Calendar
                   reff={ref}
                   id="mycustomcalendar"
