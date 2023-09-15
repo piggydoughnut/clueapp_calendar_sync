@@ -1,6 +1,6 @@
-import { Button, Progress } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 
+import { Button } from "@material-tailwind/react";
 import Confetti from "react-confetti";
 import Image from "next/image";
 import Layout from "@components/nav/Layout";

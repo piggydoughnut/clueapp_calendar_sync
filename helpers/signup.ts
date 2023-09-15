@@ -17,13 +17,6 @@ export const updateUserWithClueData = async (
   });
 };
 
-export const createGoogleCalendar = async (jwt: string) =>
-  await axios.post(
-    "/api/google/calendar",
-    {},
-    { headers: { Authorization: jwt } }
-  );
-
 export const sendConfirmation = async (jwt: string) => {
   await axios.post(
     "/api/emails/confirmation",
