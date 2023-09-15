@@ -82,7 +82,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   }, [router, jwt]);
 
   return (
-    <Layout title="Hack The Cycle: Signup">
+    <Layout title="Hack Your Cycle: Signup">
       <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-2 pt-[2rem]">
         Sync your cycle with your Google calendar and schedule like a pro
         {step === SignupSteps.FINISH && (

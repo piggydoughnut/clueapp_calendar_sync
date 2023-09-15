@@ -281,7 +281,7 @@ const scienceQuestions: Array<Question> = [
 
 export default function FAQPage() {
   return (
-    <Layout title="Hack The Cycle: FAQ">
+    <Layout title="Hack Your Cycle: FAQ">
       <div className="flex flex-col justify-center items-center">
         <div className="max-w-[600px]">
           <FAQ questions={scienceQuestions} />

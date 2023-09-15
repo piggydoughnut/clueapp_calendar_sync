@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 export default function Welcome() {
   const router = useRouter();
   return (
-    <Layout title="Hack The Cycle" bgImage="bg-[url('/top-bg.svg')] bg-contain">
+    <Layout
+      title="Hack Your Cycle"
+      bgImage="bg-[url('/top-bg.svg')] bg-contain"
+    >
       <div className="pt-24 sm:pt-[10rem]  scroll-smooth">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">

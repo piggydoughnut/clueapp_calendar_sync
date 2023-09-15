@@ -23,7 +23,7 @@ export default async function handler(
           },
           TemplateName.FEEDBACK
         ),
-        "Hack The Cycle - Feedback Form"
+        "Hack Your Cycle - Feedback Form"
       );
       res.status(200).json({ RRR: result });
     } catch (e) {

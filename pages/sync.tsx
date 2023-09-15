@@ -90,7 +90,7 @@ export default function Sync() {
   };
 
   return (
-    <Layout title="Hack The Cycle: Calendar Sync">
+    <Layout title="Hack Your Cycle: Calendar Sync">
       <div className="flex flex-col items-center">
         <h1 className="text-lg md:text-md lg:text-xl font-bold text-center mt-10 mb-8 pt-[2rem] pb-[2rem]">
           Sync with your cycle

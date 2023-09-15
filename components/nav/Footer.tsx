@@ -5,7 +5,7 @@ const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
   <div className="bg-white mt-20 pl-4 sm:pl-20 pr-4 sm:pr-20 pt-8 pb-8 ml-2 mr-2 mb-2 rounded-md border-peachy border-4">
     <div className="flex flex-col-reverse sm:flex-row justify-center text-center sm:text-left sm:justify-between">
       <div className="flex flex-col">
-        <h3 className="font-bold mb-2">Hack the Cycle</h3>
+        <h3 className="font-bold mb-2">Hack Your Cycle</h3>
         <p>
           Be efficient with your cycle and <br /> schedule like a pro
         </p>
