@@ -5,9 +5,9 @@ export const scope = [
 ].join(" ");
 
 export const GoogleConfig = {
-  redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI,
-  clientId: process.env.GOOGLE_CLIENT_ID,
-  secret: process.env.GOOGLE_CLIENT_SECRET,
+  redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI ?? "",
+  clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
 };
 
 const API = "https://www.googleapis.com";

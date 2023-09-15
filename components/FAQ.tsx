@@ -3,8 +3,7 @@ import {
   AccordionBody,
   AccordionHeader,
 } from "@material-tailwind/react";
-
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 const FAQElement = ({
   openMe,
@@ -15,7 +14,7 @@ const FAQElement = ({
   openMe: boolean;
   handleOpen: () => void;
   question: string;
-  answer: string | (string | JSX.Element)[];
+  answer: string | ReactNode[];
 }) => {
   return (
     <Accordion open={openMe}>
@@ -55,7 +54,7 @@ export default function FAQ({
           handleOpen={() => handleOpen(idx + 1)}
           key={el.question}
           question={el.question}
-          answer={el.answer}
+          answer={el.answer ?? ""}
         />
       ))}
     </div>

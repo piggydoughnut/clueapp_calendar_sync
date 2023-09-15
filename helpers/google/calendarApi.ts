@@ -1,5 +1,6 @@
 import { CALENDAR_NAME, googleCalendarConfig } from "../defines";
 import {
+  CalendarEvent,
   CyclePhaseDates,
   GoogleCalendarCreateEvent,
   PhaseInfo,
@@ -8,21 +9,10 @@ import {
 import { calendar_v3, google } from "googleapis";
 import { getOauth2Client, setClientCredentials } from "./oauthClient";
 
+import { Credentials } from "./types";
 import { OAuth2Client } from "google-auth-library/build/src/auth/oauth2client";
 import dayjs from "dayjs";
-
-type Credentials = {
-  refreshToken: string | undefined;
-  accessToken: string | undefined;
-  idToken: string | undefined;
-  scope: string | undefined;
-};
-
-function delay(ms: number) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, ms);
-  });
-}
+import { delay } from "..";
 
 export class GoogleCalendarSingleton {
   private static instance: GoogleCalendarSingleton;
@@ -50,6 +40,7 @@ export class GoogleCalendarSingleton {
     return GoogleCalendarSingleton.instance;
   }
 
+  /********** CALENDAR **********/
   public getCalendar = async (id: string) => {
     const calendar = await this.api.calendars.get({
       calendarId: id,
@@ -119,13 +110,18 @@ export class GoogleCalendarSingleton {
     return createdEvents;
   };
 
-  public getScheduledEvents = async (id: string) =>
-    this.api.events.list({
+  public async getScheduledEvents(
+    id: string
+  ): Promise<calendar_v3.Schema$Event[]> {
+    const response = await this.api.events.list({
       calendarId: id,
       timeMin: dayjs().subtract(1, "month").toISOString(),
       singleEvents: true,
       orderBy: "startTime",
     });
+
+    return response.data.items || []; // Extract events or return an empty array if there are no events.
+  }
 
   public formatEvent = (conf: Resource, phase: PhaseInfo) => ({
     ...conf,

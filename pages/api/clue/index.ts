@@ -2,17 +2,8 @@
 
 import { CalendarDatesType, CyclePhaseDates } from "@helpers/types";
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  getCalendarApi,
-  getScheduledEvents,
-  removeMultipleEvents,
-  scheduleEvents,
-} from "@helpers/google/calendar";
-import {
-  getOauth2Client,
-  setClientCredentials,
-} from "@helpers/google/oauthClient";
 
+import { GoogleCalendarSingleton } from "@helpers/google/calendarApi";
 import User from "@db/models/user";
 import { calendar_v3 } from "googleapis";
 import dbConnect from "@db/mongodb";
@@ -23,36 +14,32 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const oauth2Client = getOauth2Client();
   try {
     await dbConnect();
-  } catch (e) {
-    console.log(e);
-    return res.status(400).json({ err: e });
-  }
-  const extraLogs = process.env.EXTRA_LOGS === "true";
-  const allUsers = await User.find();
 
-  for (const user of allUsers) {
-    console.log(`Processing ${user.id}`);
-    setClientCredentials(oauth2Client, user);
-    const calendarApi = await getCalendarApi(oauth2Client);
-    if (!user.calendarId) {
-      extraLogs &&
-        console.error(
-          `Calendar was not created for this user - ${user.id}: ${user.get(
-            "email"
-          )}`
-        );
-      return;
-    }
-    try {
+    const extraLogs = process.env.EXTRA_LOGS === "true";
+    const allUsers = await User.find();
+
+    for (const user of allUsers) {
+      console.log(`Processing ${user.id}`);
+      const calendarInstance = GoogleCalendarSingleton.getInstance({
+        refreshToken: user?.refreshToken,
+        accessToken: user?.accessToken,
+        idToken: user?.idToken,
+        scope: user?.scope,
+      });
+      if (!user.calendarId) {
+        extraLogs &&
+          console.error(
+            `Calendar was not created for this user - ${user.id}: ${user.get(
+              "email"
+            )}`
+          );
+        return;
+      }
       // Get currently scheduled calendar events
-      const { data: calEvents } = await getScheduledEvents(
-        calendarApi,
-        user.calendarId
-      );
-      const events: calendar_v3.Schema$Event[] | undefined = calEvents.items;
+      const events: calendar_v3.Schema$Event[] | undefined =
+        await calendarInstance.getScheduledEvents(user.calendarId);
 
       if (!!events?.length) {
         // schedule the events for this person
@@ -101,49 +88,48 @@ export default async function handler(
         console.log("calendar dates ", calendarDates);
       }
       return;
-      if (!Object.keys(calendarDates).length) {
-        console.log(
-          `No events are scheduled in the calendar for user ${user.id}`
-        );
-        await scheduleEvents(calendarApi, user.calendarId, cyclePhaseDates);
-        console.log("Scheduled events");
-        continue;
-      }
-      // compare dates
-      let diff = false;
-      for (const i in calendarDates) {
-        if (diff) {
-          break;
-        }
-        if (
-          cyclePhaseDates[i]?.startDate !== calendarDates[i]?.startDate ||
-          cyclePhaseDates[i]?.endDate !== calendarDates[i]?.endDate
-        ) {
-          diff = true;
-        }
-      }
-      if (diff) {
-        console.log("not the same, gotta reschedule this period of time");
-        const eventIds = [];
-        for (let i in calendarDates) {
-          eventIds.push(calendarDates[i].id);
-        }
-        console.log(
-          `calendar: ${user.calendarId} -  We will delete these events  ${eventIds}`
-        );
-        await removeMultipleEvents(calendarApi, user.calendarId, eventIds);
-        await scheduleEvents(calendarApi, user.calendarId, cyclePhaseDates);
-      } else {
-        console.log("same same, do nothing");
-      }
-      console.log(`Processed ${allUsers.length} users`);
-      return res.json("");
-    } catch (e: unknown) {
-      console.log(e);
-      // @ts-ignore
-      console.log(e?.response?.data?.errors);
+      // if (!Object.keys(calendarDates).length) {
+      //   console.log(
+      //     `No events are scheduled in the calendar for user ${user.id}`
+      //   );
+      //   await scheduleEvents(calendarApi, user.calendarId, cyclePhaseDates);
+      //   console.log("Scheduled events");
+      //   continue;
+      // }
+      // // compare dates
+      // let diff = false;
+      // for (const i in calendarDates) {
+      //   if (diff) {
+      //     break;
+      //   }
+      //   if (
+      //     cyclePhaseDates[i]?.startDate !== calendarDates[i]?.startDate ||
+      //     cyclePhaseDates[i]?.endDate !== calendarDates[i]?.endDate
+      //   ) {
+      //     diff = true;
+      //   }
+      // }
+      // if (diff) {
+      //   console.log("not the same, gotta reschedule this period of time");
+      //   const eventIds = [];
+      //   for (let i in calendarDates) {
+      //     eventIds.push(calendarDates[i].id);
+      //   }
+      //   console.log(
+      //     `calendar: ${user.calendarId} -  We will delete these events  ${eventIds}`
+      //   );
+      //   await removeMultipleEvents(calendarApi, user.calendarId, eventIds);
+      //   await scheduleEvents(calendarApi, user.calendarId, cyclePhaseDates);
+      // } else {
+      //   console.log("same same, do nothing");
+      // }
+      // console.log(`Processed ${allUsers.length} users`);
+      // return res.json("");
     }
-  }
 
-  return res.send("");
+    return res.send("");
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json({ err: e });
+  }
 }

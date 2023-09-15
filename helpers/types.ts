@@ -13,7 +13,7 @@ export type PhaseInfo = {
 };
 
 export type CyclePhaseDates = Record<
-  typeof PhaseName[keyof typeof PhaseName],
+  (typeof PhaseName)[keyof typeof PhaseName],
   PhaseInfo
 > & {
   [key: string]: PhaseInfo;

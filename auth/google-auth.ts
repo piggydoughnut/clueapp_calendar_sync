@@ -19,14 +19,14 @@ export function getGoogleAuthURL() {
 
 export function getTokens({
   code,
-  clientId,
-  clientSecret,
-  redirectUri,
+  clientId = GoogleConfig.clientId,
+  clientSecret = GoogleConfig.clientSecret,
+  redirectUri = GoogleConfig.redirectUri,
 }: {
   code: string;
-  clientId: string;
-  clientSecret: string;
-  redirectUri: string;
+  clientId?: string;
+  clientSecret?: string;
+  redirectUri?: string;
 }): Promise<{
   access_token: string;
   expires_in: Number;

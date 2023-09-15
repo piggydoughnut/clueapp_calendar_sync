@@ -119,7 +119,11 @@ export default function Sync() {
                   validationSchema={FormSchema}
                   onSubmit={async (vs) => {
                     setParams(vs);
-                    prepareCalendar(vs.start, vs.periodLength, vs.cycleLength);
+                    prepareCalendar(
+                      vs.start.toString(),
+                      vs.periodLength,
+                      vs.cycleLength
+                    );
                     localStorage.setItem("start", vs.start.toString());
                     localStorage.setItem(
                       "periodLength",
@@ -140,7 +144,7 @@ export default function Sync() {
                           title="Next period start date"
                           label="Next period start date"
                           type="date"
-                          value={values.start}
+                          value={values.start.toString()}
                           onChange={handleChange}
                           error={Boolean(errors.start)}
                         ></Input>
@@ -175,6 +179,7 @@ export default function Sync() {
                       </div>
 
                       <div className="h-4 text-tiny text-red-300 text-center">
+                        {/*  @ts-ignore */}
                         {Object.values(errors)[0]}
                       </div>
                       <Button

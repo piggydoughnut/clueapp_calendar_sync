@@ -23,6 +23,7 @@ export interface User {
       predicted: boolean;
     }[];
   };
+  // @todo what is this type?
   googleEvents: [];
   signupTokens: {
     token: string;
