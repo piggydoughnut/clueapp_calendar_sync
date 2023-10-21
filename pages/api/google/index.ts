@@ -17,7 +17,14 @@ export default async function handler(
   if (!process.env.JWT) {
     return res.redirect(`/signup?msg=400`);
   }
+  const stateParam = req.query?.state;
 
+  const state = typeof stateParam === "string" ? JSON.parse(stateParam) : null;
+
+  if (!state) {
+    // @todo handle this error
+    console.log("ERRRR, state is null");
+  }
   const code = req.query.code as string;
   try {
     //@todo handle errrrrs
@@ -58,13 +65,12 @@ export default async function handler(
       });
       await user.update({ calendarId: calendarId });
 
-      // @fixme pass these from FE
-      const start = "2023-06-01";
-      const periodLength = "5";
-      const cycleLength = "27";
+      const startDate = state?.startDate;
+      const periodLength = state?.periodLength;
+      const cycleLength = state?.cycleLength;
 
       let events = getCyclePhaseDates(
-        start,
+        startDate,
         Number(periodLength),
         Number(cycleLength)
       );

@@ -45,7 +45,7 @@ const Navbar = () => (
       </div>
       <div className="">
         <a
-          href="mailto:support@hack-the-cycle.com"
+          href="mailto:support@dariah.dev"
           className="text-sm hover:opacity-75 flex gap-2 items-center"
         >
           Contact

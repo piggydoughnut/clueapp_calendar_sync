@@ -8,6 +8,7 @@ import React from "react";
 import { SignupSteps } from "@helpers/defines";
 import { getGoogleAuthURL } from "../auth/google-auth";
 import { useRouter } from "next/router";
+import { useStoreState } from "easy-peasy";
 
 const footnote = {
   [SignupSteps.GOOGLE]: (
@@ -28,11 +29,10 @@ const footnote = {
   ),
   [SignupSteps.FINISH]: (
     <p className="text-sm mt-16">
-      In the case you didnt receive an email or your Google calendar was not
-      updated,{" "}
+      In the case your Google calendar was not updated,{" "}
       <a
         className="underline hover:opacity-70 text-blue-400"
-        href="mailto:support@hack-the-cycle.com"
+        href="mailto:support@dariah.dev"
       >
         please let us know
       </a>
@@ -45,7 +45,7 @@ const footnote = {
       updated,{" "}
       <a
         className="underline hover:opacity-70 text-blue-400"
-        href="mailto:support@hack-the-cycle.com"
+        href="mailto:support@dariah.dev"
       >
         please let us know
       </a>
@@ -64,6 +64,9 @@ export default function Signup({ googleuri }: { googleuri: string }) {
   const [step, setStep] = useState(SignupSteps.GOOGLE);
   const [jwt, setJwt] = useState("");
   const router = useRouter();
+  // @ts-ignore
+  // FIXME
+  const { periodData } = useStoreState((state) => state);
 
   useEffect(() => {
     if (router.query.jwt) {
@@ -80,6 +83,13 @@ export default function Signup({ googleuri }: { googleuri: string }) {
       }
     }
   }, [router, jwt]);
+
+  const redirectToGoogle = async () => {
+    const url = new URL(googleuri);
+    url.searchParams.append("state", JSON.stringify(periodData));
+    const resultUrl = url.toString();
+    router.push(`${resultUrl}`);
+  };
 
   return (
     <Layout title="Hack Your Cycle: Signup">
@@ -103,7 +113,8 @@ export default function Signup({ googleuri }: { googleuri: string }) {
               <h2 className="mb-8 mt-8 font-bold text-center">
                 {headers[step]}
               </h2>
-              {step === SignupSteps.RETURNING && (
+              {(step === SignupSteps.RETURNING ||
+                step === SignupSteps.FINISH) && (
                 <div>
                   <p className="text-md mx-8">
                     We have updated your{" "}
@@ -133,25 +144,11 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                   <Button
                     color="white"
                     className="h-12 w-[300px] capitalize font-plusJakarta border border-black"
-                    onClick={() => router.push(googleuri)}
+                    onClick={redirectToGoogle}
                   >
                     Google Calendar Auth{" "}
                   </Button>
                 </>
-              )}
-              {step === SignupSteps.FINISH && (
-                <div className="flex flex-col justify-center items-center">
-                  <p className="mt-0 mb-8 text-center">
-                    We sent you a confirmation email with more details to your
-                    gmail account.
-                  </p>
-                  <Button
-                    className="bg-secondaryButton h-12 w-[300px] capitalize font-plusJakarta border border-black"
-                    onClick={() => router.push("https://gmail.com")}
-                  >
-                    Open Gmail
-                  </Button>
-                </div>
               )}
               {!!step && (
                 <p className="mt-10 text-tiny opacity-70">{footnote[step]}</p>

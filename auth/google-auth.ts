@@ -4,7 +4,6 @@ import axios from "axios";
 import querystring from "querystring";
 
 export function getGoogleAuthURL() {
-  // console.log(GoogleConfig);
   const options = {
     redirect_uri: GoogleConfig.redirectUri,
     client_id: GoogleConfig.clientId,

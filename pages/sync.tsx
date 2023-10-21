@@ -12,6 +12,7 @@ import Separator from "@components/Separator";
 import axios from "axios";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { useStoreActions } from "easy-peasy";
 
 const Title = ({ title }: { title: string }) => (
   <h2 className="uppercase text-sm font-bold text-center">{title}</h2>
@@ -25,7 +26,13 @@ const initialValues = {
 
 export default function Sync() {
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
-  const [periodStartDate, setPeriodStartDate] = useState<string>("");
+  // @todo manage as a part of state
+  const [periodData, setPeriodData] = useState<{
+    startDate: string;
+    cycleLength: number;
+    periodLength: number;
+  }>();
+
   const [calEvents, setCalEvents] = useState<EventType[]>([]);
   const [params, setParams] = useState(initialValues);
   const ref = useRef<HTMLDivElement>(null);
@@ -33,14 +40,26 @@ export default function Sync() {
   const [sendingEmail, setSendingEmail] = useState(false);
 
   const router = useRouter();
+  // @ts-ignore
+  const setStateData = useStoreActions((actions) => actions.setPeriodData);
 
   const prepareCalendar = (
-    start: string,
-    length: number,
-    lengthCycle: number
+    startDate: string,
+    periodLength: number,
+    cycleLength: number
   ) => {
-    setPeriodStartDate(start);
-    const events = getCalendarData(start, length, lengthCycle);
+    setPeriodData({
+      startDate,
+      periodLength,
+      cycleLength,
+    });
+    setStateData({
+      startDate,
+      periodLength,
+      cycleLength,
+    });
+
+    const events = getCalendarData(startDate, periodLength, cycleLength);
     setCalEvents(events);
     setShowCalendar(true);
   };
@@ -84,7 +103,6 @@ export default function Sync() {
       .then((res) => {
         setSendingEmail(false);
         setUserEmail("");
-        console.log(res);
       })
       .catch((e) => console.log(e));
   };
@@ -202,7 +220,7 @@ export default function Sync() {
                 <Calendar
                   reff={ref}
                   id="mycustomcalendar"
-                  startDate={periodStartDate}
+                  startDate={periodData?.startDate}
                   events={calEvents}
                 />
               </div>
@@ -235,7 +253,7 @@ export default function Sync() {
                 <Button
                   className="bg-secondaryButton w-full h-11 capitalize"
                   color={"indigo"}
-                  onClick={() => router.push("/google-sync")}
+                  onClick={() => router.push(`/google-sync`)}
                 >
                   Sync with my Google Calendar
                 </Button>
