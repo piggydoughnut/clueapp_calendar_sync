@@ -16,6 +16,7 @@ module.exports = withMT({
       lightPink: {
         color: "#FEF6F9",
       },
+      mainPink: "#EB7581",
       peachy: "#FDF5ED",
       primaryButton: colors.red["200"],
       secondaryButton: colors.indigo["400"],

@@ -16,7 +16,7 @@ export default function Welcome() {
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">
             <h1 className="text-xl lg:text-[46px] font-bold max-w-xl leading-10 lg:leading-tight">
-              Sync your <span className=" text-[#EB7581]">Google Calendar</span>{" "}
+              Sync your <span className=" text-mainPink">Google Calendar</span>{" "}
               with your cycle for higher productivity and balance.
             </h1>
             <h2 className="hidden sm:block text-sm max-w-lg opacity-70 mt-2">
@@ -48,14 +48,14 @@ export default function Welcome() {
               </Button> */}
               <Button
                 color="white"
-                className="mt-6 h-12 w-full capitalize font-plusJakarta border border-[#EB7581] text-[#EB7581]"
+                className="mt-6 h-14 w-full capitalize font-plusJakarta border border-black text-mainPink"
                 onClick={() => router.push("sync")}
               >
                 Get my personalized cycle calendar
               </Button>
             </div>
           </div>
-          <div className="hidden sm:flex pt-4 items-start">
+          <div className="hidden sm:flex items-start bg-white shadow-md rounded-md p-6">
             <Image
               src={calendar}
               alt="calendar"
