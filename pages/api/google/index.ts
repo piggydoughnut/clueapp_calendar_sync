@@ -10,6 +10,56 @@ import { getCyclePhaseDates } from "@helpers/cycleLengths";
 import { getJWTToken } from "@helpers/jwt";
 import { getTokens } from "@auth/google-auth";
 
+//@fixme fix User type
+const processUser = async (
+  user: any,
+  calendarId: string | null,
+  state: any
+) => {
+  if (!calendarId) {
+    return;
+  }
+  return process.nextTick(async () => {
+    const calendarInstance = GoogleCalendarSingleton.getInstance({
+      refreshToken: user.refreshToken,
+      accessToken: user.accessToken,
+      idToken: user.idToken,
+      scope: user.scope,
+    });
+    await user.updateOne(
+      { _id: user.id },
+      { $set: { calendarId: calendarId } }
+    );
+
+    const startDate = state?.startDate;
+    const periodLength = state?.periodLength;
+    const cycleLength = state?.cycleLength;
+
+    let events = getCyclePhaseDates(
+      startDate,
+      Number(periodLength),
+      Number(cycleLength)
+    );
+
+    const filteredEvents = filterOutAlreadyScheduledEvents(
+      events,
+      user.googleEvents
+    );
+
+    if (!!filteredEvents) {
+      const created: Array<{
+        id: string;
+        event: { description: string; start: string; end: string };
+      }> = await calendarInstance.scheduleEvents(calendarId, events);
+      user.googleEvents.push(created);
+      await user.updateOne(
+        { _id: user.id },
+        { $set: { googleEvents: user.googleEvents.flat() } }
+      );
+    }
+  });
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -52,50 +102,6 @@ export default async function handler(
       email: googleUser.email,
     });
 
-    //@fixme fix User type
-    const processUser = async (user: any, calendarId: string | null) => {
-      if (!calendarId) {
-        return;
-      }
-      const calendarInstance = GoogleCalendarSingleton.getInstance({
-        refreshToken: user.refreshToken,
-        accessToken: user.accessToken,
-        idToken: user.idToken,
-        scope: user.scope,
-      });
-      await user.updateOne(
-        { _id: user.id },
-        { $set: { calendarId: calendarId } }
-      );
-
-      const startDate = state?.startDate;
-      const periodLength = state?.periodLength;
-      const cycleLength = state?.cycleLength;
-
-      let events = getCyclePhaseDates(
-        startDate,
-        Number(periodLength),
-        Number(cycleLength)
-      );
-
-      const filteredEvents = filterOutAlreadyScheduledEvents(
-        events,
-        user.googleEvents
-      );
-
-      if (!!filteredEvents) {
-        const created: Array<{
-          id: string;
-          event: { description: string; start: string; end: string };
-        }> = await calendarInstance.scheduleEvents(calendarId, events);
-        user.googleEvents.push(created);
-        await user.updateOne(
-          { _id: user.id },
-          { $set: { googleEvents: user.googleEvents.flat() } }
-        );
-      }
-    };
-
     if (!user) {
       const newUser = await User.create({
         name: googleUser.name,
@@ -106,11 +112,11 @@ export default async function handler(
       });
       const calendarInstance = GoogleCalendarSingleton.getInstance(credentials);
       const newCalendar = await calendarInstance.createCalendar();
-      await processUser(newUser, newCalendar.data.id ?? null);
+      await processUser(newUser, newCalendar.data.id ?? null, state);
       res.redirect(`/google-sync?jwt=${jwtToken}`);
     } else {
       console.log("We have already registered this user ", user.email);
-      await processUser(user, user.calendarId ?? null);
+      await processUser(user, user.calendarId ?? null, state);
       return res.redirect(`/google-sync?msg=101`);
     }
   } catch (error) {

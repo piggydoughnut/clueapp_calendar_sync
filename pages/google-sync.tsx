@@ -117,7 +117,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                 step === SignupSteps.FINISH) && (
                 <div>
                   <p className="text-md mx-8">
-                    We have updated your{" "}
+                    We are updating your{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -126,9 +126,9 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                     >
                       Google calendar
                     </a>{" "}
-                    with the new cycle data. There should be a calendar named
+                    with the new cycle data. You will notice a calendar named
                     &apos;My cycle&apos; (note that it could be different colour
-                    for you).
+                    for you). The changes should take up to 2-3 minutes.
                   </p>
                   <Image
                     src="/calendars.png"
