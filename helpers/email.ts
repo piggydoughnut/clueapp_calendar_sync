@@ -18,7 +18,7 @@ export const sendEmail = async (
     key: process.env.EMAIL_API_KEY ?? "",
   });
   const data = {
-    from: "Hack Your Cycle Team <team@hack-your-cycle.com>",
+    from: "Hack Your Cycle Team <hack-your-cycle@dariah.dev>",
     to: email,
     subject: subject,
     html: template,

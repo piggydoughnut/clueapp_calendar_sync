@@ -63,7 +63,10 @@ export default async function handler(
         idToken: user.idToken,
         scope: user.scope,
       });
-      await user.update({ calendarId: calendarId });
+      await user.updateOne(
+        { _id: user.id },
+        { $set: { calendarId: calendarId } }
+      );
 
       const startDate = state?.startDate;
       const periodLength = state?.periodLength;
@@ -86,7 +89,10 @@ export default async function handler(
           event: { description: string; start: string; end: string };
         }> = await calendarInstance.scheduleEvents(calendarId, events);
         user.googleEvents.push(created);
-        await user.update({ googleEvents: user.googleEvents.flat() });
+        await user.updateOne(
+          { _id: user.id },
+          { $set: { googleEvents: user.googleEvents.flat() } }
+        );
       }
     };
 
@@ -109,5 +115,6 @@ export default async function handler(
     }
   } catch (error) {
     console.log(error);
+    return res.status(400).json(error);
   }
 }

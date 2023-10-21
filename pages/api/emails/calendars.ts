@@ -59,7 +59,7 @@ export default async function handler(
   };
 
   const data = {
-    from: "Hack Your Cycle Team <team@hack-your-cycle.com>",
+    from: "Hack Your Cycle Team <hack-your-cycle@dariah.dev>",
     to: req.body.userEmail,
     subject: "Personalized Cycle Calendar",
     html: template,
