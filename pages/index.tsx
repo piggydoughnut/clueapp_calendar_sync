@@ -15,8 +15,8 @@ export default function Welcome() {
       <div className="pt-24 sm:pt-[10rem]  scroll-smooth">
         <div className="flex flex-col sm:flex-row space-between gap-[10rem] justify-center">
           <div className="flex flex-col mx-4 sm:mx-0">
-            <h1 className="text-xl lg:text-[50px] font-bold max-w-xl leading-10 lg:leading-tight">
-              Sync your <span className=" text-[#F88181]">Google Calendar</span>{" "}
+            <h1 className="text-xl lg:text-[46px] font-bold max-w-xl leading-10 lg:leading-tight">
+              Sync your <span className=" text-[#EB7581]">Google Calendar</span>{" "}
               with your cycle for higher productivity and balance.
             </h1>
             <h2 className="hidden sm:block text-sm max-w-lg opacity-70 mt-2">
@@ -39,10 +39,17 @@ export default function Welcome() {
                 meetings on the days your are a rockstar and use the slow days
                 for easy monotonus tasks.
               </h2>
-              <Button
-                className="bg-[#F88181] w-full sm:w-full h-16 sm:h-11 capitalize font-plusJakarta"
+              {/* <Button
+                className="bg-peachy w-full sm:w-full h-16 sm:h-11 capitalize font-plusJakarta"
                 onClick={() => router.push("sync")}
                 color="red"
+              >
+                Get my personalized cycle calendar
+              </Button> */}
+              <Button
+                color="white"
+                className="mt-6 h-12 w-full capitalize font-plusJakarta border border-[#EB7581] text-[#EB7581]"
+                onClick={() => router.push("sync")}
               >
                 Get my personalized cycle calendar
               </Button>
