@@ -95,7 +95,7 @@ export class GoogleCalendarSingleton {
         console.log(
           `Adding event ${event.resource.summary} starting ${event.resource.start}`
         );
-        await delay(1000 * idx);
+        await delay(500 * idx);
         const response = await this.createEvent(event);
         createdEvents.push({
           id: response.data.id,

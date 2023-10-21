@@ -19,45 +19,40 @@ const processUser = async (
   if (!calendarId) {
     return;
   }
-  return process.nextTick(async () => {
-    const calendarInstance = GoogleCalendarSingleton.getInstance({
-      refreshToken: user.refreshToken,
-      accessToken: user.accessToken,
-      idToken: user.idToken,
-      scope: user.scope,
-    });
+  const calendarInstance = GoogleCalendarSingleton.getInstance({
+    refreshToken: user.refreshToken,
+    accessToken: user.accessToken,
+    idToken: user.idToken,
+    scope: user.scope,
+  });
+  await user.updateOne({ _id: user.id }, { $set: { calendarId: calendarId } });
+
+  const startDate = state?.startDate;
+  const periodLength = state?.periodLength;
+  const cycleLength = state?.cycleLength;
+
+  let events = getCyclePhaseDates(
+    startDate,
+    Number(periodLength),
+    Number(cycleLength)
+  );
+
+  const filteredEvents = filterOutAlreadyScheduledEvents(
+    events,
+    user.googleEvents
+  );
+
+  if (!!filteredEvents) {
+    const created: Array<{
+      id: string;
+      event: { description: string; start: string; end: string };
+    }> = await calendarInstance.scheduleEvents(calendarId, events);
+    user.googleEvents.push(created);
     await user.updateOne(
       { _id: user.id },
-      { $set: { calendarId: calendarId } }
+      { $set: { googleEvents: user.googleEvents.flat() } }
     );
-
-    const startDate = state?.startDate;
-    const periodLength = state?.periodLength;
-    const cycleLength = state?.cycleLength;
-
-    let events = getCyclePhaseDates(
-      startDate,
-      Number(periodLength),
-      Number(cycleLength)
-    );
-
-    const filteredEvents = filterOutAlreadyScheduledEvents(
-      events,
-      user.googleEvents
-    );
-
-    if (!!filteredEvents) {
-      const created: Array<{
-        id: string;
-        event: { description: string; start: string; end: string };
-      }> = await calendarInstance.scheduleEvents(calendarId, events);
-      user.googleEvents.push(created);
-      await user.updateOne(
-        { _id: user.id },
-        { $set: { googleEvents: user.googleEvents.flat() } }
-      );
-    }
-  });
+  }
 };
 
 export default async function handler(
