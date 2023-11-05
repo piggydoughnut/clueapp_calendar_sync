@@ -20,11 +20,11 @@ export default function PrivacyPolicyPage() {
           <p>Effective Date: 5.11.2023</p>
           <H2> 1. Introduction</H2>
           <p>
-            This Privacy Policy explains how [Your Company/Service Name]
-            (\"we\", \"us,\" \"our\") collects, uses, and protects your personal
-            information when you use our services, including our menstrual cycle
-            tracking and productivity tool. We are committed to protecting your
-            privacy and ensuring the security of your data.
+            This Privacy Policy explains how Hack Your Cycle (&quot;we,&quot;
+            &quot;us,&quot; &quot;our&quot;) collects, uses, and protects your
+            personal information when you use our services, including our
+            menstrual cycle tracking and productivity tool. We are committed to
+            protecting your privacy and ensuring the security of your data.
           </p>
           <H2> 2. Information We Collect</H2>
           <H3>a. Google Email Address</H3>
