@@ -41,8 +41,8 @@ const footnote = {
   ),
   [SignupSteps.RETURNING]: (
     <p className="text-sm mt-16">
-      In the case you didnt receive an email or your Google calendar was not
-      updated,{" "}
+      {" "}
+      In the case your Google calendar was not updated,{" "}
       <a
         className="underline hover:opacity-70 text-blue-400"
         href="mailto:support@dariah.dev"

@@ -17,6 +17,7 @@ const processUser = async (
   state: any
 ) => {
   if (!calendarId) {
+    console.error("The user does not have a calendar id saved in the database");
     return;
   }
   const calendarInstance = GoogleCalendarSingleton.getInstance({
