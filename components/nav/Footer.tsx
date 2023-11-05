@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LinkTo } from "@components/core/LinkTo";
 import { MenuItem } from "./Layout";
 
 const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
@@ -15,7 +16,10 @@ const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
         >
           hello@hack-your-cycle.com
         </a>
+
+        <LinkTo url="/privacy-policy" name="Privacy Policy" />
       </div>
+
       <div className="flex flex-row justify-center sm:justify-end gap-12 mb-8 sm:mb-0">
         {menu.map((item: any) => (
           <Link
