@@ -13,16 +13,18 @@ import { useStoreState } from "easy-peasy";
 const footnote = {
   [SignupSteps.GOOGLE]: (
     <>
-      <b>Why? </b> <br />
-      We need access to your calendar to add your cycle phase data there. <br />
+      <b>Why do I need to authenticate using Google? </b> <br />
+      We need access to your Google calendar so we can add a new calendar with
+      your cycle phase data. <br />
       <br />
       <b>What are we going to do?</b> <br />
       We will create a separate calendar where we will add colour coded cycle
       phases. You can turn on/off that calendar as you like. <br />
       <br />
       <b>
-        We will NOT have any access to your existing calendar events, only to
-        the new calendar.
+        We will NOT modify/edit/read or access in any way any of your existing
+        calendar events. <br />
+        We will only insert events into the new calendar.
       </b>
       <br />
     </>
@@ -146,7 +148,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                     className="h-12 w-[300px] capitalize font-plusJakarta border border-black"
                     onClick={redirectToGoogle}
                   >
-                    Google Calendar Auth{" "}
+                    Authenticate with Google{" "}
                   </Button>
                 </>
               )}
