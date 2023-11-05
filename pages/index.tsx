@@ -51,7 +51,7 @@ export default function Welcome() {
                 className="mt-6 h-14 w-full capitalize font-plusJakarta border border-black text-mainPink"
                 onClick={() => router.push("sync")}
               >
-                Get my personalized cycle calendar
+                Get my personalized calendar
               </Button>
             </div>
           </div>
