@@ -10,10 +10,10 @@ const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
           Be efficient with your cycle and <br /> schedule like a pro
         </p>
         <a
-          href="mailto:hello@dariah.dev"
+          href="mailto:hello@hack-your-cycle.com"
           className="mt-4 underline hover:opacity-70"
         >
-          hello@dariah.dev
+          hello@hack-your-cycle.com
         </a>
       </div>
       <div className="flex flex-row justify-center sm:justify-end gap-12 mb-8 sm:mb-0">

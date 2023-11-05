@@ -21,7 +21,7 @@ export default function Pricing() {
           or{" "}
           <a
             className="underline hover:opacity-70"
-            href="mailto:hello@dariah.dev"
+            href="mailto:hello@hack-your-cycle.com"
           >
             email us
           </a>{" "}

@@ -32,7 +32,7 @@ const footnote = {
       In the case your Google calendar was not updated,{" "}
       <a
         className="underline hover:opacity-70 text-blue-400"
-        href="mailto:support@dariah.dev"
+        href="mailto:support@hack-your-cycle.com"
       >
         please let us know
       </a>
@@ -45,7 +45,7 @@ const footnote = {
       In the case your Google calendar was not updated,{" "}
       <a
         className="underline hover:opacity-70 text-blue-400"
-        href="mailto:support@dariah.dev"
+        href="mailto:support@hack-your-cycle.com"
       >
         please let us know
       </a>

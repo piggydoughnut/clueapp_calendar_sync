@@ -44,7 +44,7 @@ const feedback = compile(`
         <mj-column>
           <mj-text font-size="16px">
             Hack Your Cycle
-            <a href="mailto:feedback@dariah.dev">feedback@dariah.dev</a>
+            <a href="mailto:feedback@hack-your-cycle.com">feedback@hack-your-cycle.com</a>
           </mj-text>
         </mj-column>
         <mj-column>

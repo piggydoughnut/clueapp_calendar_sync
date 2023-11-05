@@ -60,5 +60,5 @@ export const SignupStepsTitle = {
 } as const;
 
 export const emails = {
-  team: "hack-your-cycle@dariah.dev",
+  team: "hello@hack-your-cycle.com",
 };
