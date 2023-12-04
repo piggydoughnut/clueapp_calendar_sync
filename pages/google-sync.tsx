@@ -13,8 +13,8 @@ import { useStoreState } from "easy-peasy";
 const footnote = {
   [SignupSteps.GOOGLE]: (
     <>
-      <b>Why do I need to authenticate using Google? </b> <br />
-      We need access to your Google calendar so we can add a new calendar with
+      <b>Why do I need to authenticate using Google Calendar? </b> <br />
+      We need access to your Google Calendar so we can add a new calendar with
       your cycle phase data. <br />
       <br />
       <b>What are we going to do?</b> <br />
@@ -24,8 +24,12 @@ const footnote = {
       <b>
         We will NOT modify/edit/read or access in any way any of your existing
         calendar events. <br />
+        <br />
         We will only insert events into the new calendar.
       </b>
+      <br />
+      <br />
+      <p>Google Calendar is a trademark of Google LLC.</p>
       <br />
     </>
   ),
@@ -145,10 +149,10 @@ export default function Signup({ googleuri }: { googleuri: string }) {
                 <>
                   <Button
                     color="white"
-                    className="h-12 w-[300px] capitalize font-plusJakarta border border-black"
+                    className="h-12 px-10 w-fit capitalize font-plusJakarta border border-black"
                     onClick={redirectToGoogle}
                   >
-                    Authenticate with Google{" "}
+                    Authenticate with Google Calendar
                   </Button>
                 </>
               )}

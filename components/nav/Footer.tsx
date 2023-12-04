@@ -36,16 +36,19 @@ const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
       <p className="font-bold uppercase">DISCLAIMER</p>
       <p>
         The information provided on this website is intended to be used for
-        educational and inspirational purposes only, it`&apos;`s not intended to
+        educational and inspirational purposes only, it&apos;s not intended to
         be a substitute for professional medical advice, diagnosis, or
-        treatment. The website`&apos;`s creator is not a medical professional,
-        and the information contained on this website should not be used to
-        diagnose or treat any health issues. It`&apos;`s important to seek
-        advice from a licensed physician or healthcare professional before
-        making any changes to your health regimen. The author of this website
-        cannot be held responsible for any damages or losses that may occur as a
-        result of using, interpreting or applying the information provided on
-        this website.
+        treatment. The website&apos;s creator is not a medical professional, and
+        the information contained on this website should not be used to diagnose
+        or treat any health issues. It&apos;s important to seek advice from a
+        licensed physician or healthcare professional before making any changes
+        to your health regimen. The author of this website cannot be held
+        responsible for any damages or losses that may occur as a result of
+        using, interpreting or applying the information provided on this
+        website. <br /> <br />
+        <p className="text-[14px]">
+          Google Calendar is a trademark of Google LLC.
+        </p>
       </p>
     </div>
   </div>
