@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@material-tailwind/react";
 import Confetti from "react-confetti";
+import GoogleButton from "@components/GoogleButton";
 import Image from "next/image";
 import Layout from "@components/nav/Layout";
 import React from "react";
@@ -147,13 +148,7 @@ export default function Signup({ googleuri }: { googleuri: string }) {
               )}
               {step === SignupSteps.GOOGLE && (
                 <>
-                  <Button
-                    color="white"
-                    className="h-12 px-10 w-fit capitalize font-plusJakarta border border-black"
-                    onClick={redirectToGoogle}
-                  >
-                    Authenticate with Google Calendar
-                  </Button>
+                  <GoogleButton onClick={redirectToGoogle} />{" "}
                 </>
               )}
               {!!step && (
