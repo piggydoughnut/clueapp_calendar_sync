@@ -51,8 +51,6 @@ const confirmation = compile(
 
         <mj-navbar base-url="https://hack-your-cycle.com">
           <mj-navbar-link href="/" color="#342525" font-family="helvetica">Home</mj-navbar-link>
-          <mj-navbar-link href="/" color="#342525" font-family="helvetica">Science</mj-navbar-link>
-          <mj-navbar-link href="/pricing" color="#342525" font-family="helvetica">Pricing</mj-navbar-link>
           <mj-navbar-link href="/#faq" color="#342525" font-family="helvetica">FAQ</mj-navbar-link>
         </mj-navbar>
       </mj-column>
