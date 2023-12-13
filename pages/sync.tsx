@@ -120,6 +120,7 @@ export default function Sync() {
             <a
               onClick={() => {
                 setShowCalendar(false);
+                setSendingEmail(false);
               }}
               className="text-tiny opacity-50 font-bold absolute left-8 hover:cursor-pointer transition-all hover:opacity-40"
             >
