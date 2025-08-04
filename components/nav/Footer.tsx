@@ -46,9 +46,9 @@ const Footer = ({ menu }: { menu: Array<MenuItem> }) => (
         responsible for any damages or losses that may occur as a result of
         using, interpreting or applying the information provided on this
         website. <br /> <br />
-        <p className="text-[14px]">
+        <span className="text-[14px]">
           Google Calendar is a trademark of Google LLC.
-        </p>
+        </span>
       </p>
     </div>
   </div>
