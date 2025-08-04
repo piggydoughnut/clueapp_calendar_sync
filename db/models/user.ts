@@ -40,6 +40,8 @@ const User: Model<Document & UserInerface> =
           used: Number,
         },
       ],
+    }, {
+      timestamps: true
     })
   );
 

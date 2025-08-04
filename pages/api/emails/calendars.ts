@@ -5,6 +5,7 @@ import { TemplateName, getTemplate } from "@helpers/templates";
 
 import Config from "config";
 import Mailgun from "mailgun.js";
+import { sendTelegramMessage } from "@helpers/telegram";
 
 const formData = require("form-data");
 const sharp = require("sharp");
@@ -68,7 +69,13 @@ export default async function handler(
   };
 
   const result = await client.messages.create(DOMAIN, data);
-  console.log(result);
+  
+  try {
+    await sendTelegramMessage(req.body.userEmail, "Personalized Cycle Calendar");
+    console.log('✅ Telegram notification sent successfully for calendar');
+  } catch (telegramError) {
+    console.error('❌ Failed to send Telegram notification for calendar:', telegramError);
+  }
 
   res.status(200).json({ RRR: result });
 }

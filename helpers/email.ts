@@ -1,4 +1,5 @@
 import Mailgun from "mailgun.js";
+import { sendTelegramMessage } from "./telegram";
 const formData = require("form-data");
 
 export const sendEmail = async (
@@ -23,6 +24,13 @@ export const sendEmail = async (
     subject: subject,
     html: template,
   };
-
+  
+  try {
+    await sendTelegramMessage(email, subject);
+    console.log('✅ Telegram notification sent successfully');
+  } catch (telegramError) {
+    console.error('❌ Failed to send Telegram notification:', telegramError);
+  }
+  
   return client.messages.create(DOMAIN, data);
 };

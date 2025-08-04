@@ -29,4 +29,6 @@ export interface User {
     token: string;
     used: number;
   }[];
+  createdAt: Date;
+  updatedAt: Date;
 }
